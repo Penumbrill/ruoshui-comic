@@ -6,7 +6,7 @@ A local AI comic creation studio for Windows, combining image generation, masked
 
 ## Installation
 
-Download **`若水漫画-安装版.exe`** from Releases. The small online installer downloads application and independent runtime packages from this repository's GitHub Release, verifies SHA-256 checksums, then extracts them into your chosen folder. It tries environment proxies, Windows networking and direct connections, with GitHub's download URL and asset API as alternative sources. It does not change system proxy settings. Run it again to resume interrupted downloads. Online installation requires internet access.
+Download **`ruoshui-comic.exe`** from Releases. The small online installer downloads application and independent runtime packages from this repository's GitHub Release, verifies SHA-256 checksums, then extracts them into your chosen folder. It tries environment proxies, Windows networking and direct connections, with GitHub's download URL and asset API as alternative sources. It does not change system proxy settings. Run it again to resume interrupted downloads. Online installation requires internet access.
 
 The directory page lets you choose another drive, such as D: or E:. Installation adds the application folder to the current user's PATH. Open a new terminal to run `若水漫画.exe` directly. Uninstall removes only the PATH entry added by this installer and preserves existing entries.
 
