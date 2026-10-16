@@ -1,0 +1,2 @@
+// Minimal DOM helper for the unmodified upstream browser extension.
+export function $el(selector,props={},children=[]){if(Array.isArray(props)){children=props;props={};}const parts=selector.split('.'),el=document.createElement(parts.shift()||'div');if(parts.length)el.className=parts.join(' ');for(const[key,value]of Object.entries(props)){if(key==='style')Object.assign(el.style,value);else if(key.startsWith('data-'))el.setAttribute(key,value);else if(key==='parent')value.appendChild(el);else el[key]=value;}for(const child of children||[])if(child)el.append(child);return el;}

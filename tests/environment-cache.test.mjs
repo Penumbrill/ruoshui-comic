@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {inspectEnvironment} from '../server/environment.mjs';
+import {CacheMaintenance,cachePlan} from '../server/cache-maintenance.mjs';
+const base=path.resolve(import.meta.dirname,'../works/tests');
+async function fixture(t){await fs.mkdir(base,{recursive:true});const root=await fs.mkdtemp(path.join(base,'environment-cache-'));t.after(async()=>{const resolved=await fs.realpath(root);assert(resolved.startsWith(base+path.sep));await fs.rm(resolved,{recursive:true,force:true});});return root;}
+async function file(root,name,contents='test',age=0){const target=path.join(root,name);await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,contents);if(age){const time=new Date(Date.now()-age);await fs.utimes(target,time,time);}return target;}
+const runner=async(file,args)=>{if(file==='nvidia-smi')return{stdout:'NVIDIA GPU, 24576, 616.92'};if(file==='reg')return{stdout:'Installed REG_DWORD 0x1'};if(file==='nvcc')return{stdout:''};if(args.at(-1).includes('import json,torch'))return{stdout:JSON.stringify({python:'3.13.6',torch:'2.12.1',cuda:'13.2',available:true})};return{stdout:'3.13.6'};};
+test('environment detection uses the configured runtime even when data and code roots differ',async t=>{
+ const root=await fixture(t),runtime=path.join(root,'shared-runtime');await file(runtime,'python/python.exe');await file(runtime,'python/Lib/site-packages/torch/__init__.py');await file(runtime,'ComfyUI/main.py');const result=await inspectEnvironment(path.join(root,'different-data-home'),{runtime,runner});assert.equal(result.paths.runtime,runtime);for(const id of ['python','comfy','torch'])assert.equal(result.checks.find(c=>c.id===id).state,'ok');
+});
+test('a timeout is reported as an incomplete recheck without mislabeling installed Python or torch',async t=>{
+ const root=await fixture(t),runtime=path.join(root,'runtime');await file(runtime,'python/python.exe');await file(runtime,'python/Lib/site-packages/torch/__init__.py');await file(runtime,'ComfyUI/main.py');const result=await inspectEnvironment(root,{runner:async(file,args)=>args.at(-1)?.includes('import json,torch')?{stdout:'',error:'检测超时'}:runner(file,args)});const python=result.checks.find(c=>c.id==='python'),torch=result.checks.find(c=>c.id==='torch');assert.equal(python.installed,true);assert.match(python.detail,/已安装/);assert.equal(torch.installed,true);assert.equal(torch.state,'warning');assert.match(torch.detail,/复检未完成.*超时/);
+ const absent=await inspectEnvironment(path.join(root,'empty'),{runner});assert.equal(absent.checks.find(c=>c.id==='python').installed,false);
+});
+test('automatic cache capacity follows free disk space and respects bounded manual preferences',()=>{assert(cachePlan(1024**4).maxBytes>cachePlan(20*1024**3).maxBytes);assert.equal(cachePlan(0,{maxMB:999999}).maxBytes,8192*1024**2);assert.equal(cachePlan(0,{enabled:false}).enabled,false);});
+test('cache cleanup expires and caps only regenerable caches while preserving creations, weights, transfers and recent files',async t=>{
+ const root=await fixture(t),s={root,data:path.join(root,'works'),runtime:path.join(root,'runtime'),config:{},jobs:[],install:{state:'idle'}};await fs.mkdir(s.data,{recursive:true});
+ const old=8*86400000;await file(root,'works/cache/expired.image','old',old);await file(root,'works/autosave/cutout-cache/old.npy','mask',old);await file(root,'works/cache/over-quota.image','x'.repeat(800),7200000);await file(root,'works/cache/fresh.image','x'.repeat(900));
+ for(const name of ['works/imports/creation.png','works/output/finished.png','works/autosave/project-draft.json','works/assistant/chat.json','runtime/ComfyUI/models/model.safetensors','works/cache/model.gguf','works/cache/download.part'])await file(root,name,'preserve',old);
+ const maintenance=new CacheMaintenance(s);maintenance.plan=async()=>({enabled:true,maxBytes:1000,days:7});const result=await maintenance.clean();assert.equal(result.removedFiles,3);assert.equal(result.remainingBytes,900);assert.equal(await fs.readFile(path.join(root,'works/cache/fresh.image'),'utf8'),'x'.repeat(900));for(const name of ['works/imports/creation.png','works/output/finished.png','works/autosave/project-draft.json','works/assistant/chat.json','runtime/ComfyUI/models/model.safetensors','works/cache/model.gguf','works/cache/download.part'])assert.equal(await fs.readFile(path.join(root,name),'utf8'),'preserve');
+});
+test('cache cleanup skips active tasks and never follows a junction out of its declared cache directory',async t=>{
+ const root=await fixture(t),s={root,data:path.join(root,'works'),runtime:path.join(root,'runtime'),config:{},jobs:[{status:'running'}],install:{state:'idle'}};const target=await file(root,'outside-cache/keep.image','keep',9*86400000);await fs.mkdir(path.join(root,'works/cache'),{recursive:true});await fs.symlink(path.dirname(target),path.join(root,'works/cache/junction'),process.platform==='win32'?'junction':'dir');const old=await file(root,'works/cache/old.image','old',9*86400000);const maintenance=new CacheMaintenance(s);assert.match((await maintenance.clean()).skipped,/任务进行中/);assert.equal(await fs.readFile(old,'utf8'),'old');s.jobs=[];await maintenance.clean();assert.equal(await fs.readFile(target,'utf8'),'keep');await assert.rejects(fs.readFile(old),{code:'ENOENT'});
+});

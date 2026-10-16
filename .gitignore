@@ -1,0 +1,17 @@
+node_modules/
+dist/
+release/
+runtime/
+data/
+.cache/
+artifacts/
+*.log
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+!.env.example
+works/
+
+发布文件/

@@ -1,0 +1,244 @@
+{
+  "downloads": {
+    "original": [
+      {
+        "repo": "circlestone-labs/Anima",
+        "revision": "f973fc41ec7545364ac9776c2440285f43ff2a30",
+        "url": "https://huggingface.co/circlestone-labs/Anima/resolve/f973fc41ec7545364ac9776c2440285f43ff2a30/split_files/diffusion_models/anima-base-v1.0.safetensors",
+        "target": "diffusion_models/anima-base-v1.0.safetensors",
+        "size": 4182218328,
+        "sha256": "bd43b7cffe1ed1153d9c41e7beb2f18cb1273eafbaa3af3edd6a173dc90a006e"
+      },
+      {
+        "repo": "circlestone-labs/Anima",
+        "revision": "f973fc41ec7545364ac9776c2440285f43ff2a30",
+        "url": "https://huggingface.co/circlestone-labs/Anima/resolve/f973fc41ec7545364ac9776c2440285f43ff2a30/split_files/text_encoders/qwen_3_06b_base.safetensors",
+        "target": "text_encoders/qwen_3_06b_base.safetensors",
+        "size": 1192135096,
+        "sha256": "cd2a512003e2f9f3cd3c32a9c3573f820bb28c940f73c57b1ddaa983d9223eba"
+      },
+      {
+        "repo": "circlestone-labs/Anima",
+        "revision": "f973fc41ec7545364ac9776c2440285f43ff2a30",
+        "url": "https://huggingface.co/circlestone-labs/Anima/resolve/f973fc41ec7545364ac9776c2440285f43ff2a30/split_files/vae/qwen_image_vae.safetensors",
+        "target": "vae/qwen_image_vae.safetensors",
+        "size": 253806246,
+        "sha256": "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f"
+      }
+    ],
+    "expanded": [
+      {
+        "repo": "Gazingstars123/Anima-2.9B",
+        "revision": "9f9cb502dbae7a616c3cc5a530633427fe735665",
+        "url": "https://huggingface.co/Gazingstars123/Anima-2.9B/resolve/9f9cb502dbae7a616c3cc5a530633427fe735665/Anima-2.9B-preview-v1.safetensors",
+        "target": "diffusion_models/Anima-2.9B-preview-v1.safetensors",
+        "size": 5843204206,
+        "sha256": "0b3020d1b906155f7eb30667622723e87160632c8c7a5f1c93bdce685f2a346d"
+      },
+      {
+        "repo": "circlestone-labs/Anima",
+        "revision": "f973fc41ec7545364ac9776c2440285f43ff2a30",
+        "url": "https://huggingface.co/circlestone-labs/Anima/resolve/f973fc41ec7545364ac9776c2440285f43ff2a30/split_files/text_encoders/qwen_3_06b_base.safetensors",
+        "target": "text_encoders/qwen_3_06b_base.safetensors",
+        "size": 1192135096,
+        "sha256": "cd2a512003e2f9f3cd3c32a9c3573f820bb28c940f73c57b1ddaa983d9223eba"
+      },
+      {
+        "repo": "circlestone-labs/Anima",
+        "revision": "f973fc41ec7545364ac9776c2440285f43ff2a30",
+        "url": "https://huggingface.co/circlestone-labs/Anima/resolve/f973fc41ec7545364ac9776c2440285f43ff2a30/split_files/vae/qwen_image_vae.safetensors",
+        "target": "vae/qwen_image_vae.safetensors",
+        "size": 253806246,
+        "sha256": "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f"
+      }
+    ],
+    "inpaint": [
+      {
+        "repo": "kohya-ss/Anima-LLLite",
+        "revision": "36ba7f2f498a1ca63cc77fc7a1298652f72d4524",
+        "url": "https://huggingface.co/kohya-ss/Anima-LLLite/resolve/36ba7f2f498a1ca63cc77fc7a1298652f72d4524/anima-lllite-inpainting-v2.safetensors",
+        "target": "controlnet/anima-lllite-inpainting-v2.safetensors",
+        "size": 65772872,
+        "sha256": "5242e677d2be34ee70ca7c97c3b14ff5ee49838c03fc1e60ac4852a180db6ef5"
+      }
+    ],
+    "finishing": [
+      {
+        "repo": "Bingsu/adetailer",
+        "revision": "53cc19de382014514d9d4038601d261a7faa9b7b",
+        "url": "https://huggingface.co/Bingsu/adetailer/resolve/53cc19de382014514d9d4038601d261a7faa9b7b/face_yolov8m.pt",
+        "target": "ultralytics/bbox/face_yolov8m.pt",
+        "size": 52026019,
+        "sha256": "717923c19b3f4bbf5250b728f1fa6b2cb72a33aed1d236ea9caf0e21ad943e5f"
+      },
+      {
+        "repo": "Bingsu/adetailer",
+        "revision": "53cc19de382014514d9d4038601d261a7faa9b7b",
+        "url": "https://huggingface.co/Bingsu/adetailer/resolve/53cc19de382014514d9d4038601d261a7faa9b7b/hand_yolov8s.pt",
+        "target": "ultralytics/bbox/hand_yolov8s.pt",
+        "size": 22507643,
+        "sha256": "70b540063fbc385736d8258970744a4afbc4cbf7932134bae3b24cdadeadec06"
+      },
+      {
+        "repo": "Comfy-Org/Real-ESRGAN_repackaged",
+        "revision": "5fd49b7b278836f48af63ecd314d0f98ab336105",
+        "url": "https://huggingface.co/Comfy-Org/Real-ESRGAN_repackaged/resolve/5fd49b7b278836f48af63ecd314d0f98ab336105/RealESRGAN_x4plus.safetensors",
+        "target": "upscale_models/RealESRGAN_x4plus.safetensors",
+        "size": 66857836,
+        "sha256": "37f9a931c215f040aa6d50f711f2cb115f713c46df1d0d6469a8bd7bfe9a60bb"
+      }
+    ],
+    "translation": [
+      {
+        "repo": "Helsinki-NLP/opus-mt-zh-en",
+        "revision": "cf109095479db38d6df799875e34039d4938aaa6",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-zh-en/resolve/cf109095479db38d6df799875e34039d4938aaa6/config.json",
+        "target": "translation/config.json",
+        "size": 1394,
+        "sha256": "d84104da12fa90da59acf5f0ed30428e43cc92574ad4b9dfa88f29eeeb2b0eb0"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-zh-en",
+        "revision": "cf109095479db38d6df799875e34039d4938aaa6",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-zh-en/resolve/cf109095479db38d6df799875e34039d4938aaa6/generation_config.json",
+        "target": "translation/generation_config.json",
+        "size": 293,
+        "sha256": "81f06422302b9f4666f20c6f20f43b904e38ccce9326a208f82ff97c2c9699e5"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-zh-en",
+        "revision": "cf109095479db38d6df799875e34039d4938aaa6",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-zh-en/resolve/cf109095479db38d6df799875e34039d4938aaa6/pytorch_model.bin",
+        "target": "translation/pytorch_model.bin",
+        "size": 312087009,
+        "sha256": "9d8ceb91d103ef89400c9d9d62328b4858743cf8924878aee3b8afc594242ce0"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-zh-en",
+        "revision": "cf109095479db38d6df799875e34039d4938aaa6",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-zh-en/resolve/cf109095479db38d6df799875e34039d4938aaa6/source.spm",
+        "target": "translation/source.spm",
+        "size": 804677,
+        "sha256": "e27a3a1b539f4959ec72ea60e453f49156289f95d4e6000b29332efc45616203"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-zh-en",
+        "revision": "cf109095479db38d6df799875e34039d4938aaa6",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-zh-en/resolve/cf109095479db38d6df799875e34039d4938aaa6/target.spm",
+        "target": "translation/target.spm",
+        "size": 806530,
+        "sha256": "6a881f4717cd7265f53fea54fd3dc689c767c05338fac7a4590f3088cb2d7855"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-zh-en",
+        "revision": "cf109095479db38d6df799875e34039d4938aaa6",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-zh-en/resolve/cf109095479db38d6df799875e34039d4938aaa6/tokenizer_config.json",
+        "target": "translation/tokenizer_config.json",
+        "size": 44,
+        "sha256": "53cc7a6f05224f287476af4798d96b1b85da2edae60257e58633f092c7b5b823"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-zh-en",
+        "revision": "cf109095479db38d6df799875e34039d4938aaa6",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-zh-en/resolve/cf109095479db38d6df799875e34039d4938aaa6/vocab.json",
+        "target": "translation/vocab.json",
+        "size": 1617902,
+        "sha256": "c0f79ee4c413ccb24cd808a0c727eec85b2130f23c82802cc1caeb07b5f0d458"
+      }
+    ],
+    "tag_translation": [
+      {
+        "repo": "Helsinki-NLP/opus-mt-en-zh",
+        "revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-en-zh/resolve/408d9bc410a388e1d9aef112a2daba955b945255/config.json",
+        "target": "tag_translation/config.json",
+        "size": 1403,
+        "sha256": "bcae8ed74fed77fb51c58462b62397fee6b1a1a34aece79183a0dd02ad329e71"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-en-zh",
+        "revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-en-zh/resolve/408d9bc410a388e1d9aef112a2daba955b945255/generation_config.json",
+        "target": "tag_translation/generation_config.json",
+        "size": 293,
+        "sha256": "837839ed0534a27084f9b980fc33f47729052dd89cb26cca7ac830765ed30e49"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-en-zh",
+        "revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-en-zh/resolve/408d9bc410a388e1d9aef112a2daba955b945255/pytorch_model.bin",
+        "target": "tag_translation/pytorch_model.bin",
+        "size": 312087009,
+        "sha256": "69a1d6ec829cee349360b3b677ac0aa99a7d88822d1a6578370029efffdca3f5"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-en-zh",
+        "revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-en-zh/resolve/408d9bc410a388e1d9aef112a2daba955b945255/source.spm",
+        "target": "tag_translation/source.spm",
+        "size": 806435,
+        "sha256": "5775ddc9e3ff2fae91554da56468ad35ff56edaba870fea74447bc7234bfdaa8"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-en-zh",
+        "revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-en-zh/resolve/408d9bc410a388e1d9aef112a2daba955b945255/target.spm",
+        "target": "tag_translation/target.spm",
+        "size": 804600,
+        "sha256": "81dc94efa84e4025ef38d25d5d07429fe41e3eb29d44003f1db6fe98487b0052"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-en-zh",
+        "revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-en-zh/resolve/408d9bc410a388e1d9aef112a2daba955b945255/tokenizer_config.json",
+        "target": "tag_translation/tokenizer_config.json",
+        "size": 44,
+        "sha256": "5df181fba586b7cb37d429c13c4f96cb43fb11de7bb6489733d9eded32418179"
+      },
+      {
+        "repo": "Helsinki-NLP/opus-mt-en-zh",
+        "revision": "408d9bc410a388e1d9aef112a2daba955b945255",
+        "url": "https://huggingface.co/Helsinki-NLP/opus-mt-en-zh/resolve/408d9bc410a388e1d9aef112a2daba955b945255/vocab.json",
+        "target": "tag_translation/vocab.json",
+        "size": 1617791,
+        "sha256": "f1832ca38f7aa158b9a944ff583e4901e6b37d9d4ad9241f03838e636e9cfb03"
+      }
+    ],
+    "cutout": [
+      {
+        "repo": "skytnt/anime-seg",
+        "revision": "493cb60893f47441b26ec4fb9a306bce9e342982",
+        "url": "https://huggingface.co/skytnt/anime-seg/resolve/493cb60893f47441b26ec4fb9a306bce9e342982/isnetis.onnx",
+        "target": "segmentation/isnetis.onnx",
+        "size": 176069933,
+        "sha256": "f15622d853e8260172812b657053460e20806f04b9e05147d49af7bed31a6e99"
+      }
+    ],
+    "selection": [
+      {
+        "url": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/sam_vit_b_01ec64.encoder.quant.onnx",
+        "revision": "rembg-v0.0.0",
+        "target": "segmentation/sam_vit_b_01ec64.encoder.quant.onnx",
+        "size": 108836115,
+        "sha256": "181301ce3500a86c38450b56e2b71dab8008a13b1812a0d6cc812f22651e143a"
+      },
+      {
+        "url": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/sam_vit_b_01ec64.decoder.quant.onnx",
+        "revision": "rembg-v0.0.0",
+        "target": "segmentation/sam_vit_b_01ec64.decoder.quant.onnx",
+        "size": 8755366,
+        "sha256": "b11465135b7c93a1fd65141a4e2a96f1ddf2e3dab09b5eeab640bdf5f10aadbe"
+      }
+    ],
+    "cutout_general": [
+      {
+        "repo": "onnx-community/BiRefNet-ONNX",
+        "revision": "534d3c82d3bb8b2f0867db6dfbc3a525b8e42f67",
+        "url": "https://huggingface.co/onnx-community/BiRefNet-ONNX/resolve/534d3c82d3bb8b2f0867db6dfbc3a525b8e42f67/onnx/model.onnx",
+        "target": "segmentation/birefnet-general.onnx",
+        "size": 972666916,
+        "sha256": "58f621f00f5d756097615970a88a791584600dcf7c45b18a0a6267535a1ebd3c"
+      }
+    ]
+  }
+}

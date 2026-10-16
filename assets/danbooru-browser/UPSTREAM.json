@@ -1,0 +1,28 @@
+{
+  "source": "User-supplied ComfyUI-Danbooru-Anima-Prompt snapshot; original source and README retained alongside this record.",
+  "files": [
+    "js/danbooru_browser.js",
+    "README.md"
+  ],
+  "sha256": "1abbcfd75838a6b0cf93356d54801355ae4d52deb0345d024afdf5ccaea209ea",
+  "license": "上游本地副本未提供 LICENSE，保留原始源文件与 README；发布前需核实上游授权。",
+  "changes": [
+    "前端仅替换两个宿主导入路径，后端源码原样保留",
+    "在 works 中运行原后端并直接调用原 browse 输出",
+    "宿主单独处理布局、网络代理、图片错误提示与重试",
+    "按用户要求隐藏设置底部的外链与分类表、索引按钮"
+  ],
+  "backendHashes": {
+    "py/__init__.py": "e5cdd9eaa8f0f04cb995003ec80151f753acdfebf164154f04741ac29df83810",
+    "py/danbooru_browser.py": "f1ffcbeb382abeedb8db95fe009feb2c904b1a5b23665c1b2460ec2345bb585f",
+    "py/tag_utils.py": "b0591ab340933946143eac7437fcc5338ff9ded033351b40e7cb3c9d479fce2f",
+    "py/tag_db.py": "cb04953ba8ca1297625a28e9fce3373ef76155c7a75d61c8823b74157464fd2c",
+    "py/tag_classifier.py": "f213d5ab89ee92c4ebf01699f527e881a61b592423b1c3987d8114467cc9df36",
+    "py/config.py": "6b2d826904b3cb79eebacc50c81962d99b3af7555eb52a7182ce09d5094058fe",
+    "py/favorites.py": "be738397f9441cb23b70fc5eef2881dad553c043031db659569723e04e493d7d",
+    "py/tag_engine.py": "301a6cf12d3ec2662f5cb7a3f98c8d9c3f298a8ed15b06ab0c7f7f70e01860d5",
+    "py/vec_search.py": "bfc5b4102c010b3aaeed6d3fc8d92363b8c8b56c9f73736711290fc4b4759ee4",
+    "py/translations.json": "0421a9c5ad57c339aaa979d962ca0bacc4e58ef0dc33e6b9869ef4626f634e8b",
+    "py/tag_groups.json": "8ba970ac1e7acbe48a682267950913d36a55b3f9cf18f275017546d21c296e50"
+  }
+}

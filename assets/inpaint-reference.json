@@ -1,0 +1,46 @@
+{
+  "source": "https://cdn-uploads.huggingface.co/production/uploads/6303fe7b7373aacccd880229/4rQ8GwTXbUh2KDup5IHh0.png",
+  "nodes": [
+    {
+      "id": 46,
+      "type": "AnimaLLLiteApply",
+      "widgets": [
+        "anima-lllite-inpainting-v2.safetensors",
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 52,
+      "type": "SetLatentNoiseMask",
+      "widgets": []
+    },
+    {
+      "id": 50,
+      "type": "VAEEncode",
+      "widgets": []
+    },
+    {
+      "id": 47,
+      "type": "LoadImage",
+      "widgets": [
+        "b1_im1.png",
+        "image"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "KSampler",
+      "widgets": [
+        42,
+        "fixed",
+        30,
+        4,
+        "er_sde",
+        "simple",
+        0.8
+      ]
+    }
+  ]
+}

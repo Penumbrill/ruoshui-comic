@@ -1,0 +1,8 @@
+import fs from 'node:fs/promises';import {existsSync} from 'node:fs';import path from 'node:path';
+export async function prepareWeilinData(service){
+ const root=path.join(service.runtime,'ComfyUI/custom_nodes/weilin-comfyui-tools');if(!existsSync(root))return;
+ const data=path.join(service.data,'weilin');await fs.mkdir(data,{recursive:true});
+ for(const name of ['user_data','user_data_old','lora_userdatas','translate_userdatas','random_tag']){const target=path.join(data,name),link=path.join(root,name);await fs.mkdir(target,{recursive:true});const stat=await fs.lstat(link).catch(()=>null);if(stat?.isSymbolicLink()){const current=path.resolve(path.dirname(link),await fs.readlink(link));if(current!==path.resolve(target))await fs.unlink(link);}if(!await fs.lstat(link).catch(()=>null))await fs.symlink(target,link,'junction');}
+ const database=path.join(data,'user_data/userdatas_zh_CN_tags.db');if(!existsSync(database))await fs.copyFile(path.join(service.bundle,'assets/weilin-tags.seed.db'),database);
+ for(const name of ['init.json','user_cloud_package.json','tag_labels.json']){const target=path.join(data,name),link=path.join(root,name);if(!existsSync(target)){if(existsSync(link))await fs.copyFile(link,target);else if(name==='init.json')await fs.copyFile(path.join(service.bundle,'assets/weilin-defaults.json'),target);else await fs.writeFile(target,name==='tag_labels.json'?'{}':'[]');}if(existsSync(link)){const a=await fs.stat(target),b=await fs.stat(link);if(a.dev!==b.dev||a.ino!==b.ino){if(b.mtimeMs>a.mtimeMs+1000){await fs.copyFile(target,target+'.before-link-repair-'+Date.now());await fs.copyFile(link,target);}await fs.unlink(link);}}if(!existsSync(link))await fs.link(target,link);}
+}

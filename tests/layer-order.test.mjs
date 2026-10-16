@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {moveLayerSelection,canMoveLayerSelection} from '../shared/layer-order.mjs';
+const sticker=id=>({id,kind:'sticker'}),bubble=id=>({id,kind:'bubble'}),ids=items=>items.map(o=>o.id);
+test('same-group move preserves the positions of intervening groups',()=>{const objects=[sticker('a'),bubble('b'),sticker('c')];assert.deepEqual(ids(moveLayerSelection(objects,['a'],1)),['c','b','a']);assert.deepEqual(ids(objects),['a','b','c']);assert(!canMoveLayerSelection(objects,['c'],1));});
+test('cross-group moves change actual occlusion and keep multi-selection order stable',()=>{const objects=[sticker('a'),sticker('b'),bubble('c')];assert.deepEqual(ids(moveLayerSelection(objects,['a','b'],1,'all')),['c','a','b']);assert.deepEqual(ids(moveLayerSelection(objects,['c'],-1,'all')),['a','c','b']);assert(!canMoveLayerSelection(objects,['c'],1,'all'));});

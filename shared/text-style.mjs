@@ -1,0 +1,6 @@
+export const defaultFontFamily='Microsoft YaHei';
+export function textX(object){if(object.vertical)return object.x+object.w/2+(String(object.text||'').split('\n').length-1)*(object.fontSize||36)*.6;return object.textAlign==='left'?object.x+Math.min(16,object.w*.08):object.textAlign==='right'?object.x+object.w-Math.min(16,object.w*.08):object.x+object.w/2;}
+export function textAnchor(object){return object.textAlign==='left'?'start':object.textAlign==='right'?'end':'middle';}
+export function textY(object){if(object.vertical)return object.textAlign==='left'?object.y+Math.min(16,object.h*.08):object.textAlign==='right'?object.y+object.h-Math.min(16,object.h*.08):object.y+object.h/2;return object.y+object.h/2-(String(object.text||'').split('\n').length-1)*(object.fontSize||36)*.6;}
+export function lineX(object,index){return textX(object)-(object.vertical?index*(object.fontSize||36)*1.2:0);}
+export function setTextDirection(object,vertical){object.vertical=vertical;object.directionSet=true;if(object.kind==='text'&&Number.isFinite(object.w)&&Number.isFinite(object.h)&&(vertical&&object.w>object.h||!vertical&&object.h>object.w)){const cx=object.x+object.w/2,cy=object.y+object.h/2;[object.w,object.h]=[object.h,object.w];object.x=cx-object.w/2;object.y=cy-object.h/2;}return object;}

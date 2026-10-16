@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+message=$1
+# No co-author trailers: this project credits only its owner.
+temporary="$message.ruoshui-tmp"
+trap 'rm -f "$temporary"' EXIT HUP INT TERM
+sed '/^[[:space:]]*[Cc][Oo]-[Aa][Uu][Tt][Hh][Oo][Rr][Ee][Dd]-[Bb][Yy]:/d; /^[[:space:]]*[Ss][Ii][Gg][Nn][Ee][Dd]-[Oo][Ff][Ff]-[Bb][Yy]:/d' "$message" > "$temporary"
+cat "$temporary" > "$message"

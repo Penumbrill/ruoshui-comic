@@ -1,0 +1,22 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import http from 'node:http';
+import crypto from 'node:crypto';
+import {spawn} from 'node:child_process';
+const run=(args)=>new Promise((resolve,reject)=>{const p=spawn('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass',...args],{windowsHide:true});let text='';p.stdout.on('data',b=>text+=b);p.stderr.on('data',b=>text+=b);p.on('error',reject);p.on('close',code=>resolve({code,text}));});
+test('online installer resumes real transfers, checks hashes, extracts safely and preserves personal files',async t=>{
+ const parent=path.resolve('works/tests');await fs.mkdir(parent,{recursive:true});const dir=await fs.mkdtemp(path.join(parent,'online-install-')),root=path.join(dir,'中文 安装目录'),source=path.join(dir,'fixture');
+ t.after(async()=>{assert(dir.startsWith(parent+path.sep));await fs.rm(dir,{recursive:true,force:true});});
+ await fs.mkdir(path.join(source,'resources'),{recursive:true});await fs.mkdir(path.join(source,'runtime/python'),{recursive:true});await fs.writeFile(path.join(source,'resources/app.asar'),'test app');await fs.writeFile(path.join(source,'runtime/python/python.exe'),'test runtime');await fs.writeFile(path.join(source,'payload.bin'),crypto.randomBytes(65536));
+ const zip=path.join(dir,'ruoshui-test.zip');const escaped=s=>s.replaceAll("'","''"),compressor=path.resolve('node_modules/electron-winstaller/vendor/7z.exe');assert.equal((await run(['-Command',`& '${escaped(compressor)}' a -tzip '${escaped(zip)}' '${escaped(source)}\\*'`])).code,0);
+ const bytes=await fs.readFile(zip),sha256=crypto.createHash('sha256').update(bytes).digest('hex');let ranges=0;
+ const server=http.createServer((req,res)=>{if(req.url.includes('/releases/tags/')){res.writeHead(404);res.end();return;}const offset=Number(req.headers.range?.match(/bytes=(\d+)-/)?.[1]||0);if(offset)ranges++;res.writeHead(offset?206:200,{'Content-Type':'application/zip','Content-Length':bytes.length-offset,...(offset?{'Content-Range':`bytes ${offset}-${bytes.length-1}/${bytes.length}`}:{})});res.end(bytes.subarray(offset));});await new Promise(r=>server.listen(0,'127.0.0.1',r));t.after(()=>server.close());
+ const script=path.join(dir,'download-test.ps1');let code=await fs.readFile('scripts/download-release.ps1','utf8');code=code.replaceAll('https://github.com/','http://127.0.0.1:'+server.address().port+'/').replaceAll('https://api.github.com/','http://127.0.0.1:'+server.address().port+'/');await fs.writeFile(script,'\ufeff'+code);
+ const spec={appId:'com.guangyingruoshui.comic',repository:'Penumbrill/ruoshui-comic',tag:'v0.1.0',packages:[{name:'ruoshui-test.zip',size:bytes.length,sha256}]},manifest=path.join(dir,'manifest.json');await fs.writeFile(manifest,JSON.stringify(spec));
+ await fs.mkdir(path.join(root,'works/cache/installation-v0.1.0'),{recursive:true});await fs.writeFile(path.join(root,'works/story.txt'),'keep creation');await fs.writeFile(path.join(root,'works/cache/installation-v0.1.0/ruoshui-test.zip'),bytes.subarray(0,100));
+ const result=await run(['-File',script,'-Target',root,'-Manifest',manifest]);assert.equal(result.code,0,result.text);assert(ranges>0,'partial package must resume');assert.equal(await fs.readFile(path.join(root,'works/story.txt'),'utf8'),'keep creation');assert.equal(await fs.readFile(path.join(root,'resources/app.asar'),'utf8'),'test app');
+ // A validly hashed archive still cannot write creations, models or parent paths.
+ await fs.writeFile(path.join(source,'works.txt'),'allowed file');await fs.mkdir(path.join(source,'works'),{recursive:true});await fs.writeFile(path.join(source,'works/story.txt'),'overwrite attempt');const bad=path.join(dir,'bad.zip');await run(['-Command',`& '${escaped(compressor)}' a -tzip '${escaped(bad)}' '${escaped(source)}\\*'`]);const badBytes=await fs.readFile(bad);await fs.mkdir(path.join(root,'works/cache/installation-v0.1.0'),{recursive:true});await fs.writeFile(path.join(root,'works/cache/installation-v0.1.0/ruoshui-test.zip'),badBytes);spec.packages[0]={...spec.packages[0],size:badBytes.length,sha256:crypto.createHash('sha256').update(badBytes).digest('hex')};await fs.writeFile(manifest,JSON.stringify(spec));const denied=await run(['-File',script,'-Target',root,'-Manifest',manifest]);assert.notEqual(denied.code,0);assert.equal(await fs.readFile(path.join(root,'works/story.txt'),'utf8'),'keep creation');
+});

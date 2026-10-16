@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {bubbleTail,bubblePath} from '../src/editor/decorations.js';
+test('legacy pixel tail length cannot become a page-spanning multiplier',()=>{const bubble={w:240,h:130,tailLength:38,tailAngle:120};const tail=bubbleTail(bubble);assert(Math.hypot(tail.x-120,tail.y-65)<200);assert(!/NaN|Infinity/.test(bubblePath(bubble)));assert(Math.hypot(bubbleTail({...bubble,tailLength:-10}).x-120,bubbleTail({...bubble,tailLength:-10}).y-65)<150);});

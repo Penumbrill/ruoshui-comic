@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+expected='kagemizu <249926125+Penumbrill@users.noreply.github.com>'
+for identity in GIT_AUTHOR_IDENT GIT_COMMITTER_IDENT; do
+ actual=$(git var "$identity")
+ case "$actual" in
+  "$expected "*) ;;
+  *) printf '%s\n' 'Commit blocked: author and committer must be kagemizu (Penumbrill).' >&2; exit 1 ;;
+ esac
+done

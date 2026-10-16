@@ -1,0 +1,4 @@
+import fs from 'node:fs/promises';import {parse,compileScript,compileTemplate} from '@vue/compiler-sfc';
+const files=(await fs.readdir('src/components')).filter(f=>f.endsWith('.vue')).map(f=>'src/components/'+f);files.push('src/App.vue');let count=0;
+for(const filename of files){const source=await fs.readFile(filename,'utf8'),{descriptor,errors}=parse(source,{filename});let script;try{script=compileScript(descriptor,{id:filename});}catch(error){errors.push(error);}const template=compileTemplate({source:descriptor.template.content,filename,id:filename,compilerOptions:{bindingMetadata:script?.bindings}});errors.push(...template.errors);if(errors.length){console.error(filename,errors.map(e=>e.message||e));count+=errors.length;}}
+if(count)process.exitCode=1;else console.log('Vue source validation passed: '+files.length+' components');

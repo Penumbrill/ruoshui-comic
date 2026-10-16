@@ -1,0 +1,3512 @@
+[
+  {
+    "id": "jp-gyu",
+    "name": "ぎゅっ · 抱紧",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gyu"
+  },
+  {
+    "id": "jp-gyu-outline",
+    "name": "ぎゅっ · 抱紧",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gyu"
+  },
+  {
+    "id": "jp-gyu-vertical",
+    "name": "ぎゅっ · 抱紧",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gyu-vertical"
+  },
+  {
+    "id": "jp-pan",
+    "name": "ぱん · 拍手",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pan"
+  },
+  {
+    "id": "jp-pan-outline",
+    "name": "ぱん · 拍手",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pan"
+  },
+  {
+    "id": "jp-pan-vertical",
+    "name": "ぱん · 拍手",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pan-vertical"
+  },
+  {
+    "id": "jp-pon",
+    "name": "ぽん · 轻拍",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pon"
+  },
+  {
+    "id": "jp-pon-outline",
+    "name": "ぽん · 轻拍",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pon"
+  },
+  {
+    "id": "jp-pon-vertical",
+    "name": "ぽん · 轻拍",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pon-vertical"
+  },
+  {
+    "id": "jp-pat",
+    "name": "ぱたぱた · 扑扇",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pat"
+  },
+  {
+    "id": "jp-pat-outline",
+    "name": "ぱたぱた · 扑扇",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pat"
+  },
+  {
+    "id": "jp-pat-vertical",
+    "name": "ぱたぱた · 扑扇",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pat-vertical"
+  },
+  {
+    "id": "jp-gacha",
+    "name": "ガチャ · 开门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gacha"
+  },
+  {
+    "id": "jp-gacha-outline",
+    "name": "ガチャ · 开门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gacha"
+  },
+  {
+    "id": "jp-gacha-vertical",
+    "name": "ガチャ · 开门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gacha-vertical"
+  },
+  {
+    "id": "jp-batan",
+    "name": "バタン · 关门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-batan"
+  },
+  {
+    "id": "jp-batan-outline",
+    "name": "バタン · 关门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-batan"
+  },
+  {
+    "id": "jp-batan-vertical",
+    "name": "バタン · 关门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-batan-vertical"
+  },
+  {
+    "id": "jp-kacha",
+    "name": "カチャ · 轻碰",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kacha"
+  },
+  {
+    "id": "jp-kacha-outline",
+    "name": "カチャ · 轻碰",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kacha"
+  },
+  {
+    "id": "jp-kacha-vertical",
+    "name": "カチャ · 轻碰",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kacha-vertical"
+  },
+  {
+    "id": "jp-tonton",
+    "name": "トントン · 敲门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-tonton"
+  },
+  {
+    "id": "jp-tonton-outline",
+    "name": "トントン · 敲门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-tonton"
+  },
+  {
+    "id": "jp-tonton-vertical",
+    "name": "トントン · 敲门",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-tonton-vertical"
+  },
+  {
+    "id": "jp-don",
+    "name": "ドン · 撞击",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-don"
+  },
+  {
+    "id": "jp-don-outline",
+    "name": "ドン · 撞击",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-don"
+  },
+  {
+    "id": "jp-don-vertical",
+    "name": "ドン · 撞击",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-don-vertical"
+  },
+  {
+    "id": "jp-baki",
+    "name": "バキッ · 折断",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-baki"
+  },
+  {
+    "id": "jp-baki-outline",
+    "name": "バキッ · 折断",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-baki"
+  },
+  {
+    "id": "jp-baki-vertical",
+    "name": "バキッ · 折断",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-baki-vertical"
+  },
+  {
+    "id": "jp-pachi",
+    "name": "パチッ · 啪嗒",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pachi"
+  },
+  {
+    "id": "jp-pachi-outline",
+    "name": "パチッ · 啪嗒",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pachi"
+  },
+  {
+    "id": "jp-pachi-vertical",
+    "name": "パチッ · 啪嗒",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pachi-vertical"
+  },
+  {
+    "id": "jp-suta",
+    "name": "スタッ · 落地",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-suta"
+  },
+  {
+    "id": "jp-suta-outline",
+    "name": "スタッ · 落地",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-suta"
+  },
+  {
+    "id": "jp-suta-vertical",
+    "name": "スタッ · 落地",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-suta-vertical"
+  },
+  {
+    "id": "jp-gashi",
+    "name": "ガシッ · 抓住",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gashi"
+  },
+  {
+    "id": "jp-gashi-outline",
+    "name": "ガシッ · 抓住",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gashi"
+  },
+  {
+    "id": "jp-gashi-vertical",
+    "name": "ガシッ · 抓住",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gashi-vertical"
+  },
+  {
+    "id": "jp-poi",
+    "name": "ぽい · 抛出",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-poi"
+  },
+  {
+    "id": "jp-poi-outline",
+    "name": "ぽい · 抛出",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-poi"
+  },
+  {
+    "id": "jp-poi-vertical",
+    "name": "ぽい · 抛出",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-poi-vertical"
+  },
+  {
+    "id": "jp-peta",
+    "name": "ぺた · 贴上",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-peta"
+  },
+  {
+    "id": "jp-peta-outline",
+    "name": "ぺた · 贴上",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-peta"
+  },
+  {
+    "id": "jp-peta-vertical",
+    "name": "ぺた · 贴上",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-peta-vertical"
+  },
+  {
+    "id": "jp-koron",
+    "name": "ころん · 滚落",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-koron"
+  },
+  {
+    "id": "jp-koron-outline",
+    "name": "ころん · 滚落",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-koron"
+  },
+  {
+    "id": "jp-koron-vertical",
+    "name": "ころん · 滚落",
+    "category": "日漫 · 动作与接触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-koron-vertical"
+  },
+  {
+    "id": "jp-doki",
+    "name": "ドキドキ · 心跳",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-doki"
+  },
+  {
+    "id": "jp-doki-outline",
+    "name": "ドキドキ · 心跳",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-doki"
+  },
+  {
+    "id": "jp-doki-vertical",
+    "name": "ドキドキ · 心跳",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-doki-vertical"
+  },
+  {
+    "id": "jp-waku",
+    "name": "わくわく · 期待",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-waku"
+  },
+  {
+    "id": "jp-waku-outline",
+    "name": "わくわく · 期待",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-waku"
+  },
+  {
+    "id": "jp-waku-vertical",
+    "name": "わくわく · 期待",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-waku-vertical"
+  },
+  {
+    "id": "jp-niko",
+    "name": "にこっ · 微笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-niko"
+  },
+  {
+    "id": "jp-niko-outline",
+    "name": "にこっ · 微笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-niko"
+  },
+  {
+    "id": "jp-niko-vertical",
+    "name": "にこっ · 微笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-niko-vertical"
+  },
+  {
+    "id": "jp-kira",
+    "name": "キラキラ · 闪亮",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kira"
+  },
+  {
+    "id": "jp-kira-outline",
+    "name": "キラキラ · 闪亮",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kira"
+  },
+  {
+    "id": "jp-kira-vertical",
+    "name": "キラキラ · 闪亮",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kira-vertical"
+  },
+  {
+    "id": "jp-zawa",
+    "name": "ざわざわ · 嘈杂",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-zawa"
+  },
+  {
+    "id": "jp-zawa-outline",
+    "name": "ざわざわ · 嘈杂",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-zawa"
+  },
+  {
+    "id": "jp-zawa-vertical",
+    "name": "ざわざわ · 嘈杂",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-zawa-vertical"
+  },
+  {
+    "id": "jp-shiin",
+    "name": "シーン · 寂静",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-shiin"
+  },
+  {
+    "id": "jp-shiin-outline",
+    "name": "シーン · 寂静",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-shiin"
+  },
+  {
+    "id": "jp-shiin-vertical",
+    "name": "シーン · 寂静",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-shiin-vertical"
+  },
+  {
+    "id": "jp-gaku",
+    "name": "ガクッ · 失落",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gaku"
+  },
+  {
+    "id": "jp-gaku-outline",
+    "name": "ガクッ · 失落",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gaku"
+  },
+  {
+    "id": "jp-gaku-vertical",
+    "name": "ガクッ · 失落",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gaku-vertical"
+  },
+  {
+    "id": "jp-biku",
+    "name": "ビクッ · 吓一跳",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-biku"
+  },
+  {
+    "id": "jp-biku-outline",
+    "name": "ビクッ · 吓一跳",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-biku"
+  },
+  {
+    "id": "jp-biku-vertical",
+    "name": "ビクッ · 吓一跳",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-biku-vertical"
+  },
+  {
+    "id": "jp-piku",
+    "name": "ピクッ · 抽动",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-piku"
+  },
+  {
+    "id": "jp-piku-outline",
+    "name": "ピクッ · 抽动",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-piku"
+  },
+  {
+    "id": "jp-piku-vertical",
+    "name": "ピクッ · 抽动",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-piku-vertical"
+  },
+  {
+    "id": "jp-giri",
+    "name": "ギリギリ · 咬牙",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-giri"
+  },
+  {
+    "id": "jp-giri-outline",
+    "name": "ギリギリ · 咬牙",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-giri"
+  },
+  {
+    "id": "jp-giri-vertical",
+    "name": "ギリギリ · 咬牙",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-giri-vertical"
+  },
+  {
+    "id": "jp-fufu",
+    "name": "ふふっ · 轻笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-fufu"
+  },
+  {
+    "id": "jp-fufu-outline",
+    "name": "ふふっ · 轻笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-fufu"
+  },
+  {
+    "id": "jp-fufu-vertical",
+    "name": "ふふっ · 轻笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-fufu-vertical"
+  },
+  {
+    "id": "jp-ahaha",
+    "name": "あはは · 大笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-ahaha"
+  },
+  {
+    "id": "jp-ahaha-outline",
+    "name": "あはは · 大笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-ahaha"
+  },
+  {
+    "id": "jp-ahaha-vertical",
+    "name": "あはは · 大笑",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-ahaha-vertical"
+  },
+  {
+    "id": "jp-ha",
+    "name": "はぁ · 叹气",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-ha"
+  },
+  {
+    "id": "jp-ha-outline",
+    "name": "はぁ · 叹气",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-ha"
+  },
+  {
+    "id": "jp-ha-vertical",
+    "name": "はぁ · 叹气",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-ha-vertical"
+  },
+  {
+    "id": "jp-suu",
+    "name": "すぅ · 呼吸",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-suu"
+  },
+  {
+    "id": "jp-suu-outline",
+    "name": "すぅ · 呼吸",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-suu"
+  },
+  {
+    "id": "jp-suu-vertical",
+    "name": "すぅ · 呼吸",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-suu-vertical"
+  },
+  {
+    "id": "jp-gogo",
+    "name": "ゴゴゴ · 压迫感",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gogo"
+  },
+  {
+    "id": "jp-gogo-outline",
+    "name": "ゴゴゴ · 压迫感",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gogo"
+  },
+  {
+    "id": "jp-gogo-vertical",
+    "name": "ゴゴゴ · 压迫感",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gogo-vertical"
+  },
+  {
+    "id": "jp-moya",
+    "name": "もやもや · 烦闷",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-moya"
+  },
+  {
+    "id": "jp-moya-outline",
+    "name": "もやもや · 烦闷",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-moya"
+  },
+  {
+    "id": "jp-moya-vertical",
+    "name": "もやもや · 烦闷",
+    "category": "日漫 · 心情与气氛",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-moya-vertical"
+  },
+  {
+    "id": "jp-zaa",
+    "name": "ザー · 雨声",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-zaa"
+  },
+  {
+    "id": "jp-zaa-outline",
+    "name": "ザー · 雨声",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-zaa"
+  },
+  {
+    "id": "jp-zaa-vertical",
+    "name": "ザー · 雨声",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-zaa-vertical"
+  },
+  {
+    "id": "jp-pota",
+    "name": "ぽた · 水滴",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pota"
+  },
+  {
+    "id": "jp-pota-outline",
+    "name": "ぽた · 水滴",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pota"
+  },
+  {
+    "id": "jp-pota-vertical",
+    "name": "ぽた · 水滴",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pota-vertical"
+  },
+  {
+    "id": "jp-picha",
+    "name": "ぴちゃ · 溅水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-picha"
+  },
+  {
+    "id": "jp-picha-outline",
+    "name": "ぴちゃ · 溅水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-picha"
+  },
+  {
+    "id": "jp-picha-vertical",
+    "name": "ぴちゃ · 溅水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-picha-vertical"
+  },
+  {
+    "id": "jp-jabu",
+    "name": "ジャブ · 涉水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-jabu"
+  },
+  {
+    "id": "jp-jabu-outline",
+    "name": "ジャブ · 涉水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-jabu"
+  },
+  {
+    "id": "jp-jabu-vertical",
+    "name": "ジャブ · 涉水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-jabu-vertical"
+  },
+  {
+    "id": "jp-sara",
+    "name": "さらさら · 流水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-sara"
+  },
+  {
+    "id": "jp-sara-outline",
+    "name": "さらさら · 流水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-sara"
+  },
+  {
+    "id": "jp-sara-vertical",
+    "name": "さらさら · 流水",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-sara-vertical"
+  },
+  {
+    "id": "jp-byu",
+    "name": "ビュー · 风声",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-byu"
+  },
+  {
+    "id": "jp-byu-outline",
+    "name": "ビュー · 风声",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-byu"
+  },
+  {
+    "id": "jp-byu-vertical",
+    "name": "ビュー · 风声",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-byu-vertical"
+  },
+  {
+    "id": "jp-hyu",
+    "name": "ヒュッ · 破风",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-hyu"
+  },
+  {
+    "id": "jp-hyu-outline",
+    "name": "ヒュッ · 破风",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-hyu"
+  },
+  {
+    "id": "jp-hyu-vertical",
+    "name": "ヒュッ · 破风",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-hyu-vertical"
+  },
+  {
+    "id": "jp-pari",
+    "name": "パリッ · 脆响",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pari"
+  },
+  {
+    "id": "jp-pari-outline",
+    "name": "パリッ · 脆响",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pari"
+  },
+  {
+    "id": "jp-pari-vertical",
+    "name": "パリッ · 脆响",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pari-vertical"
+  },
+  {
+    "id": "jp-pachi-fire",
+    "name": "パチパチ · 火苗",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pachi-fire"
+  },
+  {
+    "id": "jp-pachi-fire-outline",
+    "name": "パチパチ · 火苗",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pachi-fire"
+  },
+  {
+    "id": "jp-pachi-fire-vertical",
+    "name": "パチパチ · 火苗",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pachi-fire-vertical"
+  },
+  {
+    "id": "jp-ju",
+    "name": "ジュウ · 烧烤",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-ju"
+  },
+  {
+    "id": "jp-ju-outline",
+    "name": "ジュウ · 烧烤",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-ju"
+  },
+  {
+    "id": "jp-ju-vertical",
+    "name": "ジュウ · 烧烤",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-ju-vertical"
+  },
+  {
+    "id": "jp-gutsu",
+    "name": "ぐつぐつ · 沸腾",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gutsu"
+  },
+  {
+    "id": "jp-gutsu-outline",
+    "name": "ぐつぐつ · 沸腾",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gutsu"
+  },
+  {
+    "id": "jp-gutsu-vertical",
+    "name": "ぐつぐつ · 沸腾",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gutsu-vertical"
+  },
+  {
+    "id": "jp-boko",
+    "name": "ボコッ · 冒泡",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-boko"
+  },
+  {
+    "id": "jp-boko-outline",
+    "name": "ボコッ · 冒泡",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-boko"
+  },
+  {
+    "id": "jp-boko-vertical",
+    "name": "ボコッ · 冒泡",
+    "category": "日漫 · 水火与自然",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-boko-vertical"
+  },
+  {
+    "id": "jp-dodo",
+    "name": "ドドド · 奔跑",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-dodo"
+  },
+  {
+    "id": "jp-dodo-outline",
+    "name": "ドドド · 奔跑",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-dodo"
+  },
+  {
+    "id": "jp-dodo-vertical",
+    "name": "ドドド · 奔跑",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-dodo-vertical"
+  },
+  {
+    "id": "jp-shuta",
+    "name": "シュタッ · 敏捷",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-shuta"
+  },
+  {
+    "id": "jp-shuta-outline",
+    "name": "シュタッ · 敏捷",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-shuta"
+  },
+  {
+    "id": "jp-shuta-vertical",
+    "name": "シュタッ · 敏捷",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-shuta-vertical"
+  },
+  {
+    "id": "jp-shun",
+    "name": "シュン · 闪身",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-shun"
+  },
+  {
+    "id": "jp-shun-outline",
+    "name": "シュン · 闪身",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-shun"
+  },
+  {
+    "id": "jp-shun-vertical",
+    "name": "シュン · 闪身",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-shun-vertical"
+  },
+  {
+    "id": "jp-pyon",
+    "name": "ぴょん · 跳跃",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pyon"
+  },
+  {
+    "id": "jp-pyon-outline",
+    "name": "ぴょん · 跳跃",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pyon"
+  },
+  {
+    "id": "jp-pyon-vertical",
+    "name": "ぴょん · 跳跃",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pyon-vertical"
+  },
+  {
+    "id": "jp-bishi",
+    "name": "ビシッ · 指向",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-bishi"
+  },
+  {
+    "id": "jp-bishi-outline",
+    "name": "ビシッ · 指向",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-bishi"
+  },
+  {
+    "id": "jp-bishi-vertical",
+    "name": "ビシッ · 指向",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-bishi-vertical"
+  },
+  {
+    "id": "jp-zuban",
+    "name": "ズバン · 强烈冲击",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-zuban"
+  },
+  {
+    "id": "jp-zuban-outline",
+    "name": "ズバン · 强烈冲击",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-zuban"
+  },
+  {
+    "id": "jp-zuban-vertical",
+    "name": "ズバン · 强烈冲击",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-zuban-vertical"
+  },
+  {
+    "id": "jp-dokan",
+    "name": "ドカン · 爆响",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-dokan"
+  },
+  {
+    "id": "jp-dokan-outline",
+    "name": "ドカン · 爆响",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-dokan"
+  },
+  {
+    "id": "jp-dokan-vertical",
+    "name": "ドカン · 爆响",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-dokan-vertical"
+  },
+  {
+    "id": "jp-gatan",
+    "name": "ガタン · 摇晃",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gatan"
+  },
+  {
+    "id": "jp-gatan-outline",
+    "name": "ガタン · 摇晃",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gatan"
+  },
+  {
+    "id": "jp-gatan-vertical",
+    "name": "ガタン · 摇晃",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gatan-vertical"
+  },
+  {
+    "id": "jp-gata",
+    "name": "ガタガタ · 颤动",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gata"
+  },
+  {
+    "id": "jp-gata-outline",
+    "name": "ガタガタ · 颤动",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gata"
+  },
+  {
+    "id": "jp-gata-vertical",
+    "name": "ガタガタ · 颤动",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gata-vertical"
+  },
+  {
+    "id": "jp-zaki",
+    "name": "ザクッ · 切入",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-zaki"
+  },
+  {
+    "id": "jp-zaki-outline",
+    "name": "ザクッ · 切入",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-zaki"
+  },
+  {
+    "id": "jp-zaki-vertical",
+    "name": "ザクッ · 切入",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-zaki-vertical"
+  },
+  {
+    "id": "jp-saku",
+    "name": "サクッ · 轻切",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-saku"
+  },
+  {
+    "id": "jp-saku-outline",
+    "name": "サクッ · 轻切",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-saku"
+  },
+  {
+    "id": "jp-saku-vertical",
+    "name": "サクッ · 轻切",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-saku-vertical"
+  },
+  {
+    "id": "jp-suta-walk",
+    "name": "すたすた · 快步",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-suta-walk"
+  },
+  {
+    "id": "jp-suta-walk-outline",
+    "name": "すたすた · 快步",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-suta-walk"
+  },
+  {
+    "id": "jp-suta-walk-vertical",
+    "name": "すたすた · 快步",
+    "category": "日漫 · 快速与冲击",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-suta-walk-vertical"
+  },
+  {
+    "id": "jp-pechi",
+    "name": "ぺち · 轻拍皮肤",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pechi"
+  },
+  {
+    "id": "jp-pechi-outline",
+    "name": "ぺち · 轻拍皮肤",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pechi"
+  },
+  {
+    "id": "jp-pechi-vertical",
+    "name": "ぺち · 轻拍皮肤",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pechi-vertical"
+  },
+  {
+    "id": "jp-pechin",
+    "name": "ぺちん · 啪地轻拍",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pechin"
+  },
+  {
+    "id": "jp-pechin-outline",
+    "name": "ぺちん · 啪地轻拍",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pechin"
+  },
+  {
+    "id": "jp-pechin-vertical",
+    "name": "ぺちん · 啪地轻拍",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pechin-vertical"
+  },
+  {
+    "id": "jp-peshin",
+    "name": "ぺしん · 掌心轻击",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-peshin"
+  },
+  {
+    "id": "jp-peshin-outline",
+    "name": "ぺしん · 掌心轻击",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-peshin"
+  },
+  {
+    "id": "jp-peshin-vertical",
+    "name": "ぺしん · 掌心轻击",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-peshin-vertical"
+  },
+  {
+    "id": "jp-pesh",
+    "name": "ぺしっ · 短促拍击",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pesh"
+  },
+  {
+    "id": "jp-pesh-outline",
+    "name": "ぺしっ · 短促拍击",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pesh"
+  },
+  {
+    "id": "jp-pesh-vertical",
+    "name": "ぺしっ · 短促拍击",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pesh-vertical"
+  },
+  {
+    "id": "jp-pash",
+    "name": "ぱしっ · 拍到掌心",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pash"
+  },
+  {
+    "id": "jp-pash-outline",
+    "name": "ぱしっ · 拍到掌心",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pash"
+  },
+  {
+    "id": "jp-pash-vertical",
+    "name": "ぱしっ · 拍到掌心",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pash-vertical"
+  },
+  {
+    "id": "jp-pon-touch",
+    "name": "ぽんっ · 轻拍肩膀",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pon-touch"
+  },
+  {
+    "id": "jp-pon-touch-outline",
+    "name": "ぽんっ · 轻拍肩膀",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pon-touch"
+  },
+  {
+    "id": "jp-pon-touch-vertical",
+    "name": "ぽんっ · 轻拍肩膀",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pon-touch-vertical"
+  },
+  {
+    "id": "jp-ton-touch",
+    "name": "とん · 指尖轻碰",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-ton-touch"
+  },
+  {
+    "id": "jp-ton-touch-outline",
+    "name": "とん · 指尖轻碰",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-ton-touch"
+  },
+  {
+    "id": "jp-ton-touch-vertical",
+    "name": "とん · 指尖轻碰",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-ton-touch-vertical"
+  },
+  {
+    "id": "jp-tsun",
+    "name": "つん · 轻戳",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-tsun"
+  },
+  {
+    "id": "jp-tsun-outline",
+    "name": "つん · 轻戳",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-tsun"
+  },
+  {
+    "id": "jp-tsun-vertical",
+    "name": "つん · 轻戳",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-tsun-vertical"
+  },
+  {
+    "id": "jp-tsuntsun",
+    "name": "つんつん · 连续轻戳",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-tsuntsun"
+  },
+  {
+    "id": "jp-tsuntsun-outline",
+    "name": "つんつん · 连续轻戳",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-tsuntsun"
+  },
+  {
+    "id": "jp-tsuntsun-vertical",
+    "name": "つんつん · 连续轻戳",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-tsuntsun-vertical"
+  },
+  {
+    "id": "jp-choin",
+    "name": "ちょん · 轻点",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-choin"
+  },
+  {
+    "id": "jp-choin-outline",
+    "name": "ちょん · 轻点",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-choin"
+  },
+  {
+    "id": "jp-choin-vertical",
+    "name": "ちょん · 轻点",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-choin-vertical"
+  },
+  {
+    "id": "jp-chonchon",
+    "name": "ちょんちょん · 指尖点点",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-chonchon"
+  },
+  {
+    "id": "jp-chonchon-outline",
+    "name": "ちょんちょん · 指尖点点",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-chonchon"
+  },
+  {
+    "id": "jp-chonchon-vertical",
+    "name": "ちょんちょん · 指尖点点",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-chonchon-vertical"
+  },
+  {
+    "id": "jp-pito",
+    "name": "ぴと · 贴近",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pito"
+  },
+  {
+    "id": "jp-pito-outline",
+    "name": "ぴと · 贴近",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pito"
+  },
+  {
+    "id": "jp-pito-vertical",
+    "name": "ぴと · 贴近",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pito-vertical"
+  },
+  {
+    "id": "jp-pita",
+    "name": "ぴたっ · 紧贴",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pita"
+  },
+  {
+    "id": "jp-pita-outline",
+    "name": "ぴたっ · 紧贴",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pita"
+  },
+  {
+    "id": "jp-pita-vertical",
+    "name": "ぴたっ · 紧贴",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pita-vertical"
+  },
+  {
+    "id": "jp-petan",
+    "name": "ぺたん · 贴上掌心",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-petan"
+  },
+  {
+    "id": "jp-petan-outline",
+    "name": "ぺたん · 贴上掌心",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-petan"
+  },
+  {
+    "id": "jp-petan-vertical",
+    "name": "ぺたん · 贴上掌心",
+    "category": "接触 · 轻拍与碰触",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-petan-vertical"
+  },
+  {
+    "id": "jp-suri",
+    "name": "すりすり · 轻轻蹭",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-suri"
+  },
+  {
+    "id": "jp-suri-outline",
+    "name": "すりすり · 轻轻蹭",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-suri"
+  },
+  {
+    "id": "jp-suri-vertical",
+    "name": "すりすり · 轻轻蹭",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-suri-vertical"
+  },
+  {
+    "id": "jp-suru",
+    "name": "するり · 滑过",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-suru"
+  },
+  {
+    "id": "jp-suru-outline",
+    "name": "するり · 滑过",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-suru"
+  },
+  {
+    "id": "jp-suru-vertical",
+    "name": "するり · 滑过",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-suru-vertical"
+  },
+  {
+    "id": "jp-sawa",
+    "name": "さわさわ · 轻柔触碰",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-sawa"
+  },
+  {
+    "id": "jp-sawa-outline",
+    "name": "さわさわ · 轻柔触碰",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-sawa"
+  },
+  {
+    "id": "jp-sawa-vertical",
+    "name": "さわさわ · 轻柔触碰",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-sawa-vertical"
+  },
+  {
+    "id": "jp-nade",
+    "name": "なでなで · 抚摸",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-nade"
+  },
+  {
+    "id": "jp-nade-outline",
+    "name": "なでなで · 抚摸",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-nade"
+  },
+  {
+    "id": "jp-nade-vertical",
+    "name": "なでなで · 抚摸",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-nade-vertical"
+  },
+  {
+    "id": "jp-sasa",
+    "name": "さっ · 轻扫",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-sasa"
+  },
+  {
+    "id": "jp-sasa-outline",
+    "name": "さっ · 轻扫",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-sasa"
+  },
+  {
+    "id": "jp-sasa-vertical",
+    "name": "さっ · 轻扫",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-sasa-vertical"
+  },
+  {
+    "id": "jp-gosi",
+    "name": "ごしごし · 用力揉擦",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gosi"
+  },
+  {
+    "id": "jp-gosi-outline",
+    "name": "ごしごし · 用力揉擦",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gosi"
+  },
+  {
+    "id": "jp-gosi-vertical",
+    "name": "ごしごし · 用力揉擦",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gosi-vertical"
+  },
+  {
+    "id": "jp-koshi",
+    "name": "こしこし · 轻擦",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-koshi"
+  },
+  {
+    "id": "jp-koshi-outline",
+    "name": "こしこし · 轻擦",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-koshi"
+  },
+  {
+    "id": "jp-koshi-vertical",
+    "name": "こしこし · 轻擦",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-koshi-vertical"
+  },
+  {
+    "id": "jp-kori",
+    "name": "こりこり · 揉按",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kori"
+  },
+  {
+    "id": "jp-kori-outline",
+    "name": "こりこり · 揉按",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kori"
+  },
+  {
+    "id": "jp-kori-vertical",
+    "name": "こりこり · 揉按",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kori-vertical"
+  },
+  {
+    "id": "jp-momi",
+    "name": "もみもみ · 揉捏",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-momi"
+  },
+  {
+    "id": "jp-momi-outline",
+    "name": "もみもみ · 揉捏",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-momi"
+  },
+  {
+    "id": "jp-momi-vertical",
+    "name": "もみもみ · 揉捏",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-momi-vertical"
+  },
+  {
+    "id": "jp-momu",
+    "name": "もむ · 揉按",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-momu"
+  },
+  {
+    "id": "jp-momu-outline",
+    "name": "もむ · 揉按",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-momu"
+  },
+  {
+    "id": "jp-momu-vertical",
+    "name": "もむ · 揉按",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-momu-vertical"
+  },
+  {
+    "id": "jp-tsune",
+    "name": "つねっ · 轻掐",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-tsune"
+  },
+  {
+    "id": "jp-tsune-outline",
+    "name": "つねっ · 轻掐",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-tsune"
+  },
+  {
+    "id": "jp-tsune-vertical",
+    "name": "つねっ · 轻掐",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-tsune-vertical"
+  },
+  {
+    "id": "jp-kusu",
+    "name": "くすぐり · 挠痒",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kusu"
+  },
+  {
+    "id": "jp-kusu-outline",
+    "name": "くすぐり · 挠痒",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kusu"
+  },
+  {
+    "id": "jp-kusu-vertical",
+    "name": "くすぐり · 挠痒",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kusu-vertical"
+  },
+  {
+    "id": "jp-koshoko",
+    "name": "こしょこしょ · 轻挠",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-koshoko"
+  },
+  {
+    "id": "jp-koshoko-outline",
+    "name": "こしょこしょ · 轻挠",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-koshoko"
+  },
+  {
+    "id": "jp-koshoko-vertical",
+    "name": "こしょこしょ · 轻挠",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-koshoko-vertical"
+  },
+  {
+    "id": "jp-suru-touch",
+    "name": "すっ · 手指滑过",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-suru-touch"
+  },
+  {
+    "id": "jp-suru-touch-outline",
+    "name": "すっ · 手指滑过",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-suru-touch"
+  },
+  {
+    "id": "jp-suru-touch-vertical",
+    "name": "すっ · 手指滑过",
+    "category": "接触 · 摩擦与抚摸",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-suru-touch-vertical"
+  },
+  {
+    "id": "jp-puni",
+    "name": "ぷに · 软软一捏",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-puni"
+  },
+  {
+    "id": "jp-puni-outline",
+    "name": "ぷに · 软软一捏",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-puni"
+  },
+  {
+    "id": "jp-puni-vertical",
+    "name": "ぷに · 软软一捏",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-puni-vertical"
+  },
+  {
+    "id": "jp-punipuni",
+    "name": "ぷにぷに · 柔软弹性",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-punipuni"
+  },
+  {
+    "id": "jp-punipuni-outline",
+    "name": "ぷにぷに · 柔软弹性",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-punipuni"
+  },
+  {
+    "id": "jp-punipuni-vertical",
+    "name": "ぷにぷに · 柔软弹性",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-punipuni-vertical"
+  },
+  {
+    "id": "jp-muni",
+    "name": "むに · 捏脸",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-muni"
+  },
+  {
+    "id": "jp-muni-outline",
+    "name": "むに · 捏脸",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-muni"
+  },
+  {
+    "id": "jp-muni-vertical",
+    "name": "むに · 捏脸",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-muni-vertical"
+  },
+  {
+    "id": "jp-munyu",
+    "name": "むにゅ · 软软压下",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-munyu"
+  },
+  {
+    "id": "jp-munyu-outline",
+    "name": "むにゅ · 软软压下",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-munyu"
+  },
+  {
+    "id": "jp-munyu-vertical",
+    "name": "むにゅ · 软软压下",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-munyu-vertical"
+  },
+  {
+    "id": "jp-mochi",
+    "name": "もちもち · 柔软有弹性",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-mochi"
+  },
+  {
+    "id": "jp-mochi-outline",
+    "name": "もちもち · 柔软有弹性",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-mochi"
+  },
+  {
+    "id": "jp-mochi-vertical",
+    "name": "もちもち · 柔软有弹性",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-mochi-vertical"
+  },
+  {
+    "id": "jp-fuwa",
+    "name": "ふわっ · 柔软轻触",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-fuwa"
+  },
+  {
+    "id": "jp-fuwa-outline",
+    "name": "ふわっ · 柔软轻触",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-fuwa"
+  },
+  {
+    "id": "jp-fuwa-vertical",
+    "name": "ふわっ · 柔软轻触",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-fuwa-vertical"
+  },
+  {
+    "id": "jp-funya",
+    "name": "ふにゃ · 软软放松",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-funya"
+  },
+  {
+    "id": "jp-funya-outline",
+    "name": "ふにゃ · 软软放松",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-funya"
+  },
+  {
+    "id": "jp-funya-vertical",
+    "name": "ふにゃ · 软软放松",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-funya-vertical"
+  },
+  {
+    "id": "jp-mofu",
+    "name": "もふもふ · 毛茸茸",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-mofu"
+  },
+  {
+    "id": "jp-mofu-outline",
+    "name": "もふもふ · 毛茸茸",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-mofu"
+  },
+  {
+    "id": "jp-mofu-vertical",
+    "name": "もふもふ · 毛茸茸",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-mofu-vertical"
+  },
+  {
+    "id": "jp-gyuu",
+    "name": "ぎゅー · 紧紧拥抱",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-gyuu"
+  },
+  {
+    "id": "jp-gyuu-outline",
+    "name": "ぎゅー · 紧紧拥抱",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-gyuu"
+  },
+  {
+    "id": "jp-gyuu-vertical",
+    "name": "ぎゅー · 紧紧拥抱",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-gyuu-vertical"
+  },
+  {
+    "id": "jp-kyu",
+    "name": "きゅっ · 轻轻握紧",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kyu"
+  },
+  {
+    "id": "jp-kyu-outline",
+    "name": "きゅっ · 轻轻握紧",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kyu"
+  },
+  {
+    "id": "jp-kyu-vertical",
+    "name": "きゅっ · 轻轻握紧",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kyu-vertical"
+  },
+  {
+    "id": "jp-guyu",
+    "name": "ぐっ · 握紧",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-guyu"
+  },
+  {
+    "id": "jp-guyu-outline",
+    "name": "ぐっ · 握紧",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-guyu"
+  },
+  {
+    "id": "jp-guyu-vertical",
+    "name": "ぐっ · 握紧",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-guyu-vertical"
+  },
+  {
+    "id": "jp-dak",
+    "name": "だきっ · 抱住",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-dak"
+  },
+  {
+    "id": "jp-dak-outline",
+    "name": "だきっ · 抱住",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-dak"
+  },
+  {
+    "id": "jp-dak-vertical",
+    "name": "だきっ · 抱住",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-dak-vertical"
+  },
+  {
+    "id": "jp-poyon",
+    "name": "ぽよん · 软弹",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-poyon"
+  },
+  {
+    "id": "jp-poyon-outline",
+    "name": "ぽよん · 软弹",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-poyon"
+  },
+  {
+    "id": "jp-poyon-vertical",
+    "name": "ぽよん · 软弹",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-poyon-vertical"
+  },
+  {
+    "id": "jp-puru",
+    "name": "ぷるぷる · 微微颤动",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-puru"
+  },
+  {
+    "id": "jp-puru-outline",
+    "name": "ぷるぷる · 微微颤动",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-puru"
+  },
+  {
+    "id": "jp-puru-vertical",
+    "name": "ぷるぷる · 微微颤动",
+    "category": "接触 · 柔软与拥抱",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-puru-vertical"
+  },
+  {
+    "id": "jp-chu",
+    "name": "ちゅ · 轻吻",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-chu"
+  },
+  {
+    "id": "jp-chu-outline",
+    "name": "ちゅ · 轻吻",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-chu"
+  },
+  {
+    "id": "jp-chu-vertical",
+    "name": "ちゅ · 轻吻",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-chu-vertical"
+  },
+  {
+    "id": "jp-chuu",
+    "name": "ちゅっ · 短促亲吻",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-chuu"
+  },
+  {
+    "id": "jp-chuu-outline",
+    "name": "ちゅっ · 短促亲吻",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-chuu"
+  },
+  {
+    "id": "jp-chuu-vertical",
+    "name": "ちゅっ · 短促亲吻",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-chuu-vertical"
+  },
+  {
+    "id": "jp-kiss",
+    "name": "チュッ · 吻一下",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kiss"
+  },
+  {
+    "id": "jp-kiss-outline",
+    "name": "チュッ · 吻一下",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kiss"
+  },
+  {
+    "id": "jp-kiss-vertical",
+    "name": "チュッ · 吻一下",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kiss-vertical"
+  },
+  {
+    "id": "jp-chup",
+    "name": "ちゅぱ · 亲吻声",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-chup"
+  },
+  {
+    "id": "jp-chup-outline",
+    "name": "ちゅぱ · 亲吻声",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-chup"
+  },
+  {
+    "id": "jp-chup-vertical",
+    "name": "ちゅぱ · 亲吻声",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-chup-vertical"
+  },
+  {
+    "id": "jp-fure",
+    "name": "ふれっ · 轻触",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-fure"
+  },
+  {
+    "id": "jp-fure-outline",
+    "name": "ふれっ · 轻触",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-fure"
+  },
+  {
+    "id": "jp-fure-vertical",
+    "name": "ふれっ · 轻触",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-fure-vertical"
+  },
+  {
+    "id": "jp-dokin",
+    "name": "どきん · 心跳一下",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-dokin"
+  },
+  {
+    "id": "jp-dokin-outline",
+    "name": "どきん · 心跳一下",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-dokin"
+  },
+  {
+    "id": "jp-dokin-vertical",
+    "name": "どきん · 心跳一下",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-dokin-vertical"
+  },
+  {
+    "id": "jp-dokun",
+    "name": "どくん · 怦然心动",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-dokun"
+  },
+  {
+    "id": "jp-dokun-outline",
+    "name": "どくん · 怦然心动",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-dokun"
+  },
+  {
+    "id": "jp-dokun-vertical",
+    "name": "どくん · 怦然心动",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-dokun-vertical"
+  },
+  {
+    "id": "jp-kyun",
+    "name": "きゅん · 心动",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kyun"
+  },
+  {
+    "id": "jp-kyun-outline",
+    "name": "きゅん · 心动",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kyun"
+  },
+  {
+    "id": "jp-kyun-vertical",
+    "name": "きゅん · 心动",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kyun-vertical"
+  },
+  {
+    "id": "jp-hotsu",
+    "name": "ほっ · 放松",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-hotsu"
+  },
+  {
+    "id": "jp-hotsu-outline",
+    "name": "ほっ · 放松",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-hotsu"
+  },
+  {
+    "id": "jp-hotsu-vertical",
+    "name": "ほっ · 放松",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-hotsu-vertical"
+  },
+  {
+    "id": "jp-poka",
+    "name": "ぽかぽか · 温暖",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-poka"
+  },
+  {
+    "id": "jp-poka-outline",
+    "name": "ぽかぽか · 温暖",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-poka"
+  },
+  {
+    "id": "jp-poka-vertical",
+    "name": "ぽかぽか · 温暖",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-poka-vertical"
+  },
+  {
+    "id": "jp-muzu",
+    "name": "むずむず · 发痒",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-muzu"
+  },
+  {
+    "id": "jp-muzu-outline",
+    "name": "むずむず · 发痒",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-muzu"
+  },
+  {
+    "id": "jp-muzu-vertical",
+    "name": "むずむず · 发痒",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-muzu-vertical"
+  },
+  {
+    "id": "jp-buru",
+    "name": "ぶるっ · 一颤",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-buru"
+  },
+  {
+    "id": "jp-buru-outline",
+    "name": "ぶるっ · 一颤",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-buru"
+  },
+  {
+    "id": "jp-buru-vertical",
+    "name": "ぶるっ · 一颤",
+    "category": "接触 · 亲吻与心动",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-buru-vertical"
+  },
+  {
+    "id": "jp-toko",
+    "name": "とことこ · 小步走",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-toko"
+  },
+  {
+    "id": "jp-toko-outline",
+    "name": "とことこ · 小步走",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-toko"
+  },
+  {
+    "id": "jp-toko-vertical",
+    "name": "とことこ · 小步走",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-toko-vertical"
+  },
+  {
+    "id": "jp-teku",
+    "name": "てくてく · 漫步",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-teku"
+  },
+  {
+    "id": "jp-teku-outline",
+    "name": "てくてく · 漫步",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-teku"
+  },
+  {
+    "id": "jp-teku-vertical",
+    "name": "てくてく · 漫步",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-teku-vertical"
+  },
+  {
+    "id": "jp-tata",
+    "name": "たたた · 轻快奔跑",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-tata"
+  },
+  {
+    "id": "jp-tata-outline",
+    "name": "たたた · 轻快奔跑",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-tata"
+  },
+  {
+    "id": "jp-tata-vertical",
+    "name": "たたた · 轻快奔跑",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-tata-vertical"
+  },
+  {
+    "id": "jp-tapu",
+    "name": "たぷたぷ · 水轻晃",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-tapu"
+  },
+  {
+    "id": "jp-tapu-outline",
+    "name": "たぷたぷ · 水轻晃",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-tapu"
+  },
+  {
+    "id": "jp-tapu-vertical",
+    "name": "たぷたぷ · 水轻晃",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-tapu-vertical"
+  },
+  {
+    "id": "jp-pyoko",
+    "name": "ぴょこ · 探出头",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-pyoko"
+  },
+  {
+    "id": "jp-pyoko-outline",
+    "name": "ぴょこ · 探出头",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-pyoko"
+  },
+  {
+    "id": "jp-pyoko-vertical",
+    "name": "ぴょこ · 探出头",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-pyoko-vertical"
+  },
+  {
+    "id": "jp-piku2",
+    "name": "ぴくぴく · 轻轻抽动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-piku2"
+  },
+  {
+    "id": "jp-piku2-outline",
+    "name": "ぴくぴく · 轻轻抽动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-piku2"
+  },
+  {
+    "id": "jp-piku2-vertical",
+    "name": "ぴくぴく · 轻轻抽动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-piku2-vertical"
+  },
+  {
+    "id": "jp-yura",
+    "name": "ゆらゆら · 摇摆",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-yura"
+  },
+  {
+    "id": "jp-yura-outline",
+    "name": "ゆらゆら · 摇摆",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-yura"
+  },
+  {
+    "id": "jp-yura-vertical",
+    "name": "ゆらゆら · 摇摆",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-yura-vertical"
+  },
+  {
+    "id": "jp-kuru",
+    "name": "くるくる · 转圈",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-kuru"
+  },
+  {
+    "id": "jp-kuru-outline",
+    "name": "くるくる · 转圈",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-kuru"
+  },
+  {
+    "id": "jp-kuru-vertical",
+    "name": "くるくる · 转圈",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-kuru-vertical"
+  },
+  {
+    "id": "jp-koro",
+    "name": "ころころ · 滚动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-koro"
+  },
+  {
+    "id": "jp-koro-outline",
+    "name": "ころころ · 滚动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-koro"
+  },
+  {
+    "id": "jp-koro-vertical",
+    "name": "ころころ · 滚动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-koro-vertical"
+  },
+  {
+    "id": "jp-fura",
+    "name": "ふらふら · 摇晃踉跄",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-fura"
+  },
+  {
+    "id": "jp-fura-outline",
+    "name": "ふらふら · 摇晃踉跄",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-fura"
+  },
+  {
+    "id": "jp-fura-vertical",
+    "name": "ふらふら · 摇晃踉跄",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-fura-vertical"
+  },
+  {
+    "id": "jp-nobi",
+    "name": "のびー · 伸懒腰",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-nobi"
+  },
+  {
+    "id": "jp-nobi-outline",
+    "name": "のびー · 伸懒腰",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-nobi"
+  },
+  {
+    "id": "jp-nobi-vertical",
+    "name": "のびー · 伸懒腰",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-nobi-vertical"
+  },
+  {
+    "id": "jp-goro",
+    "name": "ごろごろ · 懒洋洋滚动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-goro"
+  },
+  {
+    "id": "jp-goro-outline",
+    "name": "ごろごろ · 懒洋洋滚动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-goro"
+  },
+  {
+    "id": "jp-goro-vertical",
+    "name": "ごろごろ · 懒洋洋滚动",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-goro-vertical"
+  },
+  {
+    "id": "jp-mogu",
+    "name": "もぐもぐ · 咀嚼",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-mogu"
+  },
+  {
+    "id": "jp-mogu-outline",
+    "name": "もぐもぐ · 咀嚼",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-mogu"
+  },
+  {
+    "id": "jp-mogu-vertical",
+    "name": "もぐもぐ · 咀嚼",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-mogu-vertical"
+  },
+  {
+    "id": "jp-paku",
+    "name": "ぱくっ · 吃一口",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-paku"
+  },
+  {
+    "id": "jp-paku-outline",
+    "name": "ぱくっ · 吃一口",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-paku"
+  },
+  {
+    "id": "jp-paku-vertical",
+    "name": "ぱくっ · 吃一口",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-paku-vertical"
+  },
+  {
+    "id": "jp-goku",
+    "name": "ごくっ · 咽下",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-goku"
+  },
+  {
+    "id": "jp-goku-outline",
+    "name": "ごくっ · 咽下",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-goku"
+  },
+  {
+    "id": "jp-goku-vertical",
+    "name": "ごくっ · 咽下",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-goku-vertical"
+  },
+  {
+    "id": "jp-mushu",
+    "name": "むしゃむしゃ · 大口吃",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-mushu"
+  },
+  {
+    "id": "jp-mushu-outline",
+    "name": "むしゃむしゃ · 大口吃",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-mushu"
+  },
+  {
+    "id": "jp-mushu-vertical",
+    "name": "むしゃむしゃ · 大口吃",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-mushu-vertical"
+  },
+  {
+    "id": "jp-supu",
+    "name": "すぽっ · 拔出小物",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-supu"
+  },
+  {
+    "id": "jp-supu-outline",
+    "name": "すぽっ · 拔出小物",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-supu"
+  },
+  {
+    "id": "jp-supu-vertical",
+    "name": "すぽっ · 拔出小物",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-supu-vertical"
+  },
+  {
+    "id": "jp-nuru",
+    "name": "ぬるっ · 滑溜",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-nuru"
+  },
+  {
+    "id": "jp-nuru-outline",
+    "name": "ぬるっ · 滑溜",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-nuru"
+  },
+  {
+    "id": "jp-nuru-vertical",
+    "name": "ぬるっ · 滑溜",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-nuru-vertical"
+  },
+  {
+    "id": "jp-puchi",
+    "name": "ぷちっ · 轻轻掰断",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-puchi"
+  },
+  {
+    "id": "jp-puchi-outline",
+    "name": "ぷちっ · 轻轻掰断",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-puchi"
+  },
+  {
+    "id": "jp-puchi-vertical",
+    "name": "ぷちっ · 轻轻掰断",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-puchi-vertical"
+  },
+  {
+    "id": "jp-tsuru",
+    "name": "つるっ · 打滑",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "ink",
+    "styleName": "黑字白描边",
+    "glyphKey": "jp-tsuru"
+  },
+  {
+    "id": "jp-tsuru-outline",
+    "name": "つるっ · 打滑",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "outline",
+    "styleName": "白字黑描边",
+    "glyphKey": "jp-tsuru"
+  },
+  {
+    "id": "jp-tsuru-vertical",
+    "name": "つるっ · 打滑",
+    "category": "日漫 · 日常与脚步",
+    "sfx": true,
+    "style": "vertical",
+    "styleName": "竖排",
+    "glyphKey": "jp-tsuru-vertical"
+  }
+]

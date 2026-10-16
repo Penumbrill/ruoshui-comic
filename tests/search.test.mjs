@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {fuzzyMatch} from '../shared/search.mjs';
+test('short English words do not match unrelated syllables inside longer tags',()=>{assert(!fuzzyMatch('low detail','beautiful detailed glow'));assert(fuzzyMatch('low detail','low_detail'));assert(fuzzyMatch('girl blue','blue_hair 1girl'));});
+test('search tolerates case, width, punctuation, missing letters and reordered keywords',()=>{assert(fuzzyMatch('ＱＷＥＮ 27b','Qwen3.8-27B-GGUF'));assert(fuzzyMatch('girl blue','blue_hair 1girl'));assert(fuzzyMatch('mastrepiece','masterpiece'));assert(fuzzyMatch('森林 野餐','可莉与七七 · 森林里的快乐野餐'));assert(!fuzzyMatch('红色 帽子','蓝色外套'));assert(fuzzyMatch('','anything'));});
+test('material synonyms and category text participate without accepting unrelated terms',()=>{assert(fuzzyMatch('心形','双爱心'));assert(fuzzyMatch('摩擦','すりすり · 轻轻蹭'));assert(fuzzyMatch('拥抱','ぎゅっ','抱紧'));assert(!fuzzyMatch('心形','速度线'));});

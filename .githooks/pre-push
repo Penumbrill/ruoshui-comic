@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+while read -r local_ref local_sha remote_ref remote_sha; do
+ case "$local_sha" in 0000000000000000000000000000000000000000) continue ;; esac
+ # Audit all history reachable from the proposed ref, including the first push.
+ if ! git log "$local_sha" --format='%an <%ae>%n%cn <%ce>' | awk '
+  $0 != "kagemizu <249926125+Penumbrill@users.noreply.github.com>" {invalid=1}
+  END {exit invalid ? 1 : 0}'; then
+  printf '%s\n' 'Push blocked: commit history contains an identity other than kagemizu (Penumbrill).' >&2; exit 1
+ fi
+ if git log "$local_sha" --format='%B' | grep -Eiq '^[[:space:]]*(co-authored-by|signed-off-by):'; then
+  printf '%s\n' 'Push blocked: remove co-author or sign-off trailers before publishing.' >&2; exit 1
+ fi
+done
