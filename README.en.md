@@ -4,6 +4,16 @@
 
 A local AI comic creation studio for Windows, combining image generation, masked inpainting, panel layouts, dialogue, typography, stickers and cutouts extending beyond panel borders.
 
+## Screenshots
+
+English interface: comic editor, layers and object properties.
+
+![Ruoshui Comic English interface: comic editor](docs/images/comic-editor-en.png)
+
+Chinese interface: panel layouts, dialogue, stickers and cutouts extending beyond panel borders.
+
+![Ruoshui Comic Chinese interface: comic editor and cutout properties](docs/images/comic-editor-zh.png)
+
 ## Installation
 
 Download **`ruoshui-comic.exe`** from Releases. The small online installer downloads application and independent runtime packages from this repository's GitHub Release, verifies SHA-256 checksums, then extracts them into your chosen folder. It tries environment proxies, Windows networking and direct connections, with GitHub's download URL and asset API as alternative sources. It does not change system proxy settings. Run it again to resume interrupted downloads. Online installation requires internet access.

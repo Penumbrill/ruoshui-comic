@@ -4,6 +4,16 @@
 
 面向初学者的 Windows 本地 AI 漫画创作软件，支持单图生成、局部重绘、分镜排版和提示词助手。
 
+## 界面预览
+
+中文界面：分镜排版、对白、贴纸与主体破框。
+
+![若水漫画中文界面：漫画制作与抠图属性](docs/images/comic-editor-zh.png)
+
+英文界面：漫画编辑器与图层属性。
+
+![Ruoshui Comic 英文界面：漫画编辑器](docs/images/comic-editor-en.png)
+
 ## 开始使用
 
 推荐下载 Release 中的 **`ruoshui-comic.exe`**。选择安装目录后，小安装器从本仓库 Release 下载程序和独立运行环境，通过 SHA-256 校验后解压。它自动尝试环境代理、Windows 系统网络与直连，在 GitHub 下载地址及备用接口之间切换，不修改系统网络设置。下载中断后重新运行安装器可继续下载。
