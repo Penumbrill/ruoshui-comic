@@ -6,7 +6,7 @@
 - 提交的作者与提交者必须使用 kagemizu 和 249926125+Penumbrill@users.noreply.github.com。
 - 不得添加 Co-authored-by、Signed-off-by 或其他共同作者署名，不得使用 Codex、OpenAI、Copilot 等工具账号作为作者或提交者。
 - 保持 core.hooksPath=.githooks，提交与推送前运行项目提供的身份检查；不得通过 --no-verify 绕过。
-- 未经用户明确要求，不得上传文件、提交或推送。本轮用户已明确授权首次上传源码及发布整合包与安装器；后续上传仍需遵循用户授权范围。
+- 未经用户明确要求，不得上传文件、提交或推送。
 - 不得为删除工具署名而删除第三方软件的许可证或版权信息。
 
 ## 用户数据

@@ -43,7 +43,7 @@ Local generation uses the application's own Python, inference dependencies and e
 
 ## Download and install
 
-Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). **Choose either the installer or manual extraction. Model weights are not included in either option. On first launch, the app automatically downloads Chinese-to-English and English-to-Chinese translation models and shows their progress.**
+Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). Choose either the installer or manual extraction. On first launch, the app automatically downloads Chinese-to-English and English-to-Chinese translation models and shows their progress. Image-generation models can be downloaded from within the app.
 
 ### Option 1: Installer
 
@@ -104,7 +104,7 @@ Standalone generation and inpainting save their own results. Results fill a comi
 
 ## Data and backups
 
-The application folder contains your personal data and its independent runtime:
+Project files, application settings and the independent runtime are stored in these locations:
 
 | Location | Contents |
 | --- | --- |

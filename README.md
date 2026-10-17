@@ -43,7 +43,7 @@
 
 ## 下载与安装
 
-从 [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest) 下载安装文件。**安装器与手动解压两种方式，任选一种即可。所有发布包均不包含模型权重。首次启动会自动下载中译英、英译中两套翻译模型，下载进度可在软件中查看。**
+从 [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest) 下载安装文件。安装器与手动解压两种方式，任选一种即可。首次启动会自动下载中译英、英译中两套翻译模型，下载进度可在软件中查看。图像生成模型可在软件内下载。
 
 ### 方式一：使用安装器
 
@@ -104,7 +104,7 @@ Release 页面中的 `Source code` 为源码下载，日常使用请选择安装
 
 ## 数据保存与备份
 
-软件目录中的两个文件夹保存运行所需内容和个人数据：
+项目文件、应用设置与独立运行环境保存在以下位置：
 
 | 位置 | 内容 |
 | --- | --- |
