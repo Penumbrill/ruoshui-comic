@@ -1,8 +1,9 @@
 import {spawn} from 'node:child_process';
 import crypto from 'node:crypto';
+import {externalResource} from './runtime-resources.mjs';
 
 export class OfflineTranslator{
- constructor(python,script,folder,direction="en-zh"){this.direction=direction;this.python=python;this.script=script;this.folder=folder;this.pending=new Map();}
+ constructor(python,script,folder,direction="en-zh"){this.direction=direction;this.python=python;this.script=externalResource(script);this.folder=folder;this.pending=new Map();}
  async start(){
   if(!this.ready)this.ready=new Promise((resolve,reject)=>{
    const child=spawn(this.python,['-I',this.script,this.folder,this.direction],{windowsHide:true,env:{...process.env,PYTHONUTF8:'1',PYTHONIOENCODING:'utf-8',HF_HUB_OFFLINE:'1'}});this.child=child;

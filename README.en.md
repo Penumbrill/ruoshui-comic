@@ -13,7 +13,11 @@ Includes an independent runtime, with no separate image-generation application t
 - **Cutouts beyond panel borders** — Extract subjects, refine their edges, extend them outside a panel and realign them with the original image.
 - **Typography and dialogue** — Link dialogue bubbles, use horizontal or vertical text, and adjust fonts and formatting. Includes Chinese and English fonts, system font selection and font import.
 - **Prompts and tags** — Browse a categorized dictionary with fuzzy search, favorites and import/export. Use the prompt assistant with a local model or an optional online service.
-- **Saving and export** — Autosave your edits, manage a local gallery, and export PNG pages or editable projects containing images and imported fonts.
+- **Saving and export** — Autosave your edits, manage a local gallery, and export PNG pages or complete project ZIPs containing images, stickers, fonts, project files and the last editing state. Importing a project restores that state.
+
+When deleting a project, keep its images or move related content to the recycle bin. Images used by other projects are kept. Deleted projects can be restored from the local recycle bin.
+
+Open Settings → Cache & storage to browse the recycle bin, restore projects and images, or empty it after confirmation. It is never cleared automatically. Permanent deletion cannot be undone.
 
 ## Screenshots
 
@@ -39,7 +43,7 @@ Local generation uses the application's own Python, inference dependencies and e
 
 ## Download and install
 
-Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). **Choose either the installer or manual extraction. Model weights are not included in either option.**
+Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). **Choose either the installer or manual extraction. Model weights are not included in either option. On first launch, the app automatically downloads Chinese-to-English and English-to-Chinese translation models and shows their progress.**
 
 ### Option 1: Installer
 
@@ -72,7 +76,7 @@ RuoshuiComic/
 
 After extracting all five ZIPs, launch **`若水漫画.exe`**. Keep the entire folder together when moving the portable app.
 
-`ruoshui-setup-guide.zip` is an optional package containing instructions and verification tools. To verify the downloads, extract its contents beside the original ZIP files and run `校验整合包.cmd`.
+`ruoshui-setup-guide.zip` is an optional package containing instructions and verification tools. To verify the downloads, extract it into the application folder, keep the original ZIP files there, and run `校验整合包.cmd` inside the `安装说明` subfolder.
 
 The `Source code` downloads on the Release page are for developers. To use the app, choose the installer or portable packages above.
 

@@ -49,6 +49,7 @@ app.whenReady().then(async () => {
   ipcMain.handle('open-llm-folder',async()=>{const folder=path.dirname(server.service.config.llm.model||path.join(server.service.folder('llm'),'model.gguf'));return shell.openPath(folder);});
   ipcMain.handle('open-project-folder', async (_, id) => {if(!/^[0-9a-f-]{36}$/.test(id))throw Error('无效项目');await server.service.readProject(id);shell.showItemInFolder(path.join(root,'works/projects',id+'.json'));return true;});
   ipcMain.handle('open-folder', async (_, kind, projectName) => {
+    if(kind==='trash'){const fs=require('node:fs/promises'),folder=path.join(root,'works/trash');await fs.mkdir(folder,{recursive:true});const error=await shell.openPath(folder);if(error)throw Error(error);return true;}
     if(kind==='comic-exports'){
       const fs=require('node:fs/promises'),last=server.service.config.comicExportFolders?.[encodeURIComponent(projectName||'')];
       const folder=last&&require('node:fs').existsSync(last)?last:comicExportPath(path.join(root,'works/exports'),projectName,'').folder;
@@ -79,7 +80,7 @@ app.whenReady().then(async () => {
     const name=path.basename(String(payload.name||'漫画.png'));
     const fs=require('node:fs/promises'),comic=payload.kind==='comic',defaultPath=comic?comicExportPath(path.join(root,'works/exports'),payload.projectName,name).path:path.join(root,'works/exports',name);
     await fs.mkdir(path.dirname(defaultPath),{recursive:true});
-    const result=await dialog.showSaveDialog(win,{defaultPath,filters:[{name:'文件',extensions:[['json','txt','sql','png'].includes(path.extname(name).slice(1))?path.extname(name).slice(1):'png']}]});
+    const result=await dialog.showSaveDialog(win,{defaultPath,filters:[{name:'文件',extensions:[['json','txt','sql','png','zip'].includes(path.extname(name).slice(1))?path.extname(name).slice(1):'png']}]});
     if(result.canceled) return false;
     let file=result.filePath;
     if(comic){const parent=path.dirname(file),base=path.basename(parent)===comicFolderName(payload.projectName)?path.dirname(parent):parent;file=comicExportPath(base,payload.projectName,path.basename(file)).path;}

@@ -1,4 +1,7 @@
 <script setup>
+import {useUiText} from "../ui-text";
+const ui=useUiText();
+
 import {fuzzyMatch} from '../../shared/search.mjs';
 import {computed,ref} from 'vue';
 import {BookOpen} from 'lucide-vue-next';
@@ -16,4 +19,4 @@ groups.splice(1,0,{title:'Danbooru 标签与提示词助手',rows:[['浏览图�
 groups.find(g=>g.title==='漫画画布、分镜与图层').rows.push(['只显示框外主体','默认自动使用通用主体识别，人物与物品都可一键抠图；高级参数平时折叠，可调模式、阈值、边缘平滑和扩展。默认仅在原分镜外显示透明主体，框内保留原图；自动按主体透明轮廓隐藏下方分镜边框。可在主体参数区分别关闭这两个选项。'],['粘连对白','在图层列表按住鼠标拖出蓝色框选框，可一次选择多个对白，也可 Ctrl 点选；右键选择粘连。链条图标与选中高亮表示已关联；拖动各对白调整水滴状连接，在参数区调节粘连幅度。'],['改名与项目目录','漫画页选择框旁点击重命名。项目栏右侧打开项目文件夹定位当前项目数据。'],['画布比例','主画布属性可勾选按比例修改尺寸与所有画面跟随缩放，默认均关闭。']);
 const visible=computed(()=>groups.map(group=>({...group,rows:group.rows.filter(row=>fuzzyMatch(query.value,group.title,row))})).filter(group=>group.rows.length));
 </script>
-<template><details class="operation-guide" open><summary><BookOpen :size="22"/>操作说明与快捷键</summary><div class="guide-content"><input v-model="query" aria-label="搜索操作说明" placeholder="搜索操作，例如：Shift、重绘、翻译、保存……"/><section v-for="group in visible" class="operation-group"><h3>{{group.title}}</h3><table><tbody><tr v-for="row in group.rows"><td>{{row[0]}}</td><td>{{row[1]}}</td></tr></tbody></table></section><p v-if="!visible.length">没有找到相应操作，请换一个关键词。</p></div></details></template>
+<template><details class="operation-guide" open><summary><BookOpen :size="22"/>{{ui("操作说明与快捷键")}}</summary><div class="guide-content"><input v-model="query" :aria-label="ui(&quot;搜索操作说明&quot;)" :placeholder="ui(&quot;搜索操作，例如：Shift、重绘、翻译、保存……&quot;)"/><section v-for="group in visible" class="operation-group"><h3>{{ui(group.title)}}</h3><table><tbody><tr v-for="row in group.rows"><td>{{ui(row[0])}}</td><td>{{ui(row[1])}}</td></tr></tbody></table></section><p v-if="!visible.length">{{ui("没有找到相应操作，请换一个关键词。")}}</p></div></details></template>

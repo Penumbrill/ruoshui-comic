@@ -13,7 +13,11 @@ export function imageEditingMode(item){
  return null;
 }
 export function panelEditingMode(panel,gallery=[]){
- if(panel.imageMetadataDeleted)return null;const item=panelImage(panel,gallery);return item?imageEditingMode(item):panel.imageOrigin?.mode||null;
+ if(panel.imageMetadataDeleted)return null;
+ // Portable projects carry explicit provenance even if an older importer left
+ // a generic "imported" marker on their restored gallery entries.
+ if(['generate','inpaint'].includes(panel.imageOrigin?.mode))return panel.imageOrigin.mode;
+ const item=panelImage(panel,gallery);return item?imageEditingMode(item):null;
 }
 export function panelImage(panel,gallery=[]){
  return gallery.find(item=>panel.imageId?item.id===panel.imageId:item.url===panel.image)||null;

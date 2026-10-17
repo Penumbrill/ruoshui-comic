@@ -1,8 +1,9 @@
+import './locale.js';
 import {contentRatingPreference,adaptContentControls} from './content-controls.js';
 // Desktop dismissal delegates to upstream buttons; filtering and search stay upstream.
 document.addEventListener('click',event=>{
  const overlay=event.target;if(!(overlay instanceof HTMLElement)||!overlay.isConnected||overlay.style.position!=='fixed'||overlay.style.display!=='flex'||Number(overlay.style.zIndex)<9999)return;
- const save=[...overlay.querySelectorAll('button')].find(button=>button.textContent.trim()==='保存');
+ const save=[...overlay.querySelectorAll('button')].find(button=>['保存','Save'].includes(button.textContent.trim()));
  if(save){save.click();return;}
  if(overlay.onclick)return;
  const close=[...overlay.querySelectorAll('button,span')].find(button=>['✕','×','✖'].includes(button.textContent.trim()));
@@ -29,7 +30,7 @@ function adaptLayout(){
 }
 let currentNode,selectionTimer;
 function announceSelection(){clearTimeout(selectionTimer);selectionTimer=setTimeout(()=>{if(!currentNode)return;const widgets=Object.fromEntries(currentNode.widgets.map(w=>[w.name,w.value]));let selection;try{selection=JSON.parse(widgets.selection_data||'{}');}catch{selection={};}parent.postMessage({type:'danbooru-selected',selection,widgets},location.origin);},30);}
-window.ComfyUI={settings:{get:key=>key==='language'?'zh-CN':undefined}};
+window.ComfyUI={settings:{get:key=>key==='language'?(parent.document.documentElement.lang==='en'?'en-US':'zh-CN'):undefined}};
 export const app={graph:{links:{}},canvas:{setDirty:()=>{}},registerExtension:async extension=>{
  const settings=await fetch('/api/danbooru/preferences',{signal:AbortSignal.timeout(4000)}).then(r=>r.json()).catch(()=>({}));
  settings.rating_filter=contentRatingPreference(settings.rating_filter,settings.__allowAdultFilters===true);

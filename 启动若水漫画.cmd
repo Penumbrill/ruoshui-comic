@@ -1,8 +1,8 @@
 @echo off
 chcp 65001 >nul
-cd /d "%~dp0"
+cd /d "%~dp0" || exit /b 1
 if exist "%~dp0node_modules\electron\dist\electron.exe" (
-  start "" "%~dp0node_modules\electron\dist\electron.exe" "%~dp0"
+  start "" "%~dp0node_modules\electron\dist\electron.exe" .
   exit /b
 )
 if exist "%~dp0release\win-unpacked\若水漫画.exe" (

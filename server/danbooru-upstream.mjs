@@ -5,8 +5,9 @@ import {randomUUID} from 'node:crypto';
 import {spawn} from 'node:child_process';
 import {createInterface} from 'node:readline';
 import {networkFetch} from './network.mjs';
+import {externalResource} from './runtime-resources.mjs';
 
-const bundle=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const bundle=externalResource(path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'));
 export function upstreamAddress(value){
  const u=new URL(value);
  if(u.protocol!=='https:'||u.username||u.password||u.port||!(u.hostname==='danbooru.donmai.us'||u.hostname==='cdn.donmai.us'||u.hostname==='raw.githubusercontent.com'||u.hostname==='sakizuki-danboorusearch.hf.space'||u.hostname==='ghproxy.com'))throw Error('标签浏览器请求了不受支持的网络地址');

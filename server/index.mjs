@@ -1,3 +1,5 @@
+import {exportProjectArchive,importProjectArchive} from './project-archive.mjs';
+import {english} from '../shared/ui-text.mjs';
 import {network,networkFetch} from './network.mjs';
 import {pluginRequest,pluginImage,imageLoader} from './danbooru-plugin.mjs';
 import {DanbooruUpstream} from './danbooru-upstream.mjs';
@@ -30,6 +32,7 @@ export async function startServer({port=4319,service:given,vault,resolveProxy,na
    const host=req.headers.host?.split(':')[0];if(!['127.0.0.1','localhost'].includes(host))return send({error:'只允许本机访问'},403);
    if(req.headers.origin&&!/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(req.headers.origin))return send({error:'拒绝外部页面请求'},403);
    if(req.headers['sec-fetch-site']==='cross-site'&&url.pathname.startsWith('/api/'))return send({error:'跨站请求已拒绝'},403);
+   if(url.pathname==='/api/ui-locale/en')return send(english);
    if(url.pathname==='/api/events'){
     res.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'no-cache','Connection':'keep-alive'});res.write('data: '+JSON.stringify({type:'snapshot',data:service.snapshot()})+'\n\n');
     const listener=e=>res.write('data: '+JSON.stringify(e)+'\n\n');service.listeners.add(listener);const keep=setInterval(()=>res.write(': ping\n\n'),20000);req.on('close',()=>{clearInterval(keep);service.listeners.delete(listener);});return;
@@ -43,6 +46,11 @@ export async function startServer({port=4319,service:given,vault,resolveProxy,na
    if(url.pathname.startsWith('/api/files/')&&url.pathname!=='/api/files/inventory'){
     const id=url.pathname.split('/').at(-1);const item=service.findImage(id);if(!item)return send({error:'图像不存在'},404);
     const b=await fs.readFile(service.filePath(item.file));res.writeHead(200,{'Content-Type':mime[path.extname(item.file)]||'image/png','Cache-Control':'private, max-age=86400'});return res.end(b);
+   }
+   if(req.method==='POST'&&url.pathname==='/api/projects/import-archive'){
+    if(req.headers['content-type']!=='application/zip')return send({error:'请选择项目 ZIP 压缩包'},415);
+    const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>512*1024*1024)return send({error:'项目压缩包超过 512 MB'},413);chunks.push(chunk);}
+    return send(await importProjectArchive(service,Buffer.concat(chunks)));
    }
    let body={};if(req.method==='POST'){
     if(!req.headers['content-type']?.startsWith('application/json'))return send({error:'需要 JSON 请求'},415);
@@ -63,6 +71,8 @@ export async function startServer({port=4319,service:given,vault,resolveProxy,na
      case 'POST /api/gallery/delete':result=await service.deleteImages(body.ids);break;
      case 'GET /api/gallery/trash':result=service.galleryTrash.filter(item=>!item.restoredAt);break;
      case 'POST /api/gallery/restore':result=await service.restoreImages(body.ids);break;
+     case 'GET /api/trash':result={projects:service.projectTrash,images:service.galleryTrash.filter(item=>!item.restoredAt)};break;
+     case 'POST /api/trash/purge':result=await service.purgeRecycleBin(body);break;
      case 'GET /api/cache/status':result=await service.cacheMaintenance.status();break;
      case 'POST /api/cache/clean':result=await service.cacheMaintenance.clean(true);break;
      case 'GET /api/network/status':result=await network.status();break;
@@ -89,6 +99,8 @@ export async function startServer({port=4319,service:given,vault,resolveProxy,na
      case 'POST /api/assistant/submit':result=await service.assistant.submit(body);break;
      case 'POST /api/assistant/stop':await service.assistant.stop();result={stopped:true};break;
      case 'POST /api/assistant/chats/delete':result=await service.assistant.deleteChats(body);break;
+     case 'POST /api/translation/prepare':void service.prepareTranslationModels().catch(error=>service.log('翻译模型准备未完成：'+error.message));result={started:true};break;
+     case 'POST /api/projects/export-archive':{const bytes=await exportProjectArchive(service,body.id);res.writeHead(200,{'Content-Type':'application/zip','Content-Length':bytes.length,'Cache-Control':'no-store'});return res.end(bytes);}
      case 'GET /api/translate/status':result={last:service.translationStatus||null,providers:(await service.translationProviders('en')).map(p=>({id:p.id,name:p.name,coolingDown:(service.translationRouter.failures.get(p.id)||0)>Date.now()}))};break;
      case 'POST /api/assistant/hf/search':result=await searchLlmModels(body.query);break;
      case 'POST /api/settings':result=await service.saveConfig(body);break;
@@ -102,7 +114,7 @@ export async function startServer({port=4319,service:given,vault,resolveProxy,na
      case 'POST /api/exports':result=await service.exportFile(body);break;
      case 'POST /api/projects/save':result=await service.saveProject(body);break;
      case 'POST /api/projects/open':result=await service.readProject(body.id);break;
-     case 'POST /api/projects/delete':result=await service.deleteProject(body.id);break;
+     case 'POST /api/projects/delete':result=await service.deleteProject(body.id,{deleteRelated:body.deleteRelated===true});break;
      case 'GET /api/projects/trash':result=service.projectTrash;break;
      case 'POST /api/projects/restore':result=await service.restoreProject(body.id);break;
      case 'POST /api/models/download':result=await service.downloadModels(body.profile);break;

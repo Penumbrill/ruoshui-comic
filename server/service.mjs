@@ -20,6 +20,8 @@ import {buildWorkflow,validateParams} from './workflow.mjs';
 import {inspectEnvironment,links} from './environment.mjs';
 import {extractGeneration,pngMetadata} from './metadata.mjs';
 import {loadGalleryTrash,changeGalleryTrash} from './gallery-trash.mjs';
+import {projectRelatedImages,relatedFileMoves,moveRelatedFiles,takeProjectScopes,restoreProjectScopes} from './project-related.mjs';
+import {purgeTrash} from './trash-purge.mjs';
 import {TagLibrary} from './tag-library.mjs';
 import {rebaseInstallationPaths} from './portable-paths.mjs';
 import {isolateModelPaths} from './runtime-isolation.mjs';
@@ -56,7 +58,7 @@ export class StudioService{
   if(existsSync(path.join(this.data,'model-manifest.json')))this.modelManifestPath=path.join(this.data,'model-manifest.json');
   this.jobs=await readJson(path.join(this.data,'jobs.json'),[]);this.gallery=await readJson(path.join(this.data,'gallery.json'),[]);this.projects=await readJson(path.join(this.data,'project-index.json'),[]);
   await loadGalleryTrash(this);
-  this.projectTrash=await readJson(path.join(this.data,'trash/projects/index.json'),[]);this.deletedProjectIds=new Set(this.projectTrash.map(p=>p.id));this.projects=this.projects.filter(p=>!this.deletedProjectIds.has(p.id));
+  this.projectTrash=await readJson(path.join(this.data,'trash/projects/index.json'),[]);this.deletedProjectIds=new Set([...this.projectTrash.map(p=>p.id),...await readJson(path.join(this.data,'trash/projects/purged.json'),[])]);this.projects=this.projects.filter(p=>!this.deletedProjectIds.has(p.id));
   this.install=await readJson(path.join(this.data,'autosave/download-task.json'),this.install);if(this.install.state==='running')this.install={...this.install,state:'paused',speed:0,message:'上次下载未完成，点击继续可断点续传'};
   for(const j of this.jobs)if(['queued','running','cancelling'].includes(j.status)){j.status='interrupted';j.error='软件上次退出时任务未完成，可重新加入队列';}
   return this;
@@ -70,6 +72,7 @@ export class StudioService{
  tagLibrary(refresh=false){this.tagCatalog||=new TagLibrary(this);return this.tagCatalog.load(refresh);}
  deleteImages(ids){return changeGalleryTrash(this,ids);}
  restoreImages(ids){return changeGalleryTrash(this,ids,true);}
+ purgeRecycleBin(options){const pending=(this.galleryMutationChain||Promise.resolve()).catch(()=>{}).then(async()=>{this.trashPurging=true;try{return await purgeTrash(this,options);}finally{this.trashPurging=false;}});this.galleryMutationChain=pending;return pending;}
  async saveConfig(patch){this.config=mergeConfig(this.config,patch);const deleted=this.galleryTrash?.filter(item=>!item.restoredAt)||[];stripConfigImageMetadata(this.config,new Set(deleted.map(item=>item.id)),deleted.flatMap(item=>item.metadata?.scopes||[]));this.config.updatedAt=new Date().toISOString();await atomicJson(path.join(this.data,'settings.json'),this.config);return this.config;}
  async prepareModels({params,inpaint=false,translate=false}){
   const p=validateParams(params);const manifest=JSON.parse(await fs.readFile(path.join(bundle,'assets/model-manifest.json'),'utf8'));
@@ -247,26 +250,39 @@ export class StudioService{
   return {file:path.relative(this.data,target).replaceAll('\\','/'),path:target};
  }
  async readProject(id){if(!/^[0-9a-f-]{36}$/.test(id))throw Error('无效项目');if(this.deletedProjectIds?.has(id))throw Error('此项目已移入回收区');const project=await readJson(path.join(this.data,'projects',id+'.json'),null);if(!project)throw Error('没有找到此项目或有效备份');return project;}
- async deleteProject(id){
+ async deleteProject(id,{deleteRelated=false}={}){
+  if(this.trashPurging)throw Error('正在清空回收区，请稍后重试');
   if(this.jobs.some(j=>['running','queued','cancelling'].includes(j.status)&&j.target?.projectId===id))throw Error('此项目仍有生图任务，请先停止任务再删除');
   const project=await this.readProject(id),file=path.join(this.data,'projects',id+'.json'),folder=path.join(this.data,'trash/projects');
+  const related=deleteRelated?await projectRelatedImages(this,project):{ids:[],retained:[]};
   this.deletedProjectIds.add(id);
   try{
    await fileQueues.get(file);await fs.mkdir(folder,{recursive:true});const entry={id,name:project.name,pages:project.pages.length,deletedAt:new Date().toISOString(),file:id+'-'+Date.now()+'.json'};
    const latest=await readJson(file,project);await atomicJson(path.join(folder,entry.file),latest);
+   entry.deleteRelated=deleteRelated;entry.imageIds=related.ids;entry.retainedImageIds=related.retained;
+   entry.fileMoves=deleteRelated?relatedFileMoves(this,id,related.ids,entry.file.slice(0,-5)):[];
+   entry.scopes=takeProjectScopes(this.config,id);
    this.projectTrash.push(entry);await atomicJson(path.join(folder,'index.json'),this.projectTrash);
    for(const suffix of ['','.bak','.tmp'])await fs.unlink(file+suffix).catch(e=>{if(e.code!=='ENOENT')throw e;});
-   this.projects=this.projects.filter(p=>p.id!==id);await atomicJson(path.join(this.data,'project-index.json'),this.projects);this.config.openProjectIds=(this.config.openProjectIds||[]).filter(p=>p!==id);if(this.config.lastProjectId===id)this.config.lastProjectId=null;await this.saveConfig({});this.emit('projects',this.projects);return{projects:this.projects,trash:this.projectTrash};
+   this.projects=this.projects.filter(p=>p.id!==id);await atomicJson(path.join(this.data,'project-index.json'),this.projects);
+   for(let i=0;i<related.ids.length;i+=1000)await this.deleteImages(related.ids.slice(i,i+1000));
+   await moveRelatedFiles(this,entry.fileMoves);
+   this.config.openProjectIds=(this.config.openProjectIds||[]).filter(p=>p!==id);if(this.config.lastProjectId===id)this.config.lastProjectId=null;await this.saveConfig({});this.emit('projects',this.projects);return{projects:this.projects,trash:this.projectTrash,config:this.config};
   }catch(e){if(!this.projectTrash.some(p=>p.id===id))this.deletedProjectIds.delete(id);throw e;}
  }
  async restoreProject(id){
+  if(this.trashPurging)throw Error('正在清空回收区，请稍后重试');
   const entry=this.projectTrash.find(p=>p.id===id);if(!entry||!/^[0-9a-f-]{36}-\d+\.json$/.test(entry.file))throw Error('没有找到此项目的回收记录');
   const project=await readJson(path.join(this.data,'trash/projects',entry.file),null);if(!project)throw Error('回收文件不可用');
+  await moveRelatedFiles(this,entry.fileMoves,true);
+  const imageIds=(entry.imageIds||[]).filter(imageId=>this.galleryTrash.some(image=>image.id===imageId&&!image.restoredAt));
+  for(let i=0;i<imageIds.length;i+=1000)await this.restoreImages(imageIds.slice(i,i+1000));
+  restoreProjectScopes(this.config,entry.scopes);await this.saveConfig({});
   this.deletedProjectIds.delete(id);try{await this.saveProject(project);}catch(e){this.deletedProjectIds.add(id);throw e;}
-  this.projectTrash=this.projectTrash.filter(p=>p.id!==id);await atomicJson(path.join(this.data,'trash/projects/index.json'),this.projectTrash);return{project,projects:this.projects,trash:this.projectTrash};
+  this.projectTrash=this.projectTrash.filter(p=>p.id!==id);await atomicJson(path.join(this.data,'trash/projects/index.json'),this.projectTrash);return{project,projects:this.projects,trash:this.projectTrash,config:this.config};
  }
  async downloadModels(profile){
-  if(!['original','expanded','inpaint','finishing','translation','tag_translation','cutout','cutout_general','selection','all','requested'].includes(profile))throw Error('未知模型类型');if(this.install.state==='running')throw Error('已经有安装任务进行中');
+  if(!['original','expanded','inpaint','finishing','translation','tag_translation','translation_setup','cutout','cutout_general','selection','all','requested'].includes(profile))throw Error('未知模型类型');if(this.install.state==='running')throw Error('已经有安装任务进行中');
   const python=path.join(this.runtime,'python/python.exe');if(!existsSync(python))throw Error('请先安装 Python 运行环境');
   const run=this.installRun=crypto.randomUUID(),previous=this.install.profile===profile?this.install:{};
   this.install={...previous,state:'running',phase:'connecting',profile,percent:previous.percent||0,message:'连接模型下载源…'};this.emit('install',this.install);
@@ -295,6 +311,22 @@ export class StudioService{
   const child=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',script,'-Target',this.root],{windowsHide:true});this.installChild=child;
   for(const stream of [child.stdout,child.stderr])stream.on('data',b=>{this.log(b.toString());this.install.message=b.toString().trim().slice(-220);this.emit('install',this.install);});
   child.on('error',e=>{this.install={state:'error',message:e.message};this.emit('install',this.install);});child.on('exit',code=>{this.installChild=null;this.install={state:code===0?'done':'error',percent:code===0?100:0,message:code===0?'运行环境安装完成，可以启动引擎':'安装未完成，请查看日志并重试'};this.emit('install',this.install);});return true;
+ }
+ async prepareTranslationModels(){
+  if(this.translationSetup)return this.translationSetup;
+  this.translationSetup=(async()=>{
+   const entries=JSON.parse(await fs.readFile(this.defaultManifestPath,'utf8')).downloads.translation_setup;
+   if(!entries?.length)throw Error('翻译模型清单缺失');
+   const complete=async()=>{for(const entry of entries)try{if((await fs.stat(path.join(this.folder('models'),entry.target))).size!==entry.size)return false;}catch{return false;}return true;};
+   if(!await complete()){
+    while(this.install.state==='running'&&!this.closed)await pause(500);if(this.closed)return;
+    await this.downloadModels('translation_setup');const child=this.installChild;
+    await new Promise((resolve,reject)=>{child.once('error',reject);child.once('exit',code=>code===0?resolve():reject(Error('翻译模型下载中断，可在下载窗口继续')));});
+    if(!await complete())throw Error('翻译模型尚未完整下载');
+   }
+   if(!this.config.translationSetupCompleted)await this.saveConfig({translationSetupCompleted:true});
+   this.translationRouter?.failures.clear();this.emit('models',await this.models());
+  })().finally(()=>{this.translationSetup=null;});return this.translationSetup;
  }
  async translationProviders(target){
   this.translationRouter||=new TranslationRouter();const providers=[],cloud=this.config.translationCloud!==false&&await this.assistant?.hasKey();
@@ -332,5 +364,5 @@ export class StudioService{
   return{translations:Object.fromEntries(tags.map((tag,i)=>[tag,known.get(keys[i])||this.tagTranslations[keys[i]]||tag])),sources:[...new Set([...(keys.some(k=>known.has(k))?['本地词库']:[]),...(routed?[...routed.sources.values()]:[]),...(keys.some(k=>validTranslation(k,this.tagTranslations[k],'zh'))?['翻译缓存']:[])])],partial:!!unresolved.length,unresolved:tags.filter((_,i)=>unresolved.includes(keys[i])),message:unresolved.length?'部分标签暂未译出，已尝试备用服务，可稍后刷新重试。':''};
  }
  async translateOffline(text){this.zhTranslator||=new OfflineTranslator(path.join(this.runtime,'python/python.exe'),path.join(externalBundle,'assets/translate_worker.py'),path.join(this.folder('models'),'translation'),'zh-en');return this.zhTranslator.translate(text);}
- shutdown(){this.closed=true;this.updates?.close();this.networkTransfer?.control('cancel');this.cacheMaintenance?.close();void this.danbooruUpstream?.close();void this.assistant?.stop();this.cutoutChild?.kill();this.socket?.close();this.comfyProcess?.kill();this.installChild?.kill();this.translator?.kill();this.tagTranslator?.close();void this.persist();}
+ shutdown(){this.closed=true;this.updates?.close();this.networkTransfer?.control('cancel');this.cacheMaintenance?.close();void this.danbooruUpstream?.close();void this.assistant?.stop();this.cutoutChild?.kill();this.socket?.close();this.comfyProcess?.kill();this.installChild?.kill();this.translator?.kill();this.tagTranslator?.close();this.zhTranslator?.close();void this.persist();}
 }

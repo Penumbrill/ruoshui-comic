@@ -1,6 +1,7 @@
 import {ref} from 'vue';import {api} from '../store';
 export const fontList=ref([]);let pending;const loaded=new Map();
 export async function loadFonts(){if(pending)return pending;pending=api('fonts').then(items=>{fontList.value=items;return items;}).catch(error=>{pending=null;throw error;});return pending;}
+export async function refreshFonts(){fontList.value=await api('fonts');return fontList.value;}
 export async function ensureFont(family){if(!family)return;const item=fontList.value.find(font=>font.family===family);if(!item?.url)return;if(!loaded.has(family)){const work=(async()=>{const face=new FontFace(family,`url("${item.url}")`,{weight:item.variable?'100 900':'normal'});await face.load();document.fonts.add(face);})();loaded.set(family,work);work.catch(()=>loaded.delete(family));}return loaded.get(family);}
 export async function importFont(file){const base64=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.onerror=reject;reader.readAsDataURL(file);});const font=await api('fonts/import',{name:file.name,base64});if(!fontList.value.some(item=>item.id===font.id))fontList.value.push(font);await ensureFont(font.family);return font;}
 export async function preparePageFonts(page){await loadFonts();await Promise.all([...new Set(['Ruoshui-notosanssc',...page.objects.map(o=>o.fontFamily).filter(Boolean)])].map(ensureFont));await document.fonts.ready;}

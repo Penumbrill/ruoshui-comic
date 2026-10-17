@@ -5,6 +5,15 @@ sys.stdout.reconfigure(encoding='utf-8',errors='strict')
 try:
  import torch
  from transformers import MarianMTModel,MarianTokenizer
+ import sentencepiece
+ from transformers.models.marian import tokenization_marian
+ # SentencePiece's native filename loader on Windows can fail on Chinese
+ # installation paths. Read with Python's Unicode-aware filesystem instead.
+ def load_sentencepiece(model_path,options):
+  processor=sentencepiece.SentencePieceProcessor(**options)
+  processor.LoadFromSerializedProto(pathlib.Path(model_path).read_bytes())
+  return processor
+ tokenization_marian.load_spm=load_sentencepiece
  torch.set_num_threads(4)
  folder=pathlib.Path(sys.argv[1]);tokenizer=MarianTokenizer.from_pretrained(str(folder),local_files_only=True)
  model=MarianMTModel.from_pretrained(str(folder),local_files_only=True).eval().to('cpu')

@@ -1,5 +1,23 @@
 # 发布说明 / Release notes
 
+## 修复更新 / Fixes · 2026-10-18
+
+- 修复整合包中的翻译依赖和中文路径兼容问题；首次启动自动下载中译英与英译中模型。
+- 修复标签浏览器在正式安装包中无法启动的问题，并补齐英文界面文案。
+- 使用向导仅在首次启动显示，之后仍可手动打开。
+- 设置新增回收区入口、一键清空及永久删除确认；项目和图片均可恢复，回收区不会自动清理。
+- 项目标签新增关闭按钮和保存确认；删除项目时可选择保留图片或一并回收关联内容，自动保留其他项目使用的图片。
+- 项目导出改为完整 ZIP，包含图片、贴图、字体、生成与重绘参数、候选图、遮罩和最后编辑状态；导入后恢复原布局及双击编辑入口。
+- 说明包使用独立子文件夹，重新构建 ZIP 时清除旧条目，避免跨包重复文件。
+
+- Fixed packaged translation dependencies and Windows paths containing Chinese characters. Both translation models download automatically on first launch.
+- Fixed the packaged tag browser and completed English interface copy.
+- Show the getting-started guide only on first launch; it remains available from the sidebar.
+- Added recycle-bin access, restore controls and confirmed permanent cleanup in Settings. Recycled content is never cleared automatically.
+- Added project-tab close buttons with a save confirmation. Project deletion can keep images or recycle related content while preserving images used by other projects.
+- Export complete project ZIPs with images, stickers, fonts, generation and inpainting parameters, candidates, masks and the last editor state. Import restores the layout and double-click editing behavior.
+- Put installation instructions in a separate subfolder and create fresh ZIPs to prevent duplicate entries across packages.
+
 ## 首次公开预览 / First public preview
 
 ### 中文

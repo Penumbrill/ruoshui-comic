@@ -3,3 +3,28 @@ async function fixture(t){const base=path.resolve('works/tests');await fs.mkdir(
 const project=()=>({id:crypto.randomUUID(),name:'可恢复的漫画',pages:[{id:crypto.randomUUID(),name:'第一页',width:1200,height:1800,objects:[{id:crypto.randomUUID(),kind:'text',text:'保留对白',x:80,y:90}]}]});
 test('project deletion is recoverable and stale autosaves cannot resurrect deleted projects',async t=>{const{dir,service}=await fixture(t),p=project();await service.saveProject(p);service.config.lastProjectId=p.id;service.config.openProjectIds=[p.id];await service.deleteProject(p.id);assert.equal(service.projects.length,0);await assert.rejects(()=>service.readProject(p.id),/回收区/);await assert.rejects(()=>service.saveProject(p),/回收区/);const reloaded=await new StudioService(dir).init();assert.equal(reloaded.projects.length,0);await assert.rejects(()=>reloaded.saveProject(p),/回收区/);await reloaded.restoreProject(p.id);assert.equal(reloaded.projects.length,1);assert.equal((await reloaded.readProject(p.id)).pages[0].objects[0].text,'保留对白');assert.equal(reloaded.projectTrash.length,0);reloaded.closed=true;await reloaded.writeChain;});
 test('project deletion preserves other projects and rejects a project with queued generation',async t=>{const{service}=await fixture(t),a=project(),b=project();await service.saveProject(a);await service.saveProject(b);service.jobs=[{status:'queued',target:{projectId:a.id}}];await assert.rejects(()=>service.deleteProject(a.id),/先停止/);assert.equal(service.projects.length,2);service.jobs=[];await service.deleteProject(a.id);assert.equal((await service.readProject(b.id)).name,b.name);assert.deepEqual(service.projects.map(p=>p.id),[b.id]);await assert.rejects(()=>service.restoreProject('../bad'),/回收记录/);});
+const png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j7R8AAAAASUVORK5CYII=';
+test('default project deletion keeps images and restores project-scoped drafts',async t=>{
+ const{service}=await fixture(t),p=project(),image=await service.importImage({name:'保留.png',base64:png});
+ p.pages[0].objects.push({id:'panel',kind:'panel',image:image.url,imageId:image.id});await service.saveProject(p);
+ const scope='panel:'+p.id+':panel';service.config.quickPromptDrafts={[scope]:{positive:'saved prompt'}};
+ await service.deleteProject(p.id);assert(service.gallery.some(item=>item.id===image.id));assert.equal(await fs.readFile(path.join(service.data,image.file),'base64'),png);assert.equal(service.config.quickPromptDrafts[scope],undefined);
+ await service.restoreProject(p.id);assert.equal(service.config.quickPromptDrafts[scope].positive,'saved prompt');
+});
+test('related-content deletion recycles candidates, source images, drafts and portable archive, and survives restart',async t=>{
+ const{dir,service}=await fixture(t),p=project(),source=await service.importImage({name:'source.png',base64:png}),candidate=await service.importImage({name:'candidate.png',base64:png});
+ candidate.target={projectId:p.id};candidate.sourceImageId=source.id;await service.persist();
+ p.pages[0].objects.push({id:'panel',kind:'panel',image:candidate.url,imageId:candidate.id,imageOrigin:'inpaint',generation:{positive:'test'}});await service.saveProject(p);
+ service.config.cutoutDrafts={[source.id]:{scale:1.2}};
+ const scope='panel:'+p.id+':panel';service.config.promptHistory={[scope]:['saved']};
+ const portable=path.join(service.data,'project-assets',p.id,'project.ruoshui.zip');await fs.mkdir(path.dirname(portable),{recursive:true});await fs.writeFile(portable,'portable backup');
+ await service.deleteProject(p.id,{deleteRelated:true});assert.equal(service.gallery.length,0);assert.equal(service.config.cutoutDrafts[source.id],undefined);assert.equal(service.config.promptHistory[scope],undefined);
+ await fs.access(path.join(service.data,candidate.file));await assert.rejects(fs.access(portable));
+ const restarted=await new StudioService(dir).init();await restarted.restoreProject(p.id);assert.equal(restarted.gallery.length,2);assert.equal(await fs.readFile(portable,'utf8'),'portable backup');assert.equal(await fs.readFile(path.join(service.data,candidate.file),'base64'),png);assert.equal(restarted.config.cutoutDrafts[source.id].scale,1.2);assert.deepEqual(restarted.config.promptHistory[scope],['saved']);assert.equal((await restarted.readProject(p.id)).pages[0].objects[1].imageOrigin,'inpaint');restarted.closed=true;await restarted.writeChain;
+});
+test('related-content deletion protects shared images and their source chains, and rejects busy images',async t=>{
+ const{service}=await fixture(t),a=project(),b=project(),source=await service.importImage({name:'source.png',base64:png}),shared=await service.importImage({name:'shared.png',base64:png}),own=await service.importImage({name:'own.png',base64:png});
+ shared.sourceImageId=source.id;own.target={projectId:a.id};a.pages[0].objects.push({id:'a',kind:'panel',image:shared.url});b.pages[0].objects.push({id:'b',kind:'panel',imageId:shared.id});await service.saveProject(a);await service.saveProject(b);
+ service.jobs=[{status:'running',imageId:own.id}];await assert.rejects(()=>service.deleteProject(a.id,{deleteRelated:true}),/先停止/);assert.equal(service.projects.length,2);service.jobs=[];
+ const result=await service.deleteProject(a.id,{deleteRelated:true});assert.deepEqual(new Set(service.gallery.map(item=>item.id)),new Set([source.id,shared.id]));assert.deepEqual(new Set(result.trash[0].retainedImageIds),new Set([source.id,shared.id]));assert.equal((await service.readProject(b.id)).pages[0].objects[1].imageId,shared.id);await fs.access(path.join(service.data,source.file));
+});

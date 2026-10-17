@@ -17,5 +17,6 @@ test('double-click routing distinguishes generated, redrawn, external and cutout
  const original={id:'a',url:'/api/files/a',jobId:'job1'},redrawn={id:'b',url:'/api/files/b',jobId:'job2',sourceImageId:'a',params:{type:'expanded',positive:'angry',negative:'blur',inpaint:{positive:'stale'}}};
  assert.equal(imageEditingMode(original),'generate');assert.equal(imageEditingMode(redrawn),'inpaint');assert.equal(imageEditingMode({...redrawn,imported:true}),null);assert.equal(imageEditingMode({...redrawn,cutout:true}),null);assert.equal(imageEditingMode({imported:true,params:{positive:'embedded prompt'}}),null);
  const panel={};setPanelImage(panel,redrawn);assert.equal(panelEditingMode(panel,[redrawn]),'inpaint');assert.equal(panel.generation.params.inpaint.positive,'angry');assert.equal(panel.generation.params.inpaint.sourceImageId,'b');assert.equal(panelEditingMode(JSON.parse(JSON.stringify(panel)),[]),'inpaint');
+ assert.equal(panelEditingMode(panel,[{...redrawn,imported:true}]),'inpaint');
  setPanelImage(panel,{...original,imported:true});assert.equal(panelEditingMode(panel,[]),null);
 });

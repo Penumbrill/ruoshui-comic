@@ -1,0 +1,28 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs/promises';import path from 'node:path';import {StudioService} from '../server/service.mjs';
+const png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j7R8AAAAASUVORK5CYII=';
+async function fixture(t){const base=path.resolve('works/tests');await fs.mkdir(base,{recursive:true});const root=await fs.mkdtemp(path.join(base,'purge-')),service=await new StudioService(root).init();t.after(async()=>{await service.galleryMutationChain?.catch(()=>{});await service.writeChain;assert((await fs.realpath(root)).startsWith(base+path.sep));await fs.rm(root,{recursive:true,force:true});});return{root,service};}
+const addProject=(service,image)=>service.saveProject({name:'Test project',pages:[{width:1200,height:1800,objects:[{id:'panel',kind:'panel',image:image.url,imageId:image.id}]}]});
+test('empty recycle bin permanently removes recycled projects, images and portable resources, and keeps active work and models',async t=>{
+ const{root,service}=await fixture(t),image=await service.importImage({name:'recycle.png',base64:png}),keep=await service.importImage({name:'keep.png',base64:png}),project=await addProject(service,image),active=await addProject(service,keep);
+ const model=path.join(root,'runtime/ComfyUI/models/vae/keep.safetensors');await fs.writeFile(model,'model');
+ const backup=path.join(service.data,'project-assets',project.id,'project.ruoshui.zip');await fs.mkdir(path.dirname(backup),{recursive:true});await fs.writeFile(backup,'backup');
+ await service.deleteProject(project.id,{deleteRelated:true});const entry=service.projectTrash[0];await assert.rejects(service.purgeRecycleBin({projectIds:[project.id],imageIds:[image.id]}),/确认/);assert.equal(service.projectTrash.length,1);
+ const result=await service.purgeRecycleBin({projectIds:[project.id],imageIds:[image.id],confirmed:true});assert.equal(result.deletedProjects,1);assert.equal(result.deletedImages,1);assert.equal(result.retainedImages,0);assert.equal(service.projectTrash.length,0);assert.equal(service.galleryTrash.length,0);await assert.rejects(fs.access(service.filePath(image.file)));await assert.rejects(fs.access(path.join(service.data,'trash/projects',entry.file)));await assert.rejects(fs.access(path.join(service.data,'trash/projects/assets',entry.file.slice(0,-5))));await fs.access(model);await fs.access(service.filePath(keep.file));assert.equal((await service.readProject(active.id)).id,active.id);
+ const reloaded=await new StudioService(root).init();await assert.rejects(()=>reloaded.saveProject(project),/回收区/);await assert.rejects(()=>reloaded.restoreProject(project.id),/回收记录/);assert.equal(reloaded.findImage(image.id),undefined);
+});
+test('permanent image deletion protects references in active and recycled projects, including source chains',async t=>{
+ const{service}=await fixture(t),source=await service.importImage({name:'source.png',base64:png}),image=await service.importImage({name:'edit.png',base64:png});image.sourceImageId=source.id;const project=await addProject(service,image);
+ await service.deleteImages([source.id,image.id]);let result=await service.purgeRecycleBin({imageIds:[source.id,image.id],confirmed:true});assert.equal(result.retainedImages,2);assert.equal(result.deletedImages,0);await fs.access(service.filePath(source.file));await service.deleteProject(project.id);
+ result=await service.purgeRecycleBin({imageIds:[source.id,image.id],confirmed:true});assert.equal(result.retainedImages,2);
+ result=await service.purgeRecycleBin({projectIds:[project.id],imageIds:[source.id,image.id],confirmed:true});assert.equal(result.deletedImages,2);assert.equal(result.projects.length,0);
+});
+test('invalid selections, unsafe file paths and active tasks cannot purge files',async t=>{
+ const{service}=await fixture(t),image=await service.importImage({name:'protected.png',base64:png});await service.deleteImages([image.id]);await assert.rejects(service.purgeRecycleBin({imageIds:['../bad'],confirmed:true}),/无效/);service.jobs=[{status:'running'}];await assert.rejects(service.purgeRecycleBin({imageIds:[image.id],confirmed:true}),/先完成/);service.jobs=[];
+ const original=service.galleryTrash[0].file;service.galleryTrash[0].file='../outside.png';await assert.rejects(service.purgeRecycleBin({imageIds:[image.id],confirmed:true}),/路径无效/);service.galleryTrash[0].file=original;await fs.access(service.filePath(original));assert.equal(service.galleryTrash.length,1);
+});
+test('project-related images can be restored individually before restoring the project',async t=>{
+ const{service}=await fixture(t),image=await service.importImage({name:'independent.png',base64:png}),project=await addProject(service,image);await service.deleteProject(project.id,{deleteRelated:true});await service.restoreImages([image.id]);await fs.access(service.filePath(service.findImage(image.id).file));await service.restoreProject(project.id);assert.equal(service.gallery.filter(item=>item.id===image.id).length,1);
+});
+test('purging a source preserves recovery of another recycled image that still references it',async t=>{
+ const{service}=await fixture(t),source=await service.importImage({name:'source.png',base64:png}),edit=await service.importImage({name:'edit.png',base64:png});edit.sourceImageId=source.id;await service.deleteImages([source.id,edit.id]);let result=await service.purgeRecycleBin({imageIds:[source.id],confirmed:true});assert.equal(result.retainedImages,1);await fs.access(service.filePath(source.file));result=await service.purgeRecycleBin({imageIds:[source.id,edit.id],confirmed:true});assert.equal(result.deletedImages,2);
+});
