@@ -16,6 +16,7 @@ import WebSocket from 'ws';
 import {prepareWeilinData} from './weilin-data.mjs';
 import {OfflineTranslator} from './offline-translator.mjs';
 import {defaults,mergeConfig} from './profiles.mjs';
+import {migratePromptExamples} from '../shared/prompt-examples.mjs';
 import {buildWorkflow,validateParams} from './workflow.mjs';
 import {inspectEnvironment,links} from './environment.mjs';
 import {extractGeneration,pngMetadata} from './metadata.mjs';
@@ -52,7 +53,7 @@ export class StudioService{
   const oldData=path.join(this.root,'data');if(existsSync(path.join(oldData,'gallery.json'))&&!existsSync(path.join(this.data,'gallery.json')))await fs.cp(oldData,this.data,{recursive:true,force:false});
   for(const folder of ['output','imports','projects','exports','logs','comfy-user','autosave'])await fs.mkdir(path.join(this.data,folder),{recursive:true});
   for(const category of categories) await fs.mkdir(this.folder(category),{recursive:true});
-  const stored=await readJson(path.join(this.data,'settings.json'),{});this.config=rebaseInstallationPaths(mergeConfig(defaults(),stored),this.root);
+  const stored=await readJson(path.join(this.data,'settings.json'),{});this.config=migratePromptExamples(rebaseInstallationPaths(mergeConfig(defaults(),stored),this.root));
   for(const type of ['original','expanded']){const p=this.config.profiles[type];if(stored.schemaVersion!==2){Object.assign(p.inpaint,{steps:30,cfg:4,sampler:'er_sde',scheduler:'simple',denoise:0.8,maskBlur:4,invertMask:false,onlyMasked:false,padding:32,positive:'',negative:'',controlnet:type==='original'?'anima-lllite-inpainting-v2.safetensors':''});}if(p.upscale.upscale_model==='RealESRGAN_x4plus_anime_6B.pth'&&!existsSync(path.join(this.folder('upscale_models'),p.upscale.upscale_model)))p.upscale.upscale_model='RealESRGAN_x4plus.safetensors';}
   this.config.schemaVersion=2;this.config.liveTagTranslation??=true;this.tagTranslations=await readJson(path.join(this.data,'autosave/tag-translations.json'),{});
   if(existsSync(path.join(this.data,'model-manifest.json')))this.modelManifestPath=path.join(this.data,'model-manifest.json');
