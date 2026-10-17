@@ -1,4 +1,5 @@
 import {network,networkFetch} from './network.mjs';
+import {completeLlmDownload} from './llm-downloads.mjs';
 import {TranslationRouter,validTranslation} from './translation-router.mjs';
 import {stripProjectImageMetadata,stripConfigImageMetadata} from '../shared/image-metadata.mjs';
 import {setPanelImage} from '../shared/panel-generation.mjs';
@@ -289,9 +290,9 @@ export class StudioService{
   this.install={...previous,state:'running',phase:'connecting',profile,percent:previous.percent||0,message:'连接模型下载源…'};this.emit('install',this.install);
   let env;try{env=await network.environment();}catch(e){this.install={...this.install,state:'error',message:'网络检测失败，请点击刷新重试'};this.emit('install',this.install);throw e;}
   const child=spawn(python,['-I',this.downloaderPath,profile==='requested'&&this.modelManifestPath?this.modelManifestPath:this.defaultManifestPath,this.folder('models'),profile,this.config.downloadSource||'auto'],{windowsHide:true,env:{...env,PYTHONUTF8:'1',PYTHONIOENCODING:'utf-8'}});this.installChild=child;
-  let pending='';child.stdout.on('data',b=>{if(this.installRun!==run)return;pending+=b.toString();const lines=pending.split('\n');pending=lines.pop();for(const line of lines){try{const e=JSON.parse(line);this.install={...this.install,...e,state:e.type==='error'?'error':e.type==='done'?'done':'running',percent:e.type==='done'?100:e.percent??this.install.percent??0,overallPercent:e.type==='done'?100:e.overallPercent??this.install.overallPercent??0,message:e.message||e.name||'下载完成'};this.emit('install',this.install);}catch{this.log(line);}}});child.stderr.on('data',b=>{if(this.installRun===run)this.log(b.toString());});
+  let pending='';child.stdout.on('data',b=>{if(this.installRun!==run)return;pending+=b.toString();const lines=pending.split('\n');pending=lines.pop();for(const line of lines){try{const e=JSON.parse(line);this.install={...this.install,...e,state:e.type==='error'?'error':'running',percent:e.type==='done'?100:e.percent??this.install.percent??0,overallPercent:e.type==='done'?100:e.overallPercent??this.install.overallPercent??0,message:e.message||e.name||'下载完成'};this.emit('install',this.install);}catch{this.log(line);}}});child.stderr.on('data',b=>{if(this.installRun===run)this.log(b.toString());});
   child.on('error',e=>{if(this.installRun!==run)return;this.install={...this.install,state:'error',message:e.message};this.emit('install',this.install);});
-  child.on('exit',async code=>{if(this.installChild===child)this.installChild=null;if(this.installRun!==run)return;if(code!==0&&this.install.state!=='error')this.install={...this.install,state:'error',message:'下载中断，再次点击可以继续'};this.emit('install',this.install);this.emit('models',await this.models());});return true;
+  child.on('exit',async code=>{if(this.installChild===child)this.installChild=null;if(this.installRun!==run)return;if(code!==0&&this.install.state!=='error')this.install={...this.install,state:'error',message:'下载中断，再次点击可以继续'};if(code===0&&this.install.state!=='error'){try{if(profile==='requested')await completeLlmDownload(this);this.install={...this.install,state:'done',percent:100,overallPercent:100};}catch(error){this.install={...this.install,state:'error',message:error.message};}}this.emit('install',this.install);this.emit('models',await this.models());});return true;
  }
  async controlDownload(action){
   if(!['pause','resume','retry','cancel'].includes(action))throw Error('未知下载操作');if(this.downloadControlBusy)throw Error('正在切换下载状态，请稍候');

@@ -48,7 +48,7 @@ def download_once(item,root,url):
  part=dst.with_name(dst.name+'.part');offset=part.stat().st_size if part.exists() else 0
  if size and offset==size:
   if expected and digest(part)==expected:
-   part.replace(dst);emit(type='download',name=dst.name,percent=100,message='已恢复完整文件并通过 SHA256 校验');return
+   part.replace(dst);dst.with_name(dst.name+'.verified.json').write_text(json.dumps({'sha256':expected,'size':dst.stat().st_size,'mtime_ns':dst.stat().st_mtime_ns}),encoding='utf-8');emit(type='download',name=dst.name,percent=100,message='已恢复完整文件并通过 SHA256 校验');return
   part.replace(part.with_name(part.name+'.invalid-'+str(int(time.time()))));offset=0
  req=urllib.request.Request(url,headers={'User-Agent':'Ruoshui-Comic/0.1','Range':f'bytes={offset}-'} if offset else {'User-Agent':'Ruoshui-Comic/0.1'})
  with open_remote(req,timeout=30) as response:

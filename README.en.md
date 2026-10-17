@@ -43,7 +43,7 @@ Local generation uses the application's own Python, inference dependencies and e
 
 ## Download and install
 
-Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). Choose either the installer or manual extraction. On first launch, the app automatically downloads Chinese-to-English and English-to-Chinese translation models and shows their progress. Image-generation models can be downloaded from within the app.
+Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). Choose either the installer or manual extraction. On first launch, the app automatically downloads Chinese-to-English and English-to-Chinese translation models and shows their progress. Image-generation models can be downloaded from within the app. Local assistant downloads include a matching mmproj vision projector when available and link it automatically. Existing verified files are skipped.
 
 ### Option 1: Installer
 

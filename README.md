@@ -43,7 +43,7 @@
 
 ## 下载与安装
 
-从 [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest) 下载安装文件。安装器与手动解压两种方式，任选一种即可。首次启动会自动下载中译英、英译中两套翻译模型，下载进度可在软件中查看。图像生成模型可在软件内下载。
+从 [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest) 下载安装文件。安装器与手动解压两种方式，任选一种即可。首次启动会自动下载中译英、英译中两套翻译模型，下载进度可在软件中查看。图像生成模型可在软件内下载。本地助手模型若有匹配的 mmproj 视觉组件，会一并下载并自动关联；已有且通过校验的文件会跳过。
 
 ### 方式一：使用安装器
 
