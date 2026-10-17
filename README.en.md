@@ -1,8 +1,19 @@
 # Ruoshui Comic · 若水漫画
 
-[简体中文](README.md) · [Downloads / Releases](https://github.com/Penumbrill/ruoshui-comic/releases)
+[简体中文](README.md) · [Download](https://github.com/Penumbrill/ruoshui-comic/releases/latest) · [Report an issue](https://github.com/Penumbrill/ruoshui-comic/issues)
 
-A local AI comic creation studio for Windows, combining image generation, masked inpainting, panel layouts, dialogue, typography, stickers and cutouts extending beyond panel borders.
+A local AI comic studio for Windows, designed for beginners. Generate images, refine details, arrange panels, add dialogue and export comic pages in one workspace.
+
+Includes an independent runtime, with no separate image-generation application to configure. Download models as needed and keep your artwork and projects on your own computer.
+
+## Features
+
+- **Image generation and inpainting** — Generate images from prompts or paint over a selected area to edit it. Upload images, drag and drop files, or choose from your gallery.
+- **Comic layouts** — Create multipage projects, apply panel templates, edit slanted and polygonal frames, and arrange images, dialogue, text and stickers.
+- **Cutouts beyond panel borders** — Extract subjects, refine their edges, extend them outside a panel and realign them with the original image.
+- **Typography and dialogue** — Link dialogue bubbles, use horizontal or vertical text, and adjust fonts and formatting. Includes Chinese and English fonts, system font selection and font import.
+- **Prompts and tags** — Browse a categorized dictionary with fuzzy search, favorites and import/export. Use the prompt assistant with a local model or an optional online service.
+- **Saving and export** — Autosave your edits, manage a local gallery, and export PNG pages or editable projects containing images and imported fonts.
 
 ## Screenshots
 
@@ -14,60 +25,97 @@ Chinese interface: panel layouts, dialogue, stickers and cutouts extending beyon
 
 ![Ruoshui Comic Chinese interface: comic editor and cutout properties](docs/images/comic-editor-zh.png)
 
-## Installation
+## System and storage requirements
 
-Download **`ruoshui-comic.exe`** from Releases. The small online installer downloads application and independent runtime packages from this repository's GitHub Release, verifies SHA-256 checksums, then extracts them into your chosen folder. It tries environment proxies, Windows networking and direct connections, with GitHub's download URL and asset API as alternative sources. It does not change system proxy settings. Run it again to resume interrupted downloads. Online installation requires internet access.
+| Item | Details |
+| --- | --- |
+| Operating system | 64-bit Windows; current releases target x64 |
+| GPU | A CUDA-capable NVIDIA GPU is recommended. Speed and VRAM requirements depend on the model, resolution and features used. |
+| Memory | 16 GB or more recommended |
+| Storage | About 3 GB to download the application and runtime, and about 5 GB after extraction. Allow additional space for installation caches and models. |
+| Internet | Required to download the application, runtime and models, and to use online tag search or the optional online assistant. |
 
-The directory page lets you choose another drive, such as D: or E:. Installation adds the application folder to the current user's PATH. Open a new terminal to run `若水漫画.exe` directly. Uninstall removes only the PATH entry added by this installer and preserves existing entries.
+Local generation uses the application's own Python, inference dependencies and engine directory, together with the system's installed GPU driver.
 
-The desktop application also checks and repairs PATH automatically at launch, including portable launches. Settings → Environment shows its status and offers a check-and-repair button. Bundled tools are automatically added to the application's own process environment.
+## Download and install
 
-**Offline portable installation:** download `ruoshui-comic-update-win-x64.zip` and **all** `ruoshui-runtime-win-x64-*.zip` files from the same Release. Extract every ZIP into the **same empty folder**, preserving relative paths, then launch `若水漫画.exe`. Each is an ordinary, independently extractable ZIP, not a split archive. The program ZIP alone does not contain the AI runtime. `ruoshui-setup-guide.zip` contains bilingual instructions, a package manifest and verification tools. To verify original ZIPs, place them beside the extracted guide files and run `校验整合包.cmd`.
+Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). **Choose either the installer or manual extraction. Model weights are not included in either option.**
 
-**No model weights, personal artwork or settings are bundled.** The complete runtime still requires roughly 3 GB of downloads and approximately 5 GB after extraction, plus temporary installation space. Models require additional storage. Choose a writable, dedicated folder; do not install into another application or a source checkout.
+### Option 1: Installer
 
-## Getting started
+1. Download and run **`ruoshui-comic.exe`**.
+2. Choose an installation folder on your preferred drive.
+3. Wait for the installer to download, verify and extract the application and runtime, then launch the app.
 
-1. Check your GPU, drivers and runtime under Settings.
-2. Download or import image models in the model manager. Downloads are stored beneath the **current application folder** in `runtime/ComfyUI/models`, grouped by category. Assistant models use its `llm` subfolder. Moving the portable folder changes the destination of subsequent downloads.
-3. Standalone generation and inpainting save their own results without adding them to a comic. Only generation or inpainting explicitly opened for a particular panel fills that panel automatically.
-   Use **Upload image** or **Choose from gallery** in the preview header, or drop PNG/JPG/WebP files directly onto the preview. Switching to a new source clears its old mask.
-4. Add panels, images, dialogue and stickers in the comic editor. Panels support 3–32 sides; subject cutouts support edge refinement, border overflow and alignment to their original image.
-5. Export PNG pages into `works/exports/Project name`, then use the adjacent button to open that folder. Editable project exports embed images and imported fonts.
+The installer supports resumable downloads and automatically tries available network connection methods. Run it again to continue an interrupted installation. Once installed, launch the app using its desktop shortcut or **`若水漫画.exe`** in the installation folder.
 
-## Editing controls
+### Option 2: Manual portable installation
 
-- Image previews: wheel to zoom, double-click to fit. The main comic canvas uses **Ctrl + wheel**. Refinement brushes have circular cursors.
-- Numeric fields, coordinates, dimensions and font sizes: wheel to adjust; Shift increases the step. Individual reset controls and reset-all in Settings restore defaults.
-- Typography: horizontal or vertical writing, bold, italic, underline and alignment. Includes 24 Chinese and English fonts, system font selection, and TTF/OTF/WOFF/WOFF2 import into `works/fonts`.
-- Layers: click empty space to deselect. Compact context menus provide deletion, movement within groups and across layer types. Multiple dialogue bubbles can be linked or unlinked.
-- Dialog headings scroll with their contents; only the close button stays visible. Clicking outside saves valid edits and closes dialogs, except downloads. Clicking outside a destructive confirmation cancels it.
-- Panel previews retain the full image with an optional translucent panel reference overlay and adjustable opacity.
-- Fuzzy search is supported for dictionaries and assets. The initial editable tag dictionary contains 11 categories, 133 groups and 3,957 entries, with favorites and JSON/SQL import and export.
+Download all **five ZIP files** from the same Release:
 
-The prompt assistant supports local language models and optional online APIs. Image input requires a matching visual projection model. Consult the model manager for model identifiers, downloads and terms. Online APIs require your own key.
+| File | Contents |
+| --- | --- |
+| `ruoshui-comic-update-win-x64.zip` | Main application; also required for a first installation |
+| `ruoshui-runtime-win-x64-01.zip` | Runtime package 1 |
+| `ruoshui-runtime-win-x64-02.zip` | Runtime package 2 |
+| `ruoshui-runtime-win-x64-03.zip` | Runtime package 3 |
+| `ruoshui-runtime-win-x64-04.zip` | Runtime package 4 |
 
-## Data and maintenance
+Create an empty folder, for example `E:\RuoshuiComic`. Right-click each ZIP and choose **Extract All**, setting the destination to **that same folder every time**. These are ordinary, independently extractable ZIP files; their contents combine into one installation.
 
-Personal artwork, settings, chats, dictionaries, autosaves, logs and caches live in **`works`** beside the application. Independent runtimes and models live in **`runtime`**. Move the whole folder when relocating the application; back up `works` and any models you wish to keep.
-
-Gallery deletion also moves associated parameters, masks and dedicated drafts into recovery storage. Restore them together. Images already embedded in comic projects remain available.
-
-Settings provides update checks, cache cleanup and uninstall controls. Program updates preserve data and models. Runtime upgrades require the matching Release runtime ZIPs or rerunning the installer. Uninstall asks whether to retain artwork and models.
-
-## Development
-
-```powershell
-npm ci
-npm run dev
-npm test
-npm run build
+```text
+RuoshuiComic/
+├─ 若水漫画.exe
+├─ resources/
+└─ runtime/
 ```
 
-The source repository excludes runtimes and weights. Extract Release runtime ZIPs at the repository root or prepare the independent runtime in Settings for generation. Current artifacts target Windows x64.
+After extracting all five ZIPs, launch **`若水漫画.exe`**. Keep the entire folder together when moving the portable app.
 
-After explicit packaging authorization, run `node scripts/online-release.mjs --approved` on Windows with the project's `runtime` already prepared. This builds assets without publishing. Output goes to sibling folders `manhua-发布/纯净整合包` and `manhua-发布/安装版`; staging files and test data remain under `works`.
+`ruoshui-setup-guide.zip` is an optional package containing instructions and verification tools. To verify the downloads, extract its contents beside the original ZIP files and run `校验整合包.cmd`.
 
-## Licensing
+The `Source code` downloads on the Release page are for developers. To use the app, choose the installer or portable packages above.
 
-Original project code uses the [MIT license](LICENSE). Third-party code, fonts, tag data and runtime components retain their respective licenses. Models have separate terms. Required notices and provenance are preserved in [Third-party notices](THIRD_PARTY_NOTICES.md) and component directories. Check the terms of imported fonts, models and images.
+## Create your first comic
+
+1. **Check the environment.** Open the environment check in Settings and confirm the runtime and GPU status.
+2. **Prepare models.** Download or import the models you need in the model manager. By default, models are stored inside the current application folder, independently of other image-generation installations.
+3. **Generate or import images.** Enter a prompt in Generate, or upload an existing image to edit with Inpaint.
+4. **Build a comic.** Create a project and page, add panels and images, then arrange dialogue, text, stickers and layers.
+5. **Export your pages.** Choose Export PNG. Pages are saved in a folder named after the project; use Open comic folder to view them.
+
+Standalone generation and inpainting save their own results. Results fill a comic panel only when generation or inpainting was opened for that specific panel. Ordinary standalone work does not automatically add images to a comic.
+
+## Common controls
+
+| Action | Control |
+| --- | --- |
+| Zoom the main comic canvas | Ctrl + mouse wheel |
+| Zoom other image previews | Mouse wheel; double-click to fit |
+| Adjust numeric values | Scroll over the numeric control; hold Shift for larger steps |
+| Reset parameters | Use the reset button beside a parameter, or reset all parameters in Settings |
+| Reorder layers | Right-click a layer to move it within its group or across layer types |
+| Realign a cutout | Select it and use Align to original in Properties |
+| Import fonts | Import TTF, OTF, WOFF or WOFF2 files from the font selector |
+
+## Data and backups
+
+The application folder contains your personal data and its independent runtime:
+
+| Location | Contents |
+| --- | --- |
+| `works/` | Projects, images, settings, autosaves, dictionaries and logs |
+| `works/exports/` | Exported comic pages, organized by project name |
+| `works/fonts/` | Imported fonts |
+| `runtime/` | Independent runtime and models |
+| `runtime/ComfyUI/models/` | Model files grouped by type |
+
+Back up `works` regularly, along with any models you want to keep. When you move the complete portable folder, subsequent downloads and artwork are stored at its new location.
+
+## Feedback
+
+Report problems in [Issues](https://github.com/Penumbrill/ruoshui-comic/issues). Include steps to reproduce, an error screenshot, your operating system and GPU, and the environment check results.
+
+## License
+
+Original project code is licensed under the [MIT License](LICENSE). Third-party components, fonts and tag data retain their respective licenses; required copyright and source information is preserved in [Third-party notices](THIRD_PARTY_NOTICES.md). Models and imported assets remain subject to their own terms.
