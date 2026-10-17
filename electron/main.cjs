@@ -1,6 +1,6 @@
 const {app, BrowserWindow, ipcMain, dialog, shell, safeStorage, session} = require('electron');
 const path = require('node:path');
-app.setName('若水漫画');
+app.setName('Ruoshui Comic');
 if(process.platform==='win32')app.setAppUserModelId('com.guangyingruoshui.comic');
 let server, win, root, quitting=false;
 root = process.env.MANHUA_HOME || (app.isPackaged ? path.dirname(app.getPath('exe')) : path.resolve(__dirname,'..'));

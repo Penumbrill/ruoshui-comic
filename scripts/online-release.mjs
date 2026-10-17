@@ -16,6 +16,7 @@ async function run(file,args, cwd=root,env={}){await new Promise((resolve,reject
 if(!resume){await run(process.execPath,['node_modules/vite/bin/vite.js','build','--emptyOutDir']);await run(process.execPath,['node_modules/electron-builder/cli.js','--win','dir','--publish=never','--config.directories.output='+stage]);}
 const app=path.join(stage,'win-unpacked'),files=[];
 if(resume)for(const [source,dest]of [['README.md','使用说明.md'],['README.en.md','README.en.md'],['LICENSE','LICENSE.txt'],['THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md']])await fs.copyFile(path.join(root,source),path.join(app,dest));
+if(await fs.stat(path.join(app,'ruoshui-comic.exe')).then(s=>s.isFile()).catch(()=>false))await fs.rm(path.join(app,'若水漫画.exe'),{force:true});
 async function walk(folder,base=''){for(const e of await fs.readdir(folder,{withFileTypes:true})){const name=base+e.name,full=path.join(folder,e.name);if(e.isSymbolicLink()){
  if(/^runtime\/ComfyUI\/custom_nodes\/weilin-comfyui-tools\/(?:user_data(?:_old)?|lora_userdatas|translate_userdatas|random_tag)$/.test(name)){await fs.rmdir(full);continue;}throw Error('Linked release path: '+name);
  }if(e.isDirectory()){if(['__pycache__','cache','downloads','.git'].includes(e.name))continue;await walk(full,name+'/');}else if(e.isFile()){if(!allowedProgramPath(name)||/\.(pth|pyc)$/i.test(name))throw Error('Disallowed release path: '+name);files.push({path:name,size:(await fs.stat(full)).size});}}}
@@ -50,7 +51,8 @@ const guideRoot=path.join(stage,'guide'),guide=path.join(guideRoot,'安装说明
 for(const name of ['README.md','README.en.md','LICENSE','THIRD_PARTY_NOTICES.md'])await fs.copyFile(path.join(root,name),path.join(guide,name));
 await fs.cp(path.join(root,'docs/images'),path.join(guide,'docs/images'),{recursive:true});
 await fs.copyFile(manifestPath,path.join(guide,'release-packages.json'));await fs.copyFile(path.join(root,'scripts/download-release.ps1'),path.join(guide,'download-release.ps1'));
-await fs.writeFile(path.join(guide,'校验整合包.cmd'),'@echo off\r\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0download-release.ps1" -Target "%~dp0.." -Manifest "%~dp0release-packages.json" -VerifyOnly\r\npause\r\n');
+await fs.rm(path.join(guide,'校验整合包.cmd'),{force:true});
+await fs.writeFile(path.join(guide,'verify-packages.cmd'),'@echo off\r\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0download-release.ps1" -Target "%~dp0.." -Manifest "%~dp0release-packages.json" -VerifyOnly\r\npause\r\n');
 const guideZip=path.join(stage,'ruoshui-setup-guide.zip');await fs.rm(guideZip,{force:true});await run(compressor,['a','-tzip',guideZip,'安装说明'],guideRoot);await fs.copyFile(guideZip,path.join(portable,'ruoshui-setup-guide.zip'));
 const require=createRequire(import.meta.url),{getMakeNsisPath}=require('app-builder-lib/out/toolsets/windows.js');const nsis=await getMakeNsisPath(null,{...JSON.parse(await fs.readFile(path.join(root,'package.json'))).build.nsis.customNsisBinary,version:'1.0.0'});
 const exe=path.join(stage,'ruoshui-comic.exe');await run(nsis.path,['-INPUTCHARSET','UTF8','-DPROJECT_ROOT='+root,'-DOUTPUT_EXE='+exe,'-DPACKAGE_MANIFEST='+manifestPath,path.join(root,'scripts/online-installer.nsi')],root,nsis.env);await fs.copyFile(exe,path.join(installer,'ruoshui-comic.exe'));

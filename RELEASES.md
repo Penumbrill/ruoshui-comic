@@ -30,9 +30,9 @@ Download and run **`ruoshui-comic.exe`**, then choose an installation folder. Th
 
 ### 便携版 / Portable installation
 
-将以下 **5 个 ZIP** 全部解压到同一个文件夹，然后运行 **`若水漫画.exe`**：
+将以下 **5 个 ZIP** 全部解压到同一个文件夹，然后运行 **`ruoshui-comic.exe`**：
 
-Extract all **five ZIP files** below into the same folder, then run **`若水漫画.exe`**:
+Extract all **five ZIP files** below into the same folder, then run **`ruoshui-comic.exe`**:
 
 | 文件 / File | 内容 / Contents |
 | --- | --- |

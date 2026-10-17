@@ -79,13 +79,17 @@ if($Mode -eq 'apply'){
    New-Item -ItemType Directory -Path ([IO.Path]::GetDirectoryName($dest)) -Force|Out-Null
    Copy-Item -LiteralPath $src -Destination ($dest+'.updating') -Force;Move-Item -LiteralPath ($dest+'.updating') -Destination $dest -Force
   }
+  if($manifest.files.path -contains 'ruoshui-comic.exe'){
+   $legacy=ChildPath $taskRoot '若水漫画.exe';AssertNoLinks $taskRoot $legacy
+   if(Test-Path -LiteralPath $legacy){$old=ChildPath $backup '若水漫画.exe';Copy-Item -LiteralPath $legacy -Destination $old;$changed.Add(@{path='若水漫画.exe';existed=$true});$changed|ConvertTo-Json|Set-Content -LiteralPath (Join-Path $backup 'journal.json') -Encoding UTF8;Remove-Item -LiteralPath $legacy -Force}
+  }
   @{version=$manifest.version;completed=[DateTime]::UtcNow.ToString('o')}|ConvertTo-Json|Set-Content -LiteralPath (Join-Path $backup 'success.json') -Encoding UTF8
   @{version=$manifest.version;completed=[DateTime]::UtcNow.ToString('o')}|ConvertTo-Json|Set-Content -LiteralPath (Join-Path $taskRoot 'works/updates/completed.json') -Encoding UTF8
  }catch{
   foreach($item in $changed){$dest=ChildPath $taskRoot $item.path;if($item.existed){Copy-Item -LiteralPath (ChildPath $backup $item.path) -Destination $dest -Force}else{Remove-Item -LiteralPath $dest -Force -ErrorAction SilentlyContinue}}
   throw
  }
- $executable=ChildPath $taskRoot '若水漫画.exe'
+ $executable=ChildPath $taskRoot 'ruoshui-comic.exe'
  if($taskPlan.restart -ne $false){Start-Process -FilePath $executable -WorkingDirectory $taskRoot -WindowStyle Hidden}
  exit 0
 }
@@ -104,7 +108,7 @@ if($Mode -eq 'uninstall'){
  $registration='HKCU:\Software\RuoshuiComic'
  if(Test-Path -LiteralPath $registration){$location=(Get-ItemProperty -LiteralPath $registration -ErrorAction SilentlyContinue).InstallLocation;if($location -and [IO.Path]::GetFullPath($location).TrimEnd('\') -eq $taskRoot){Remove-Item -LiteralPath $registration -Force}}
  $uninstallKey='HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall'
- foreach($key in Get-ChildItem -LiteralPath $uninstallKey -ErrorAction SilentlyContinue){$value=Get-ItemProperty -LiteralPath $key.PSPath -ErrorAction SilentlyContinue;if($value.DisplayName -eq '若水漫画' -and $value.InstallLocation -and [IO.Path]::GetFullPath($value.InstallLocation).TrimEnd('\') -eq $taskRoot){Remove-Item -LiteralPath $key.PSPath -Force}}
+ foreach($key in Get-ChildItem -LiteralPath $uninstallKey -ErrorAction SilentlyContinue){$value=Get-ItemProperty -LiteralPath $key.PSPath -ErrorAction SilentlyContinue;if($value.DisplayName -in @('若水漫画','Ruoshui Comic') -and $value.InstallLocation -and [IO.Path]::GetFullPath($value.InstallLocation).TrimEnd('\') -eq $taskRoot){Remove-Item -LiteralPath $key.PSPath -Force}}
  $shortcutShell=New-Object -ComObject WScript.Shell
- foreach($folder in @([Environment]::GetFolderPath('Desktop'),[Environment]::GetFolderPath('Programs'))){$shortcut=Join-Path $folder '若水漫画.lnk';if(Test-Path -LiteralPath $shortcut){$target=$shortcutShell.CreateShortcut($shortcut).TargetPath;if($target -and [IO.Path]::GetFullPath($target) -eq (Join-Path $taskRoot '若水漫画.exe')){Remove-Item -LiteralPath $shortcut -Force}}}
+ foreach($folder in @([Environment]::GetFolderPath('Desktop'),[Environment]::GetFolderPath('Programs'))){foreach($name in @('Ruoshui Comic.lnk','若水漫画.lnk')){$shortcut=Join-Path $folder $name;if(Test-Path -LiteralPath $shortcut){$target=$shortcutShell.CreateShortcut($shortcut).TargetPath;if($target -and [IO.Path]::GetFullPath($target) -in @((Join-Path $taskRoot 'ruoshui-comic.exe'),(Join-Path $taskRoot '若水漫画.exe'))){Remove-Item -LiteralPath $shortcut -Force}}}}
 }

@@ -51,7 +51,7 @@ Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic
 2. Choose an installation folder on your preferred drive.
 3. Wait for the installer to download, verify and extract the application and runtime, then launch the app.
 
-The installer supports resumable downloads and automatically tries available network connection methods. Run it again to continue an interrupted installation. Once installed, launch the app using its desktop shortcut or **`若水漫画.exe`** in the installation folder.
+The installer supports resumable downloads and automatically tries available network connection methods. Run it again to continue an interrupted installation. Once installed, launch the app using its desktop shortcut or **`ruoshui-comic.exe`** in the installation folder.
 
 ### Option 2: Manual portable installation
 
@@ -69,14 +69,14 @@ Create an empty folder, for example `E:\RuoshuiComic`. Right-click each ZIP and 
 
 ```text
 RuoshuiComic/
-├─ 若水漫画.exe
+├─ ruoshui-comic.exe
 ├─ resources/
 └─ runtime/
 ```
 
-After extracting all five ZIPs, launch **`若水漫画.exe`**. Keep the entire folder together when moving the portable app.
+After extracting all five ZIPs, launch **`ruoshui-comic.exe`**. Keep the entire folder together when moving the portable app.
 
-`ruoshui-setup-guide.zip` is an optional package containing instructions and verification tools. To verify the downloads, extract it into the application folder, keep the original ZIP files there, and run `校验整合包.cmd` inside the `安装说明` subfolder.
+`ruoshui-setup-guide.zip` is an optional package containing instructions and verification tools. To verify the downloads, extract it into the application folder, keep the original ZIP files there, and run `verify-packages.cmd` inside the `安装说明` subfolder.
 
 The `Source code` downloads on the Release page are for developers. To use the app, choose the installer or portable packages above.
 

@@ -1,16 +1,16 @@
 Unicode true
 !include "MUI2.nsh"
 !include "LogicLib.nsh"
-Name "若水漫画"
+Name "Ruoshui Comic"
 OutFile "${OUTPUT_EXE}"
-InstallDir "$LOCALAPPDATA\Programs\若水漫画"
+InstallDir "$LOCALAPPDATA\Programs\Ruoshui Comic"
 InstallDirRegKey HKCU "Software\RuoshuiComic" "InstallLocation"
 RequestExecutionLevel user
 SetCompressor /SOLID lzma
 Icon "${PROJECT_ROOT}\assets\app-icon.ico"
 UninstallIcon "${PROJECT_ROOT}\assets\app-icon.ico"
 !define MUI_ABORTWARNING
-!define MUI_FINISHPAGE_RUN "$INSTDIR\若水漫画.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\ruoshui-comic.exe"
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -34,21 +34,26 @@ Section "安装"
   Abort
  ${EndIf}
  SetOutPath "$INSTDIR"
- WriteUninstaller "$INSTDIR\Uninstall若水漫画.exe"
- CreateShortcut "$DESKTOP\若水漫画.lnk" "$INSTDIR\若水漫画.exe"
- CreateDirectory "$SMPROGRAMS\若水漫画"
- CreateShortcut "$SMPROGRAMS\若水漫画\若水漫画.lnk" "$INSTDIR\若水漫画.exe"
- CreateShortcut "$SMPROGRAMS\若水漫画\卸载.lnk" "$INSTDIR\Uninstall若水漫画.exe"
+ WriteUninstaller "$INSTDIR\uninstall-ruoshui-comic.exe"
+ Delete "$INSTDIR\Uninstall若水漫画.exe"
+ Delete "$DESKTOP\若水漫画.lnk"
+ Delete "$SMPROGRAMS\若水漫画\若水漫画.lnk"
+ Delete "$SMPROGRAMS\若水漫画\卸载.lnk"
+ RMDir "$SMPROGRAMS\若水漫画"
+ CreateShortcut "$DESKTOP\Ruoshui Comic.lnk" "$INSTDIR\ruoshui-comic.exe"
+ CreateDirectory "$SMPROGRAMS\Ruoshui Comic"
+ CreateShortcut "$SMPROGRAMS\Ruoshui Comic\Ruoshui Comic.lnk" "$INSTDIR\ruoshui-comic.exe"
+ CreateShortcut "$SMPROGRAMS\Ruoshui Comic\Uninstall.lnk" "$INSTDIR\uninstall-ruoshui-comic.exe"
  WriteRegStr HKCU "Software\RuoshuiComic" "InstallLocation" "$INSTDIR"
  nsExec::ExecToLog 'powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\manage-user-path.ps1" -Mode Add -Target "$INSTDIR"'
  Pop $0
  ${If} $0 != 0
   MessageBox MB_ICONEXCLAMATION "软件已安装，但未能更新当前用户 PATH。请检查系统环境变量权限。"
  ${EndIf}
- WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic" "DisplayName" "若水漫画"
- WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic" "UninstallString" '$\"$INSTDIR\Uninstall若水漫画.exe$\"'
+ WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic" "DisplayName" "Ruoshui Comic"
+ WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic" "UninstallString" '$\"$INSTDIR\uninstall-ruoshui-comic.exe$\"'
  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic" "InstallLocation" "$INSTDIR"
- WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic" "DisplayIcon" "$INSTDIR\若水漫画.exe"
+ WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic" "DisplayIcon" "$INSTDIR\ruoshui-comic.exe"
 SectionEnd
 Section "Uninstall"
  StrCpy $R6 "true"
@@ -74,12 +79,12 @@ Section "Uninstall"
  ${If} $0 != 0
   Abort "卸载未完成，文件已保留。关闭软件后重试。"
  ${EndIf}
- Delete "$DESKTOP\若水漫画.lnk"
- Delete "$SMPROGRAMS\若水漫画\若水漫画.lnk"
- Delete "$SMPROGRAMS\若水漫画\卸载.lnk"
- RMDir "$SMPROGRAMS\若水漫画"
+ Delete "$DESKTOP\Ruoshui Comic.lnk"
+ Delete "$SMPROGRAMS\Ruoshui Comic\Ruoshui Comic.lnk"
+ Delete "$SMPROGRAMS\Ruoshui Comic\Uninstall.lnk"
+ RMDir "$SMPROGRAMS\Ruoshui Comic"
  DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\RuoshuiComic"
  DeleteRegKey HKCU "Software\RuoshuiComic"
- Delete /REBOOTOK "$INSTDIR\Uninstall若水漫画.exe"
+ Delete /REBOOTOK "$INSTDIR\uninstall-ruoshui-comic.exe"
  RMDir "$INSTDIR"
 SectionEnd

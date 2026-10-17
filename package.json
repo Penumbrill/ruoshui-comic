@@ -35,7 +35,7 @@
   },
   "build": {
     "appId": "com.guangyingruoshui.comic",
-    "productName": "若水漫画",
+    "productName": "Ruoshui Comic",
     "directories": {
       "output": "release"
     },
@@ -55,7 +55,8 @@
     "win": {
       "target": "dir",
       "signAndEditExecutable": false,
-      "icon": "assets/app-icon.ico"
+      "icon": "assets/app-icon.ico",
+      "executableName": "ruoshui-comic"
     },
     "asar": true,
     "asarUnpack": [
@@ -137,7 +138,7 @@
         "url": "https://github.com/SoundSafari/NSISBI-ElectronBuilder/releases/download/1.0.0/nsisbi-electronbuilder-3.10.3.7z",
         "checksum": "374cfc092fd1bd1898472df627549ecc165b0d6ba88e82deba085673aec95336"
       },
-      "uninstallDisplayName": "若水漫画"
+      "uninstallDisplayName": "Ruoshui Comic"
     }
   },
   "allowScripts": {

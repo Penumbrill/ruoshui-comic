@@ -85,6 +85,7 @@ foreach($file in $checked){$zip=[IO.Compression.ZipFile]::OpenRead($file);try{fo
 if(!$seen.ContainsKey('resources/app.asar') -or !$seen.ContainsKey('runtime/python/python.exe')){throw 'Incomplete application packages'}
 if($VerifyOnly){Write-Output 'All release packages verified';exit 0}
 foreach($file in $checked){Write-Output ('Extracting '+[IO.Path]::GetFileName($file));$zip=[IO.Compression.ZipFile]::OpenRead($file);try{foreach($entry in $zip.Entries){if($entry.FullName.EndsWith('/')){continue};$dest=SafePath $installRoot $entry.FullName;[IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($dest))|Out-Null;[IO.Compression.ZipFileExtensions]::ExtractToFile($entry,$dest,$true)}}finally{$zip.Dispose()}}
+if(Test-Path -LiteralPath (Join-Path $installRoot 'ruoshui-comic.exe')){$legacy=SafePath $installRoot '若水漫画.exe';if([IO.File]::Exists($legacy)){Remove-Item -LiteralPath $legacy -Force}}
 @{appId=$spec.appId;version=$spec.tag.TrimStart('v')}|ConvertTo-Json|Set-Content -LiteralPath (Join-Path $installRoot 'ruoshui-installation.json') -Encoding UTF8
 foreach($file in $checked){Remove-Item -LiteralPath $file -Force}
 Write-Output 'Installation complete. Models can be downloaded inside the application.'
