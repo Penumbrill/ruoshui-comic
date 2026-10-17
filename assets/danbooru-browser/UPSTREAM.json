@@ -1,5 +1,5 @@
 {
-  "source": "User-supplied ComfyUI-Danbooru-Anima-Prompt snapshot; original source and README retained alongside this record.",
+  "source": "Upstream ComfyUI-Danbooru-Anima-Prompt snapshot; original source and README retained alongside this record.",
   "files": [
     "js/danbooru_browser.js",
     "README.md"
@@ -10,7 +10,7 @@
     "前端仅替换两个宿主导入路径，后端源码原样保留",
     "在 works 中运行原后端并直接调用原 browse 输出",
     "宿主单独处理布局、网络代理、图片错误提示与重试",
-    "按用户要求隐藏设置底部的外链与分类表、索引按钮"
+    "精简桌面界面，隐藏设置底部的外链与分类表、索引按钮"
   ],
   "backendHashes": {
     "py/__init__.py": "e5cdd9eaa8f0f04cb995003ec80151f753acdfebf164154f04741ac29df83810",
