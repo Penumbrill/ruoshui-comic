@@ -36,7 +36,7 @@ Extract all **five ZIP files** below into the same folder, then run **`若水漫
 
 | 文件 / File | 内容 / Contents |
 | --- | --- |
-| `ruoshui-comic-update-win-x64.zip` | 主程序 / Application |
+| `ruoshui-comic.update-win-x64.zip` | 主程序 / Application |
 | `ruoshui-runtime-win-x64-01.zip` | 运行环境 1 / Runtime part 1 |
 | `ruoshui-runtime-win-x64-02.zip` | 运行环境 2 / Runtime part 2 |
 | `ruoshui-runtime-win-x64-03.zip` | 运行环境 3 / Runtime part 3 |

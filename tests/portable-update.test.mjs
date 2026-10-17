@@ -25,3 +25,11 @@ test('update allowlist protects creations, models, traversal and plugin data eve
 test('a repository with no release is reported honestly without a fake update',async t=>{
  const root=await fixture(t),service=await new StudioService(root).init(),updates=await new UpdateManager(service,{fetchRelease:async()=>null}).init();const state=await updates.check();assert.equal(state.available,false);assert.match(state.message,/尚未发布/);await assert.rejects(()=>updates.download(),/没有可下载/);
 });
+test('automatic updates recognize the renamed program ZIP and legacy releases',async t=>{
+ const root=await fixture(t),service=await new StudioService(root).init();
+ for(const name of ['ruoshui-comic.update-win-x64.zip','ruoshui-comic-update-win-x64.zip']){
+  const asset={name,size:123,digest:'sha256:'+'a'.repeat(64),browser_download_url:'https://github.com/Penumbrill/ruoshui-comic/releases/download/v0.2.0/'+name};
+  const manager=await new UpdateManager(service,{fetchRelease:async()=>({tag_name:'v0.2.0',assets:[asset]})}).init();
+  const state=await manager.check();assert.equal(state.available,true);assert.equal(state.files.length,1);assert.equal(state.files[0].name,name);assert.equal(state.files[0].url,asset.browser_download_url);
+ }
+});

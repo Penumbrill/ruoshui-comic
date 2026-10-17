@@ -59,7 +59,7 @@
 
 | 文件 | 内容 |
 | --- | --- |
-| `ruoshui-comic-update-win-x64.zip` | 主程序，首次安装也需要 |
+| `ruoshui-comic.update-win-x64.zip` | 主程序，首次安装也需要 |
 | `ruoshui-runtime-win-x64-01.zip` | 运行环境第 1 包 |
 | `ruoshui-runtime-win-x64-02.zip` | 运行环境第 2 包 |
 | `ruoshui-runtime-win-x64-03.zip` | 运行环境第 3 包 |

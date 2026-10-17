@@ -27,7 +27,7 @@ const version=JSON.parse(await fs.readFile(path.join(root,'package.json'))).vers
 const core=files.filter(f=>!f.path.startsWith('runtime/'));
 await fs.writeFile(path.join(app,'ruoshui-update.json'),JSON.stringify({appId:'com.guangyingruoshui.comic',version,files:core},null,2));
 core.push({path:'ruoshui-update.json',size:(await fs.stat(path.join(app,'ruoshui-update.json'))).size});
-const groups=[{name:'ruoshui-comic-update-win-x64.zip',files:core}];let group;
+const groups=[{name:'ruoshui-comic.update-win-x64.zip',files:core}];let group;
 for(const file of files.filter(f=>f.path.startsWith('runtime/')).sort((a,b)=>a.path.localeCompare(b.path))){if(!group||group.bytes+file.size>1400000000){group={name:'ruoshui-runtime-win-x64-'+String(groups.length).padStart(2,'0')+'.zip',files:[],bytes:0};groups.push(group);}group.files.push(file);group.bytes+=file.size;}
 const portable=path.join(output,'纯净整合包'),installer=path.join(output,'安装版');await fs.mkdir(portable,{recursive:true});await fs.mkdir(installer,{recursive:true});
 const compressor=path.join(root,'node_modules/electron-winstaller/vendor/7z.exe'),packages=[];
@@ -55,4 +55,5 @@ const guideZip=path.join(stage,'ruoshui-setup-guide.zip');await fs.rm(guideZip,{
 const require=createRequire(import.meta.url),{getMakeNsisPath}=require('app-builder-lib/out/toolsets/windows.js');const nsis=await getMakeNsisPath(null,{...JSON.parse(await fs.readFile(path.join(root,'package.json'))).build.nsis.customNsisBinary,version:'1.0.0'});
 const exe=path.join(stage,'ruoshui-comic.exe');await run(nsis.path,['-INPUTCHARSET','UTF8','-DPROJECT_ROOT='+root,'-DOUTPUT_EXE='+exe,'-DPACKAGE_MANIFEST='+manifestPath,path.join(root,'scripts/online-installer.nsi')],root,nsis.env);await fs.copyFile(exe,path.join(installer,'ruoshui-comic.exe'));
 await fs.writeFile(path.join(root,'works/logs/online-release-result.json'),JSON.stringify({stage,app,manifest,installer:{size:(await fs.stat(exe)).size,sha256:await hash(exe)},files:files.length,unpackedBytes:files.reduce((n,f)=>n+f.size,0)},null,2));
+await fs.rm(path.join(portable,'ruoshui-comic-update-win-x64.zip'),{force:true});
 console.log('Release assets ready: '+output);

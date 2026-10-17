@@ -23,7 +23,7 @@ export class UpdateManager{
   if(this.downloading)return this.state;
   await this.emit({checking:true,message:'正在检查官方更新…'});
   try{const release=await this.fetchRelease(updateRepository);if(!release)return await this.emit({state:'current',checking:false,available:false,checkedAt:new Date().toISOString(),message:'尚未发布首个正式版本',release:null,files:[]});
-   const available=versionNewer(release.tag_name,this.current),asset=release.assets?.find(a=>/^ruoshui-comic-update-win-x64\.zip$/i.test(a.name));
+   const available=versionNewer(release.tag_name,this.current),asset=release.assets?.find(a=>/^ruoshui-comic(?:\.|-)update-win-x64\.zip$/i.test(a.name));
    const files=asset&&/^sha256:[a-f0-9]{64}$/.test(asset.digest||'')?[{name:asset.name,size:asset.size||0,sha256:asset.digest.slice(7),url:asset.browser_download_url,state:'waiting',bytes:0}]:[];
    return await this.emit({state:available?'available':'current',checking:false,checkedAt:new Date().toISOString(),available,release:{version:release.tag_name,title:release.name||release.tag_name,notes:release.body||'此版本未填写更新公告。',url:release.html_url},files,message:available?(files.length?'发现新版本，可下载更新':'新版本已发布，自动更新文件尚未就绪'):'当前已是最新正式版本'});
   }catch(error){await this.emit({checking:false,message:'检查更新未完成：'+error.message});throw error;}

@@ -59,7 +59,7 @@ Download all **five ZIP files** from the same Release:
 
 | File | Contents |
 | --- | --- |
-| `ruoshui-comic-update-win-x64.zip` | Main application; also required for a first installation |
+| `ruoshui-comic.update-win-x64.zip` | Main application; also required for a first installation |
 | `ruoshui-runtime-win-x64-01.zip` | Runtime package 1 |
 | `ruoshui-runtime-win-x64-02.zip` | Runtime package 2 |
 | `ruoshui-runtime-win-x64-03.zip` | Runtime package 3 |
