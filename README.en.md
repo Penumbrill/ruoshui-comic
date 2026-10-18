@@ -94,7 +94,11 @@ The `Source code` downloads on the Release page are for developers. To use the a
 4. **Build a comic.** Create a project and page, add panels and images, then arrange dialogue, text, stickers and layers.
 5. **Export your pages.** Choose Export PNG. Pages are saved in a folder named after the project; use Open comic folder to view them.
 
-Standalone generation and inpainting save their own results. Results fill a comic panel only when generation or inpainting was opened for that specific panel. Ordinary standalone work does not automatically add images to a comic.
+Standalone generation and inpainting keep separate previews, image selections and results when switching pages. Results fill a comic panel only when generation or inpainting was opened for that specific panel. Ordinary standalone work does not automatically add images to a comic.
+
+Inpainting includes presets for objects, expressions, hand poses, small details and large pose changes. Mask both old and target outlines, including contact shadows; paint to the canvas edge when necessary. Small details retain structural reference. Large edits preserve the background while filling newly exposed areas. For extra fingers or toes, use the small-details preset and specify the intended count and orientation. Automatic hand refinement detects hands; use painted masks for feet. Check left/right anatomy and fingers/toes in generated results.
+
+Update checks automatically open the update window when a newer release or build is available. Checks with no update keep the current page. The installed version shows the Release tag and build commit.
 
 ## Common controls
 

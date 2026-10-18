@@ -4,6 +4,29 @@ ROOT=pathlib.Path(__file__).resolve().parent.parent
 spec=importlib.util.spec_from_file_location('moge_nodes',ROOT/'assets/moge-nodes/__init__.py');nodes=importlib.util.module_from_spec(spec);spec.loader.exec_module(nodes)
 spec2=importlib.util.spec_from_file_location('downloader',ROOT/'assets/download_models.py');dl=importlib.util.module_from_spec(spec2);spec2.loader.exec_module(dl)
 class InpaintTest(unittest.TestCase):
+ def test_small_details_reduce_strength_without_limiting_larger_structural_repairs(self):
+  small=torch.zeros(1,1024,1024);small[:,500:562,450:514]=1
+  self.assertEqual(nodes.MogeDetailStrength().adapt(small,.6),(.45,))
+  self.assertEqual(nodes.MogeDetailStrength().adapt(small,.3),(.3,))
+  large=torch.zeros_like(small);large[:,700:833,745:905]=1
+  self.assertEqual(nodes.MogeDetailStrength().adapt(large,.6),(.6,))
+ def test_small_hand_selection_does_not_repaint_the_neighboring_hand(self):
+  image=torch.zeros(1,160,180,3);mask=torch.zeros(1,160,180);mask[:,60:100,65:105]=1
+  crop,noise,ctx=nodes.MogePrepareInpaint().prepare(image,mask,8,False,True,64,16,512,True)
+  result,=nodes.MogeCompositeInpaint().composite(torch.ones_like(crop),ctx)
+  self.assertTrue(torch.all(result[:,60:100,65:105]>.999))
+  self.assertTrue(torch.all(result[:,:,110:]==0),'The adjacent hand must remain untouched')
+ def test_large_pose_condition_clears_only_the_painted_old_pose(self):
+  image=torch.rand(1,32,48,3);mask=torch.zeros(1,32,48);mask[:,10:20,12:30]=1
+  result,=nodes.MogeInpaintCondition().prepare(image,mask)
+  self.assertTrue(torch.all(result[mask==1]==0));self.assertTrue(torch.equal(result[mask==0],image[mask==0]))
+ def test_expanded_transition_reaches_zero_without_a_half_alpha_seam(self):
+  image=torch.zeros(1,96,128,3);mask=torch.zeros(1,96,128);mask[:,30:60,45:85]=1
+  crop,noise,ctx=nodes.MogePrepareInpaint().prepare(image,mask,8,False,False,32,16,128)
+  alpha=ctx['mask'][0]
+  self.assertEqual(alpha[45,29].item(),0)
+  self.assertGreater(alpha[45,30].item(),0);self.assertLess(alpha[45,30].item(),.05)
+  self.assertEqual(alpha[45,44].item(),1)
  def test_composite_preserves_unmasked_pixels_and_native_dimensions(self):
   image=torch.rand(1,117,203,3);mask=torch.zeros(1,117,203);mask[:,30:70,70:120]=1
   crop,noise,ctx=nodes.MogePrepareInpaint().prepare(image,mask,0,False,True,16,0,512)

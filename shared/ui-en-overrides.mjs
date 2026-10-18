@@ -168,5 +168,22 @@ export default {
  '重命名':'Rename ',
  '显示或隐藏':'Show/hide ',
  '默认值：':'default: ',
- '此参数':'parameter '
+ '此参数':'parameter ',
+ '大范围修改':'Change pose / large area',
+ '保护原背景':'Preserve original background',
+ '正在保护原背景':'Preserving original background',
+ '修手脚时涂满整只手或脚，包括错误轮廓，并保留手腕或脚踝作为参照；提示词描述左右手、手指或脚的目标姿态。其他小瑕疵可手动降低重绘强度。':'For hands or feet, mask the whole hand or foot including incorrect outlines. Keep the wrist or ankle as a reference, and describe the target pose. Lower denoise for minor blemishes.',
+ '涂满旧动作和新动作所需范围，包括移动的四肢及其周围；描述完整目标姿势。保护原背景，仅补绘动作改变后新露出的区域。':'Mask both the old and target poses, including moving limbs and their surroundings. Describe the complete target pose. Preserve the original background; newly exposed areas are filled in.',
+ '修手脚时涂满整只手或脚，包括错误轮廓；覆盖到手腕或脚踝上方，给裁切区留出前臂或小腿参照；提示词描述左右手、手指或脚的目标姿态。其他小瑕疵可手动降低重绘强度。':'Mask the whole hand or foot and the incorrect outline. Extend above the wrist or ankle, leaving forearm or calf context in the crop. Describe left/right anatomy and the target pose. Lower denoise for minor blemishes.',
+ '涂满旧动作和新动作所需范围，包括旧轮廓、移动的四肢和脚边阴影；靠近画面边缘时涂到边缘。写清左右手脚与完整目标姿势。保护原背景，仅补绘动作改变后新露出的区域。':'Mask both old and target poses, moving limbs, old outlines and contact shadows. Paint to the canvas edge when needed. Specify left/right limbs and the complete target pose. Preserve the background; newly exposed areas are filled in.',
+ '背景保护超时，请重试':'Background preservation timed out. Please retry.',
+ '背景保护未完成':'Background preservation did not finish.',
+ '背景保护结果无法读取':'Could not read the background preservation result.',
+ '重绘结果与原图尺寸不一致':'The inpainted image dimensions do not match the source.',
+ '未识别到蒙版中的人物，请关闭背景保护后重试':'No person was detected inside the mask. Disable background preservation and retry.',
+ '修手脚时涂满整只手或脚，包括错误轮廓；覆盖到手腕或脚踝上方，给裁切区留出前臂或小腿参照；提示词描述左右手脚、指趾数量和目标姿态。其他小瑕疵可手动降低重绘强度。':'Mask the whole hand or foot and incorrect outlines. Extend above the wrist or ankle, keeping forearm or calf context in the crop. Describe left/right anatomy, finger/toe count and the target pose. Lower denoise for minor blemishes.',
+ '遮罩扩展上限':'Maximum mask expansion',
+ '修手脚时涂满整只手或脚，包括错误轮廓；覆盖到手腕或脚踝上方，给裁切区留出前臂或小腿参照；提示词描述左右手脚、指趾数量和目标姿态。小选区自动缩小边缘范围，避免影响相邻手指；其他小瑕疵可手动降低重绘强度。':'Mask the whole hand or foot and incorrect outlines, including wrist or ankle context. Specify left/right anatomy, finger/toe count and the target pose. Small selections automatically reduce edge margins to protect nearby fingers. Lower denoise for minor blemishes.',
+ '重绘强度上限':'Maximum denoise',
+ '修手脚时涂满整只手或脚，包括错误轮廓；覆盖到手腕或脚踝上方，给裁切区留出前臂或小腿参照；提示词描述左右手脚、指趾数量和目标姿态。小选区自动降低重绘强度并缩小边缘范围，避免改变手势或影响相邻手指；其他小瑕疵可手动降低重绘强度。':'Mask the whole hand or foot and incorrect outlines, including wrist or ankle context. Specify left/right anatomy, finger/toe count and the target pose. Small selections automatically lower denoise and edge margins to preserve the gesture and nearby fingers. Lower denoise for minor blemishes.'
 };

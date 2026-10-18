@@ -47,20 +47,22 @@ export function buildWorkflow(input,schemas={},files={}) {
  }
  const positive=add('CLIPTextEncode',{clip,text:p.positive},'正向提示词');
  const neg=add('CLIPTextEncode',{clip,text:p.negative},'负向提示词');
- let latent,original,mask,context;
+ let latent,original,mask,context,detailStrength;
  if(files.image){
   original=add('LoadImage',{image:files.image});
   if(!files.mask)throw Error('请先用画笔涂抹需要重绘的区域');
   const maskImage=add('LoadImage',{image:files.mask});mask=add('ImageToMask',{image:maskImage,channel:'red'});
-  const prepared=add('MogePrepareInpaint',{image:original,mask,mask_blur:p.inpaint.maskBlur,invert:p.inpaint.invertMask,only_masked:p.inpaint.onlyMasked,padding:p.inpaint.padding,grow_mask:p.inpaint.growMask,resolution:Math.min(1536,Math.max(p.width,p.height))});
+  if(p.inpaint.preset==='detail')detailStrength=add('MogeDetailStrength',{mask,maximum:p.inpaint.denoise,invert:p.inpaint.invertMask});
+  const prepared=add('MogePrepareInpaint',{image:original,mask,mask_blur:p.inpaint.maskBlur,invert:p.inpaint.invertMask,only_masked:p.inpaint.onlyMasked,padding:p.inpaint.padding,grow_mask:p.inpaint.growMask,resolution:Math.min(1536,Math.max(p.width,p.height)),protect_small_details:p.inpaint.preset==='detail'});
   const image=prepared;mask=[prepared[0],1];context=[prepared[0],2];
   if(p.inpaint.controlnet){
    if(p.type==='expanded'&&p.inpaint.controlnet==='anima-lllite-inpainting-v2.safetensors')throw Error('Kohya 的原版重绘模型针对 28 层 Anima；2.9B 请使用基础遮罩重绘，或导入兼容 40 层的 ControlNet');
-   model=add('AnimaLLLiteApply_sdscripts',{model,lllite_name:p.inpaint.controlnet,image,mask,strength:p.inpaint.strength,start_percent:p.inpaint.start_percent,end_percent:p.inpaint.end_percent,preserve_wrapper:p.inpaint.preserve_wrapper});
+   const condition=['large','pose'].includes(p.inpaint.preset)?add('MogeInpaintCondition',{image,mask}):image;
+   model=add('AnimaLLLiteApply_sdscripts',{model,lllite_name:p.inpaint.controlnet,image:condition,mask,strength:p.inpaint.strength,start_percent:p.inpaint.start_percent,end_percent:p.inpaint.end_percent,preserve_wrapper:p.inpaint.preserve_wrapper});
   }
   const encoded=add('VAEEncode',{pixels:image,vae});latent=add('SetLatentNoiseMask',{samples:encoded,mask});
  } else latent=add('EmptyLatentImage',{width:p.width,height:p.height,batch_size:1});
- const sampled=add('KSampler',{model,positive,negative:neg,latent_image:latent,seed,steps:files.image?p.inpaint.steps:p.steps,cfg:files.image?p.inpaint.cfg:p.cfg,sampler_name:files.image?p.inpaint.sampler:p.sampler,scheduler:files.image?p.inpaint.scheduler:p.scheduler,denoise:files.image?p.inpaint.denoise:1});
+ const sampled=add('KSampler',{model,positive,negative:neg,latent_image:latent,seed,steps:files.image?p.inpaint.steps:p.steps,cfg:files.image?p.inpaint.cfg:p.cfg,sampler_name:files.image?p.inpaint.sampler:p.sampler,scheduler:files.image?p.inpaint.scheduler:p.scheduler,denoise:files.image?(detailStrength||p.inpaint.denoise):1});
  let image=p.tiledDecode?add('VAEDecodeTiled',{samples:sampled,vae,tile_size:512,overlap:64,temporal_size:64,temporal_overlap:8}):add('VAEDecode',{samples:sampled,vae});
  for(const [key,type] of [['face','FaceDetailer'],['hand','DetailerForEach']]) if(p[key].enabled){
   const cfg=p[key];if(!cfg.detector)throw Error('请选择脸部 / 手部检测模型');

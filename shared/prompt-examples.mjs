@@ -3,7 +3,7 @@ const legacyNegative = 'worst quality, low quality, blurry, bad anatomy, extra l
 
 export const promptExamples = Object.freeze({
   positive: 'Example: masterpiece, best quality, anime illustration, traveler, walking, quiet town, detailed background, soft lighting',
-  negative: 'Example: ' + legacyNegative,
+  negative: 'Example: worst quality, low quality, blurry, bad anatomy, extra limbs, extra fingers, extra toes, fused fingers, fused toes, text, watermark',
 });
 
 // Only retire the untouched starter pair. Saved artwork and edited prompts stay intact.

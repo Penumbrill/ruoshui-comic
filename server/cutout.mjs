@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';import {createReadStream} from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import {spawn} from 'node:child_process';
-async function readyModels(service,profile){
+export async function readyModels(service,profile){
  const entries=JSON.parse(await fs.readFile(service.defaultManifestPath,'utf8')).downloads[profile];service.cutoutChecks||=new Map();
  async function valid(item){const file=path.join(service.folder('models'),item.target);try{const stat=await fs.stat(file),stamp=`${stat.size}:${stat.mtimeMs}`;if(stat.size!==item.size)return false;if(service.cutoutChecks.get(file)===stamp)return true;const hash=crypto.createHash('sha256');for await(const chunk of createReadStream(file))hash.update(chunk);if(hash.digest('hex')!==item.sha256)return false;service.cutoutChecks.set(file,stamp);return true;}catch{return false;}}
  if((await Promise.all(entries.map(valid))).every(Boolean))return;

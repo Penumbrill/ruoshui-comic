@@ -1,3 +1,5 @@
+import {migrateHandDefaults} from '../shared/hand-defaults.mjs';
+import {preserveInpaintBackground} from './inpaint-background.mjs';
 import {network,networkFetch} from './network.mjs';
 import {completeLlmDownload} from './llm-downloads.mjs';
 import {TranslationRouter,validTranslation} from './translation-router.mjs';
@@ -54,7 +56,7 @@ export class StudioService{
   const oldData=path.join(this.root,'data');if(existsSync(path.join(oldData,'gallery.json'))&&!existsSync(path.join(this.data,'gallery.json')))await fs.cp(oldData,this.data,{recursive:true,force:false});
   for(const folder of ['output','imports','projects','exports','logs','comfy-user','autosave'])await fs.mkdir(path.join(this.data,folder),{recursive:true});
   for(const category of categories) await fs.mkdir(this.folder(category),{recursive:true});
-  const stored=await readJson(path.join(this.data,'settings.json'),{});this.config=migratePromptExamples(rebaseInstallationPaths(mergeConfig(defaults(),stored),this.root));
+  const stored=await readJson(path.join(this.data,'settings.json'),{});this.config=migrateHandDefaults(migratePromptExamples(rebaseInstallationPaths(mergeConfig(defaults(),stored),this.root)));
   for(const type of ['original','expanded']){const p=this.config.profiles[type];if(stored.schemaVersion!==2){Object.assign(p.inpaint,{steps:30,cfg:4,sampler:'er_sde',scheduler:'simple',denoise:0.8,maskBlur:4,invertMask:false,onlyMasked:false,padding:32,positive:'',negative:'',controlnet:type==='original'?'anima-lllite-inpainting-v2.safetensors':''});}if(p.upscale.upscale_model==='RealESRGAN_x4plus_anime_6B.pth'&&!existsSync(path.join(this.folder('upscale_models'),p.upscale.upscale_model)))p.upscale.upscale_model='RealESRGAN_x4plus.safetensors';}
   this.config.schemaVersion=2;this.config.liveTagTranslation??=true;this.tagTranslations=await readJson(path.join(this.data,'autosave/tag-translations.json'),{});
   if(existsSync(path.join(this.data,'model-manifest.json')))this.modelManifestPath=path.join(this.data,'model-manifest.json');
@@ -82,6 +84,7 @@ export class StudioService{
   const needed=[`diffusion_models/${p.model}`,`text_encoders/${p.textEncoder}`,`vae/${p.vae}`];
   for(const l of p.loras)if(l.enabled!==false&&l.name)needed.push('loras/'+l.name);
   if(inpaint&&p.inpaint.controlnet)needed.push('controlnet/'+p.inpaint.controlnet);
+  if(inpaint&&p.inpaint.preserveBackground)needed.push('segmentation/isnetis.onnx');
   for(const kind of ['face','hand'])if(p[kind].enabled)needed.push('ultralytics/'+p[kind].detector);
   if(p.upscale.enabled)needed.push('upscale_models/'+p.upscale.upscale_model);
   const items=[];for(const name of needed){
@@ -170,7 +173,7 @@ export class StudioService{
  async cancel(groupId){
   let running=false;
   for(const job of this.jobs)if(!groupId||job.groupId===groupId){if(job.status==='queued')job.status='cancelled';if(job.status==='running'){job.status='cancelling';running=true;}}
-  if(running)await this.json('/interrupt',{});this.emit('jobs',this.jobs);await this.persist();return true;
+  if(running){this.inpaintBackgroundChild?.kill();await this.json('/interrupt',{});}this.emit('jobs',this.jobs);await this.persist();return true;
  }
  async retryJob(id){const job=this.jobs.find(j=>j.id===id);if(!job||!['error','interrupted','cancelled'].includes(job.status))throw Error('此任务无需恢复');const body={params:job.params,count:1,target:job.target,imageId:job.imageId};if(job.maskFile)body.mask='data:image/png;base64,'+(await fs.readFile(path.join(this.data,'imports',path.basename(job.maskFile)))).toString('base64');return this.enqueue(body);}
  async pump(){
@@ -206,8 +209,10 @@ export class StudioService{
     if(images.length){for(const image of images){
      const r=await this.request('/view?'+new URLSearchParams(image));if(!r.ok)throw Error('无法读取生成结果');
      const id=crypto.randomUUID();const filename=`${id}.png`;await fs.writeFile(path.join(this.data,'output',filename),Buffer.from(await r.arrayBuffer()));
+     let background;try{background=original&&job.params.inpaint.preserveBackground?await preserveInpaintBackground(this,job,original,path.join(this.data,'output',filename)):null;}catch(error){await fs.unlink(path.join(this.data,'output',filename)).catch(()=>{});throw error;}
+     if(this.closed||job.status==='cancelling'){await fs.unlink(path.join(this.data,'output',filename)).catch(()=>{});return;}
      const info=pngMetadata(await fs.readFile(path.join(this.data,'output',filename)));
-     const item={id,file:'output/'+filename,url:'/api/files/'+id,title:`${job.params.type==='expanded'?'Anima 2.9B':'Anima'} · ${job.params.seed}`,created:new Date().toISOString(),params:{...job.params,width:info.width||job.params.width,height:info.height||job.params.height,...(job.imageId?{steps:job.params.inpaint.steps,cfg:job.params.inpaint.cfg,sampler:job.params.inpaint.sampler,scheduler:job.params.inpaint.scheduler}:{})},target:job.target,jobId:job.id,generationMode:job.imageId?'inpaint':'generate',sourceImageId:job.imageId};
+     const item={id,file:'output/'+filename,url:'/api/files/'+id,title:`${job.params.type==='expanded'?'Anima 2.9B':'Anima'} · ${job.params.seed}`,created:new Date().toISOString(),params:{...job.params,width:info.width||job.params.width,height:info.height||job.params.height,...(job.imageId?{steps:job.params.inpaint.steps,cfg:job.params.inpaint.cfg,sampler:job.params.inpaint.sampler,scheduler:job.params.inpaint.scheduler}:{})},target:job.target,jobId:job.id,generationMode:job.imageId?'inpaint':'generate',sourceImageId:job.imageId,...(background?{backgroundProtection:background}:{})};
      this.gallery.unshift(item);job.resultId=id;await atomicJson(path.join(this.data,'output',`${id}.json`),item);await this.placeGenerated(item);this.emit('generated',item);
     }this.emit('gallery',this.gallery);return;}
     if(record.status?.completed)throw Error('工作流没有输出图像');
@@ -367,5 +372,5 @@ export class StudioService{
   return{translations:Object.fromEntries(tags.map((tag,i)=>[tag,known.get(keys[i])||this.tagTranslations[keys[i]]||tag])),sources:[...new Set([...(keys.some(k=>known.has(k))?['本地词库']:[]),...(routed?[...routed.sources.values()]:[]),...(keys.some(k=>validTranslation(k,this.tagTranslations[k],'zh'))?['翻译缓存']:[])])],partial:!!unresolved.length,unresolved:tags.filter((_,i)=>unresolved.includes(keys[i])),message:unresolved.length?'部分标签暂未译出，已尝试备用服务，可稍后刷新重试。':''};
  }
  async translateOffline(text){this.zhTranslator||=new OfflineTranslator(path.join(this.runtime,'python/python.exe'),path.join(externalBundle,'assets/translate_worker.py'),path.join(this.folder('models'),'translation'),'zh-en');return this.zhTranslator.translate(text);}
- shutdown(){this.closed=true;this.updates?.close();this.networkTransfer?.control('cancel');this.cacheMaintenance?.close();void this.danbooruUpstream?.close();void this.assistant?.stop();this.cutoutChild?.kill();this.socket?.close();this.comfyProcess?.kill();this.installChild?.kill();this.translator?.kill();this.tagTranslator?.close();this.zhTranslator?.close();void this.persist();}
+ shutdown(){this.closed=true;this.updates?.close();this.networkTransfer?.control('cancel');this.cacheMaintenance?.close();void this.danbooruUpstream?.close();void this.assistant?.stop();this.cutoutChild?.kill();this.inpaintBackgroundChild?.kill();this.socket?.close();this.comfyProcess?.kill();this.installChild?.kill();this.translator?.kill();this.tagTranslator?.close();this.zhTranslator?.close();void this.persist();}
 }
