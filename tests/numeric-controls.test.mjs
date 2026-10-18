@@ -26,6 +26,9 @@ test('every numeric template control obeys its wheel category in both directions
       if(props['bind:data-wheel-step']){assert.equal(props['bind:data-wheel-step'],'f.wheelStep');attrs['data-wheel-step']=String(featureStep);}
       if(featureStep===1)attrs['data-wheel-integer']='';
       const step=featureStep??(/^lora\.strength_/.test(model)?.01:['p.width','p.height'].includes(model)?32:ratios.has(model)?.1:1);
+      // Native range inputs snap assigned values to their declared HTML step.
+      // A coarser range step would silently discard the global wheel increment.
+      if(attrs.type==='range'&&attrs.step!=='any')assert(Math.abs(step/Number(attrs.step??1)-Math.round(step/Number(attrs.step??1)))<1e-8,`${file}: ${model} native range must accept its wheel increment`);
       const minimum=Number(attrs.min??attrs['data-wheel-min']??0),maximum=Number(attrs.max??attrs['data-wheel-max']??10000);
       const base=Math.max(minimum,Math.min(maximum-step,Math.round((minimum+maximum)/2)));
       const listeners={},root={activeElement:null,addEventListener:(name,fn)=>listeners[name]=fn,removeEventListener(){}},events=[];
