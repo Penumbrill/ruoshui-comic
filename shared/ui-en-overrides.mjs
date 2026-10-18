@@ -1,4 +1,13 @@
 export default {
+ '在本机 CPU 上把中文描述翻译成英文提示词，不占用生图显存。':'Translate Chinese descriptions into English prompts on the local CPU, without using image-generation VRAM.',
+ '在本机把英文标签译成中文说明，与内置标签词库一起使用。':'Translate English tags into Chinese locally, alongside the built-in tag dictionary.',
+ '正在分段下载，已完成的分段会保留':'Downloading in parallel; completed ranges are kept.',
+ '正在下载，可断点续传':'Downloading with resume support.',
+ '连接或读取超时，已保留下载进度，正在切换线路并续传':'Connection or read timed out. Progress is saved; switching routes and resuming.',
+ '下载连接中断，已保留下载进度，正在切换线路并续传':'Download interrupted. Progress is saved; switching routes and resuming.',
+ '模型下载暂时无法完成，已保留下载进度；请检查网络或连接网络加速器后点击继续。':'The download could not finish. Progress is saved. Check your connection or connect a network accelerator, then resume.',
+ '中英双向离线翻译模型':'Offline Chinese / English translation models',
+ '在本机翻译中文提示词和英文标签，下载完成后可离线使用。':'Translate Chinese prompts and English tags locally. Downloaded models work offline.',
  '组合后的提示词':'Combined prompt',
  '标签拆分器':'Tag categories',
  '粘贴标签':'Paste tags',

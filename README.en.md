@@ -47,6 +47,8 @@ Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic
 
 Assistant search, file queries and downloads share the source setting under Settings → Prompt assistant / AI. A working mirror does not require a network accelerator. If both the official site and mirror are unreachable, connect a network accelerator and retry. Downloaded models work offline.
 
+Large files support up to four parallel range connections. Failed transfers reduce concurrency, switch sources and retain completed ranges. The download panel shows the source, connection route and download host. Mirrors can redirect to the original file host, so speed depends on your network route.
+
 ### Option 1: Installer
 
 1. Download and run **`ruoshui-comic.exe`**.
@@ -99,6 +101,7 @@ Standalone generation and inpainting save their own results. Results fill a comi
 | Zoom the main comic canvas | Ctrl + mouse wheel |
 | Zoom other image previews | Mouse wheel; double-click to fit |
 | Adjust numeric values | Click to focus the numeric field before scrolling; hold Shift for larger steps |
+| Wheel increments | Ratios / multipliers: 0.1; integers: 1; generation / inpaint dimensions: 32; comic dimensions: 1; LoRA weights: 0.01 |
 | Reset parameters | Use the reset button beside a parameter, or reset all parameters in Settings |
 | Reorder layers | Right-click a layer to move it within its group or across layer types |
 | Realign a cutout | Select it and use Align to original in Properties |

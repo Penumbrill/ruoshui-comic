@@ -1,5 +1,8 @@
 export function downloadDescription(install={}){
  const name=install.name||'',profile=install.profile||'';
+ if(String(install.target||'').startsWith('tag_translation/'))return{title:'离线标签中文翻译模型',purpose:'在本机把英文标签译成中文说明，与内置标签词库一起使用。',category:'models'};
+ if(String(install.target||'').startsWith('translation/'))return{title:'离线中文转英文模型',purpose:'在本机 CPU 上把中文描述翻译成英文提示词，不占用生图显存。',category:'models'};
+ if(profile==='translation_setup')return{title:'中英双向离线翻译模型',purpose:'在本机翻译中文提示词和英文标签，下载完成后可离线使用。',category:'models'};
  if(/birefnet/i.test(name)||profile==='cutout_general')return{title:'通用主体抠图模型',purpose:'用于自动识别人像和物品，分离主体与背景，制作破框效果。首次下载约 928 MB，完成后在本地使用。',category:'models'};
  if(/isnet/i.test(name)||profile==='cutout')return{title:'动漫人物抠图模型',purpose:'用于自动分离动漫人物与背景，下载后无需再次下载。',category:'models'};
  if(/sam_vit/i.test(name)||profile==='selection')return{title:'涂抹选取主体模型',purpose:'用于通过点击或涂抹保留人物、物品，精细调整抠图选区。',category:'models'};
