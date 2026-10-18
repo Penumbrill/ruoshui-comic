@@ -14,6 +14,10 @@ test('successive inpainting results preserve the original painting surface',()=>
  assert.equal(inpaintSource(null,gallery,original),null);
  // A portable project may contain only its result; it remains editable.
  assert.equal(inpaintSource(a,[]),a);
+ assert.equal(inpaintSource(a,gallery,null,'a'),a);
+ assert.equal(inpaintResult(a,inpaintSource(a,gallery,null,'a')),null);
+ assert.equal(inpaintSource({...a,cutout:true},gallery).id,'a');
+ assert.equal(inpaintSource({...a,imported:true},gallery,null,'original'),original);
 });
 test('embedded live previews and history isolate mode, panel, page and project',()=>{
  const target={projectId:'p',pageId:'page',panelId:'panel'},job={imageId:'source',target};
