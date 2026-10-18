@@ -6,7 +6,7 @@ import {parse as parseSfc} from '@vue/compiler-sfc';
 import {baseParse} from '@vue/compiler-dom';
 import {installNumericWheel} from '../src/numeric-wheel.js';
 
-const ratios=new Set(['page.cutoutOpacity??1','panel.imageScale','object.w/(object.cutoutBaseW||object.w)','object.opacity??1','page.bubbleLinks[object.linkGroup].strength','object.tailLength??.5','cutoutOptions.threshold','cutoutOptions.feather','cfg.detector_threshold','cfg.detector_crop_factor','compare','p.cfg','p.shift','p.inpaint.cfg','p.inpaint.denoise','p.inpaint.strength','p.inpaint.start_percent','p.inpaint.end_percent','c.temperature','prefs.opacity']);
+const ratios=new Set(['page.cutoutOpacity??1','panel.imageScale','object.w/(object.cutoutBaseW||object.w)','object.opacity??1','page.bubbleLinks[object.linkGroup].strength','object.tailLength??.5','cutoutOptions.threshold','cfg.detector_threshold','cfg.detector_crop_factor','compare','p.cfg','p.shift','p.inpaint.cfg','p.inpaint.denoise','p.inpaint.strength','p.inpaint.start_percent','p.inpaint.end_percent','c.temperature','prefs.opacity']);
 function vueFiles(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?vueFiles(path.join(dir,entry.name)):entry.name.endsWith('.vue')?[path.join(dir,entry.name)]:[]);}
 
 test('every numeric template control obeys its wheel category in both directions and requires focus',()=>{
