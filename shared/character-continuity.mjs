@@ -9,7 +9,8 @@ export function characterPlan(text){
  const known=characterAnchors.filter(character=>mentions(String(text),character));const changed=new Set();let previous=[];
  for(const clause of String(text).split(/[，,。；;\n]/)){
   const named=known.filter(character=>mentions(clause,character));if(named.length)previous=named;
-  const change=/(穿(?:着|上)?|换装|换衣|改穿|服饰|衣服|服装|校服|泳装|运动服|衬衫|外套|连衣裙|长裙|短裙|制服|wear|dressed|outfit|clothes|costume|uniform)/i.test(clause);
+  const wardrobeClause=clause.replace(/穿(?:过|越)(?=森林|树林|小溪|桥|河|道路)/g,'经过').replace(/穿(?:在|到|进)(?=木签|竹签|鱼钩|绳|针|洞)/g,'串入');
+  const change=/(穿(?:着|上)?|换装|换衣|改穿|服饰|衣服|服装|校服|泳装|运动服|衬衫|外套|连衣裙|长裙|短裙|制服|wear|dressed|outfit|clothes|costume|uniform)/i.test(wardrobeClause);
   const preserve=/(默认|经典|原版|原装|原本|保持|照旧|default|canonical|original)/i.test(clause)&&!/(换|改|不要默认|不要原|instead|change|replace)/i.test(clause);
   if(change&&!preserve){const targets=named.length?named:/(两人|两位|她们|他们|都|both|all|they)/i.test(clause)?known:previous.length?previous:known.length===1?known:[];targets.forEach(c=>changed.add(c.id));}
  }

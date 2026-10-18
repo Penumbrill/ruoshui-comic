@@ -17,6 +17,7 @@ class MogePrepareInpaint:
   if mask.shape[-2:]!=(h,w):mask=F.interpolate(mask.unsqueeze(1),size=(h,w),mode='nearest').squeeze(1)
   if invert:mask=1-mask
   if not torch.any(mask>0.5):raise ValueError('遮罩为空，请先涂抹需要重绘的区域')
+  core=(mask>0.5).float()
   if grow_mask:
    size=grow_mask*2+1;mask=F.max_pool2d(mask.unsqueeze(1),size,stride=1,padding=grow_mask).squeeze(1)
   hard=(mask>0.5).float()
@@ -31,8 +32,15 @@ class MogePrepareInpaint:
   feather=hard
   if mask_blur:
    pil=Image.fromarray((hard[0].numpy()*255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(mask_blur))
-   # Feather inward: even a blurred edge must never edit pixels outside the mask.
+   # Keep feathering inside the edit boundary. With an expansion, the painted
+   # core must be fully replaced: blending it brings the old object back.
    feather=torch.from_numpy(np.array(pil).astype(np.float32)/255).unsqueeze(0)*hard
+   if grow_mask:
+    # Reserve only the outer blur-width for blending. Segmentation often omits
+    # antialiased object outlines just outside the painted/selected core.
+    solid_margin=max(0,grow_mask-math.ceil(mask_blur))
+    solid=F.max_pool2d(core.unsqueeze(1),solid_margin*2+1,stride=1,padding=solid_margin).squeeze(1)
+    feather=torch.maximum(feather,solid)
   context={'original':image,'mask':feather,'box':(x0,y0,x1,y1)}
   return (crop,cm,context)
 

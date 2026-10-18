@@ -27,6 +27,14 @@ export function buildWorkflow(input,schemas={},files={}) {
  const p=validateParams(input);const graph={};let next=1;
  function add(type,inputs,title){
   if(Object.keys(schemas).length&&!schemas[type]) throw Error(`缺少节点 ${type}，请在设置中修复运行环境`);
+  inputs={...inputs};
+  for(const [key,value] of Object.entries(inputs)){
+   const choices=(schemas[type]?.input?.required?.[key]||schemas[type]?.input?.optional?.[key])?.[0];
+   if(typeof value==='string'&&Array.isArray(choices)&&!choices.includes(value)){
+    const actual=choices.find(choice=>typeof choice==='string'&&choice.replaceAll('\\','/')===value.replaceAll('\\','/'));
+    if(actual!==undefined)inputs[key]=actual;
+   }
+  }
   const id=String(next++);graph[id]={class_type:type,inputs:{...nodeDefaults(schemas[type]),...inputs},_meta:{title:title||type}};return [id,0];
  }
  const seed=Number(p.seed);let model=add('UNETLoader',{unet_name:p.model,weight_dtype:'default'},'Anima 模型');

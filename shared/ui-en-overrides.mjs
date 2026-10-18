@@ -1,4 +1,5 @@
 export default {
+ '涂满旧物品及其轮廓，并覆盖新物品需要的范围；尽量避开无需修改的手指。默认完整重绘，向外扩展 8 像素过渡。':'Cover the entire old object and its outline, plus the space needed for the replacement. Avoid fingers that should stay unchanged. Full denoising and an 8 px transition margin are used by default.',
  '生图所需模型':'Image generation models',
  '用于本地生成或处理图片；已存在且校验通过的文件会跳过，下载中断可以续传。':'Models for local image generation and editing. Verified files are skipped, and interrupted downloads can resume.',
  '刷新并重试下载，重新检测可用下载源':'Retry the download and test available sources again',

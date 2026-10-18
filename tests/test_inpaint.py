@@ -17,6 +17,18 @@ class InpaintTest(unittest.TestCase):
   self.assertTrue(torch.equal(result[mask==0],image[mask==0]))
  def test_empty_mask_is_rejected(self):
   with self.assertRaisesRegex(ValueError,'遮罩'):nodes.MogePrepareInpaint().prepare(torch.zeros(1,64,64,3),torch.zeros(1,64,64),4,False,False,32,0,512)
+ def test_expansion_feathers_outside_core_without_restoring_old_outline(self):
+  image=torch.zeros(1,96,128,3);image[:,:,:,0]=1;mask=torch.zeros(1,96,128);mask[:,30:60,45:85]=1
+  crop,noise,ctx=nodes.MogePrepareInpaint().prepare(image,mask,2,False,True,20,4,512)
+  replacement=torch.zeros_like(crop);replacement[:,:,:,2]=1
+  result,=nodes.MogeCompositeInpaint().composite(replacement,ctx)
+  self.assertTrue(torch.all(result[mask==1][:,0]==0),'Old red outline must not bleed into the painted core')
+  self.assertTrue(torch.all(result[mask==1][:,2]>.999))
+  solid=torch.nn.functional.max_pool2d(mask.unsqueeze(1),5,stride=1,padding=2).squeeze(1)
+  self.assertTrue(torch.all(result[solid==1][:,0]==0),'Antialiased outlines just beyond the core also need full replacement')
+  expanded=torch.nn.functional.max_pool2d(mask.unsqueeze(1),9,stride=1,padding=4).squeeze(1)
+  self.assertTrue(torch.equal(result[expanded==0],image[expanded==0]))
+  self.assertTrue(torch.any((ctx['mask']>0)&(ctx['mask']<1)&(mask==0)))
  def test_integrity_detects_same_size_corruption(self):
   with tempfile.TemporaryDirectory(prefix='moge-integrity-') as directory:
    root=pathlib.Path(directory);(root/'model.safetensors').write_bytes(b'correct');items=[{'target':'model.safetensors','size':7,'sha256':hashlib.sha256(b'correct').hexdigest()}]
