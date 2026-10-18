@@ -1,3 +1,4 @@
+import {execFileSync} from 'node:child_process';
 // Builds assets only. Publishing is a separate, explicitly authorized operation.
 import fs from 'node:fs/promises';
 import {createReadStream} from 'node:fs';
@@ -15,6 +16,9 @@ await fs.mkdir(stage,{recursive:true});
 async function run(file,args, cwd=root,env={}){await new Promise((resolve,reject)=>{const p=spawn(file,args,{cwd,env:{...process.env,...env},windowsHide:true,stdio:'inherit'});p.once('error',reject);p.once('close',code=>code===0?resolve():reject(Error('Build step failed: '+path.basename(file))));});}
 if(!resume){await run(process.execPath,['node_modules/vite/bin/vite.js','build','--emptyOutDir']);await run(process.execPath,['node_modules/electron-builder/cli.js','--win','dir','--publish=never','--config.directories.output='+stage]);}
 const app=path.join(stage,'win-unpacked'),files=[];
+const version=JSON.parse(await fs.readFile(path.join(root,'package.json'))).version,build={appId:'com.guangyingruoshui.comic',version,tag:'v'+version,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),builtAt:new Date().toISOString()};
+if(!/^[a-f0-9]{40}$/.test(build.commit))throw Error('Invalid source commit');
+await fs.writeFile(path.join(app,'ruoshui-build.json'),JSON.stringify(build,null,2));
 if(resume)for(const [source,dest]of [['README.md','使用说明.md'],['README.en.md','README.en.md'],['LICENSE','LICENSE.txt'],['THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md']])await fs.copyFile(path.join(root,source),path.join(app,dest));
 if(await fs.stat(path.join(app,'ruoshui-comic.exe')).then(s=>s.isFile()).catch(()=>false))await fs.rm(path.join(app,'若水漫画.exe'),{force:true});
 async function walk(folder,base=''){for(const e of await fs.readdir(folder,{withFileTypes:true})){const name=base+e.name,full=path.join(folder,e.name);if(e.isSymbolicLink()){
@@ -23,10 +27,10 @@ async function walk(folder,base=''){for(const e of await fs.readdir(folder,{with
 await walk(app);const oldManifest=files.findIndex(f=>f.path==='ruoshui-update.json');if(oldManifest>=0)files.splice(oldManifest,1);let next=0;
 async function hash(file){const h=crypto.createHash('sha256');for await(const chunk of createReadStream(file))h.update(chunk);return h.digest('hex');}
 await Promise.all(Array.from({length:8},async()=>{for(;;){const i=next++;if(i>=files.length)break;files[i].sha256=await hash(path.join(app,files[i].path));}}));
-const version=JSON.parse(await fs.readFile(path.join(root,'package.json'))).version;
+
 // The regular updater refreshes program files. Runtime ZIPs remain separate install assets.
 const core=files.filter(f=>!f.path.startsWith('runtime/'));
-await fs.writeFile(path.join(app,'ruoshui-update.json'),JSON.stringify({appId:'com.guangyingruoshui.comic',version,files:core},null,2));
+await fs.writeFile(path.join(app,'ruoshui-update.json'),JSON.stringify({appId:'com.guangyingruoshui.comic',version,build,files:core},null,2));
 core.push({path:'ruoshui-update.json',size:(await fs.stat(path.join(app,'ruoshui-update.json'))).size});
 const groups=[{name:'ruoshui-comic.update-win-x64.zip',files:core}];let group;
 for(const file of files.filter(f=>f.path.startsWith('runtime/')).sort((a,b)=>a.path.localeCompare(b.path))){if(!group||group.bytes+file.size>1400000000){group={name:'ruoshui-runtime-win-x64-'+String(groups.length).padStart(2,'0')+'.zip',files:[],bytes:0};groups.push(group);}group.files.push(file);group.bytes+=file.size;}
