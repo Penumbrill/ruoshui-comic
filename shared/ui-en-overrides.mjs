@@ -185,5 +185,9 @@ export default {
  '遮罩扩展上限':'Maximum mask expansion',
  '修手脚时涂满整只手或脚，包括错误轮廓；覆盖到手腕或脚踝上方，给裁切区留出前臂或小腿参照；提示词描述左右手脚、指趾数量和目标姿态。小选区自动缩小边缘范围，避免影响相邻手指；其他小瑕疵可手动降低重绘强度。':'Mask the whole hand or foot and incorrect outlines, including wrist or ankle context. Specify left/right anatomy, finger/toe count and the target pose. Small selections automatically reduce edge margins to protect nearby fingers. Lower denoise for minor blemishes.',
  '重绘强度上限':'Maximum denoise',
- '修手脚时涂满整只手或脚，包括错误轮廓；覆盖到手腕或脚踝上方，给裁切区留出前臂或小腿参照；提示词描述左右手脚、指趾数量和目标姿态。小选区自动降低重绘强度并缩小边缘范围，避免改变手势或影响相邻手指；其他小瑕疵可手动降低重绘强度。':'Mask the whole hand or foot and incorrect outlines, including wrist or ankle context. Specify left/right anatomy, finger/toe count and the target pose. Small selections automatically lower denoise and edge margins to preserve the gesture and nearby fingers. Lower denoise for minor blemishes.'
+ '修手脚时涂满整只手或脚，包括错误轮廓；覆盖到手腕或脚踝上方，给裁切区留出前臂或小腿参照；提示词描述左右手脚、指趾数量和目标姿态。小选区自动降低重绘强度并缩小边缘范围，避免改变手势或影响相邻手指；其他小瑕疵可手动降低重绘强度。':'Mask the whole hand or foot and incorrect outlines, including wrist or ankle context. Specify left/right anatomy, finger/toe count and the target pose. Small selections automatically lower denoise and edge margins to preserve the gesture and nearby fingers. Lower denoise for minor blemishes.',
+ '替换手中物品':'Replace held object',
+ '改变表情':'Change expression',
+ '调整手部动作':'Change hand pose',
+ '修补小细节':'Repair small details'
 };
