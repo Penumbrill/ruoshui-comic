@@ -34,12 +34,12 @@ export function ensurePanelGeneration(panel,gallery=[],fallbackType='original'){
  const params=mergeConfig(makeProfile(type),copy(saved||{}));
  // A blank panel starts with its own story, never the single-image workspace prompt.
  params.positive=saved?.positive??panel.positive??'';params.negative=saved?.negative??panel.negative??'';
- if(panelEditingMode(panel,gallery)==='inpaint')params.inpaint={...params.inpaint,positive:params.positive,negative:params.negative,sourceImageId:image?.id||panel.imageId,maskDraft:null};
+ if(panelEditingMode(panel,gallery)==='inpaint')params.inpaint={...params.inpaint,positive:params.positive,negative:params.negative,sourceImageId:image?.sourceImageId||image?.id||panel.imageId,maskDraft:null};
  if(!image&&!saved?.width){const points=panel.points||[],xs=points.map(p=>p.x),ys=points.map(p=>p.y),w=Math.max(...xs)-Math.min(...xs),h=Math.max(...ys)-Math.min(...ys);if(w>0&&h>0){const scale=1024/Math.sqrt(w*h);params.width=Math.max(256,Math.min(4096,Math.round(w*scale/16)*16));params.height=Math.max(256,Math.min(4096,Math.round(h*scale/16)*16));}}
  panel.generation={params,profiles:{}};return panel.generation;
 }
 export function setPanelImage(panel,item,{replaceDraft=true}={}){
  panel.image=item.url;panel.imageId=item.id;delete panel.imageMetadataDeleted;
  panel.imageOrigin={mode:imageEditingMode(item),sourceImageId:item.sourceImageId||null};
- if(item.params?.type){panel.lastGeneratedParams=copy(item.params);if(replaceDraft||!panel.generation?.params){const params=mergeConfig(makeProfile(item.params.type),copy(item.params));if(imageEditingMode(item)==='inpaint')params.inpaint={...params.inpaint,positive:item.params.positive||'',negative:item.params.negative||'',sourceImageId:item.id,maskDraft:null};panel.generation={params,profiles:{}};panel.positive=item.params.positive||'';panel.negative=item.params.negative||'';}}
+ if(item.params?.type){panel.lastGeneratedParams=copy(item.params);if(replaceDraft||!panel.generation?.params){const params=mergeConfig(makeProfile(item.params.type),copy(item.params));if(imageEditingMode(item)==='inpaint')params.inpaint={...params.inpaint,positive:item.params.positive||'',negative:item.params.negative||'',sourceImageId:item.sourceImageId||item.id,maskDraft:null};panel.generation={params,profiles:{}};panel.positive=item.params.positive||'';panel.negative=item.params.negative||'';}}
 }
