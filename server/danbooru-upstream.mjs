@@ -25,10 +25,11 @@ export class DanbooruUpstream {
   // Existing desktop settings/favorites retain their location and are never
   // replaced with another ComfyUI installation's private files.
   for(const name of ['settings.json','favorites.json']){const dest=path.join(folder,name);try{await fs.copyFile(path.join(this.service.data,'danbooru',name),dest,1);}catch(e){if(!['ENOENT','EEXIST'].includes(e.code))throw e;}}
+  const log=await fs.open(path.join(this.service.data,'logs/danbooru-plugin.log'),'a');
   const python=path.join(this.service.runtime,'python/python.exe');
   const child=spawn(python,['-I',path.join(bundle,'assets/danbooru_host.py'),folder,this.endpoint,this.token],{windowsHide:true,env:{...process.env,PYTHONUTF8:'1',PYTHONIOENCODING:'utf-8',PYTHONNOUSERSITE:'1',HF_HOME:path.join(this.service.runtime,'cache/huggingface')}});
   this.child=child;
-  const log=await fs.open(path.join(this.service.data,'logs/danbooru-plugin.log'),'a');child.stderr.on('data',b=>{void log.write(b).catch(()=>{});});
+  child.stderr.on('data',b=>{void log.write(b).catch(()=>{});});
   return new Promise((resolve,reject)=>{
    const timer=setTimeout(()=>{reject(Error('标签浏览器启动超时，请刷新重试'));child.kill();},60000);
    createInterface({input:child.stdout}).on('line',line=>{let result;try{result=JSON.parse(line);}catch{return;}if(result.ready){clearTimeout(timer);this.routeCount=result.routes;resolve(this);return;}const pending=this.pending.get(result.id);if(!pending)return;clearTimeout(pending.timer);this.pending.delete(result.id);result.error?pending.reject(Error(result.error)):pending.resolve({...result,buffer:Buffer.from(result.body,'base64')});});

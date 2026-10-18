@@ -1,12 +1,17 @@
-// Localize the host UI without modifying upstream search, filtering or tag data.
-if(parent.document.documentElement.lang==='en'){
- const words=await(await fetch('/api/ui-locale/en')).json(),escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
- const pattern=new RegExp(Object.keys(words).filter(s=>s.length>1&&!s.includes('\n')).sort((a,b)=>b.length-a.length).map(escape).join('|'),'g');
- const translate=s=>words[s]||s.replace(pattern,part=>words[part]);
- let pending=false;
- const apply=()=>{pending=false;const walker=document.createTreeWalker(document.getElementById('root'),NodeFilter.SHOW_TEXT);let node;
-  while(node=walker.nextNode()){if(node.parentElement.closest('textarea,input,[contenteditable=true]'))continue;if(/[\u3400-\u9fff]/.test(node.data)){const text=translate(node.data);if(text!==node.data)node.data=text;}}
-  for(const element of document.querySelectorAll('[placeholder],[title],[aria-label]'))for(const key of ['placeholder','title','aria-label']){const value=element.getAttribute(key);if(value&&/[\u3400-\u9fff]/.test(value)){const text=translate(value);if(text!==value)element.setAttribute(key,text);}}
- };
- new MutationObserver(()=>{if(!pending){pending=true;requestAnimationFrame(apply);}}).observe(document.getElementById('root'),{subtree:true,childList:true,characterData:true});apply();
+// Translate bundled interface labels only; leave prompts and post content intact.
+const language=new URLSearchParams(location.search).get('lang')==='en'?'en':'zh';
+document.documentElement.lang=language;
+if(language==='en'){
+ const response=await fetch('./locale-en.json');
+ const labels=await response.json(),root=document.body;
+ const translate=text=>{const trimmed=text.trim();if(Object.hasOwn(labels,trimmed))return text.replace(trimmed,labels[trimmed]);return text.replace(/^第(\d+)页·(\d+)条$/,'Page $1 · $2 results').replace(/^✅ 新增 (\d+) 条，共 (\d+) 条$/,'✅ Added $1 · $2 total').replace(/^✅ (\d+) 词条 · (\d+) 标签$/,'✅ $1 entries · $2 tags');};
+ for(const method of ['alert','confirm','prompt']){const original=window[method].bind(window);window[method]=(message,...args)=>original(translate(String(message)),...args);}
+ function update(node){
+  if(node.nodeType===Node.TEXT_NODE){const parent=node.parentElement;if(!parent?.closest('textarea,[contenteditable=true],script,style')&&(!parent?.closest('.db-post-grid')||parent.parentElement?.matches('.db-post-grid')&&!parent.querySelector('img'))){const next=translate(node.data);if(next!==node.data)node.data=next;}return;}
+  if(node.nodeType!==Node.ELEMENT_NODE)return;
+  for(const attr of ['placeholder','title','aria-label','alt'])if(node.hasAttribute(attr)){const old=node.getAttribute(attr);if(attr==='title'&&old.startsWith('作者')||attr==='alt'&&node.closest('.db-post-grid'))continue;const next=translate(old);if(next!==old)node.setAttribute(attr,next);}
+  for(const child of node.childNodes)update(child);
+ }
+ const observer=new MutationObserver(records=>{for(const record of records){if(record.type==='characterData'||record.type==='attributes')update(record.target);else for(const added of record.addedNodes)update(added);}});
+ observer.observe(root,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label','alt']});update(root);
 }

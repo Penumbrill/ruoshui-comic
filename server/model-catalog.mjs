@@ -1,4 +1,5 @@
 import {networkFetch} from './network.mjs';
+import {hfJson} from './hf-network.mjs';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import {execFile} from 'node:child_process';
@@ -13,11 +14,11 @@ export async function inspectModels(service,full=false){
  const data=stdout.split('\n').filter(Boolean).map(line=>{try{return JSON.parse(line);}catch{return null;}}).find(d=>d?.type==='integrity');return data?.items||[];
 }
 export async function hfFiles(url,{fetcher=networkFetch}={}){
- let repo;if(/^https:\/\/huggingface.co\//.test(url)){const parts=new URL(url).pathname.split('/').filter(Boolean);repo=parts.slice(0,2).join('/');}else repo=url;
+ let repo;if(/^https:\/\/(?:huggingface\.co|hf-mirror\.com)\//.test(url)){const parts=new URL(url).pathname.split('/').filter(Boolean);repo=parts.slice(0,2).join('/');}else repo=url;
  if(!/^[\w.-]+\/[\w.-]+$/.test(repo))throw Error('请输入 Hugging Face 模型主页地址或 owner/repo');
- const response=await fetcher(`https://huggingface.co/api/models/${repo}`,{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('无法读取模型信息；需要登录的仓库暂不支持自动下载');const info=await response.json();if(!/^[a-f0-9]{40,64}$/i.test(info.sha))throw Error('模型仓库版本无效');
+ const {data:info}=await hfJson(`https://huggingface.co/api/models/${repo}`,{fetcher,validate:data=>/^[a-f0-9]{40,64}$/i.test(data?.sha||'')});
  const prefix=`https://huggingface.co/api/models/${repo}/tree/${info.sha}`,files=[],seen=new Set();let next=prefix+'?recursive=true&expand=true';
- while(next){if(!next.startsWith(prefix+'?')||seen.has(next)||seen.size>=100)throw Error('模型文件分页地址无效');seen.add(next);const r=await fetcher(next,{signal:AbortSignal.timeout(30000)});if(!r.ok)throw Error('模型文件列表读取失败');const page=await r.json();if(!Array.isArray(page))throw Error('模型文件列表无效');files.push(...page);const link=r.headers.get('link')?.match(/<([^>]+)>;\s*rel="?next"?/i);next=link?new URL(link[1],next).href:null;}
+ while(next){if(!next.startsWith(prefix+'?')||seen.has(next)||seen.size>=100)throw Error('模型文件分页地址无效');seen.add(next);const {data:page,headers}=await hfJson(next,{fetcher,validate:Array.isArray});files.push(...page);const link=headers.get('link')?.match(/<([^>]+)>;\s*rel="?next"?/i);next=link?new URL(link[1],next).href.replace(/^https:\/\/hf-mirror\.com\//,'https://huggingface.co/'):null;}
  return {repo,revision:info.sha,files:files.filter(f=>/\.(safetensors|pth|pt|ckpt|gguf)$/i.test(f.path)&&/^[a-f0-9]{64}$/i.test(f.lfs?.oid||'')).map(f=>({name:f.path,size:f.size??f.lfs.size,sha256:f.lfs.oid}))};
 }
 export async function addHfModel(service,{repo,revision,name,category,projectorName},{lookup=hfFiles}={}){

@@ -15,6 +15,8 @@ test('existing prompt UI uses finished upstream outputs and preserves original c
  const selected=pluginSelectionPost({id:1,tags:['unfiltered_tag']},outputs,{multiple:true});assert.equal(selected.pluginOutputs.all,outputs.all);assert.equal(selected.pluginMultiple,true);assert(!selected.tag_string.includes('unfiltered_tag'));assert.deepEqual(classifyPost(selected,selected.pluginCategories).count,['no_humans']);assert(!selected.tag_string.includes('图2'));
 });
 async function fixture(t){const folder=await fs.mkdtemp(path.join(root,'works/tests/danbooru-'));t.after(()=>fs.rm(folder,{recursive:true,force:true}));return folder;}
+
+test('missing independent Python reports browser startup failure without crashing the host',async t=>{const folder=await fixture(t),data=path.join(folder,'works');await fs.mkdir(path.join(data,'logs'),{recursive:true});const browser=new DanbooruUpstream({data,runtime:path.join(folder,'missing-runtime')},'http://127.0.0.1:1/api/internal/danbooru-transport');await assert.rejects(browser.request('GET',new URL('http://localhost/danbooru_anima/favorites'),{}),/ENOENT/);assert.equal(browser.pending.size,0);});
 test('browser and backend retain upstream source byte for byte, with only host imports replaced',async()=>{
  const original=await fs.readFile(path.join(assets,'danbooru_browser.original.js'),'utf8');
  assert.equal(await fs.readFile(path.join(assets,'danbooru_browser.js'),'utf8'),original.replace('"/scripts/app.js"','"./host.js"').replace('"/scripts/ui.js"','"./ui.js"'));

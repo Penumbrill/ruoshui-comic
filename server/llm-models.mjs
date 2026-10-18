@@ -1,8 +1,8 @@
 import path from 'node:path';import fs from 'node:fs/promises';
-import {networkFetch} from './network.mjs';import {searchPredicate} from '../shared/search.mjs';
+import {networkFetch} from './network.mjs';import {hfJson} from './hf-network.mjs';import {searchPredicate} from '../shared/search.mjs';
 export async function searchLlmModels(query,{fetcher=networkFetch}={}){
  const text=String(query||'').trim().slice(0,200),match=searchPredicate(text);
- const request=async search=>{const response=await fetcher('https://huggingface.co/api/models?'+new URLSearchParams({search,filter:'gguf',limit:'200',sort:'downloads',direction:'-1'}),{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('模型搜索暂不可用');return response.json();};
+ const request=async search=>{const {data}=await hfJson('https://huggingface.co/api/models?'+new URLSearchParams({search,filter:'gguf',limit:'200',sort:'downloads',direction:'-1'}),{fetcher,validate:Array.isArray});return data;};
  const primary=await request(text),terms=text.split(/[\s/_-]+/).filter(t=>t&&!/^gguf$/i.test(t));let candidates=primary;
  if(terms.length>1&&primary.length<20)candidates=[...primary,...await request(terms[0])];
  return [...new Map(candidates.map(m=>[m.id,m])).values()].filter(m=>match(m.id)).slice(0,80).map(m=>({id:m.id,downloads:m.downloads,likes:m.likes}));

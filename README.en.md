@@ -45,6 +45,8 @@ Local generation uses the application's own Python, inference dependencies and e
 
 Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic/releases/latest). Choose either the installer or manual extraction. On first launch, the app automatically downloads Chinese-to-English and English-to-Chinese translation models and shows their progress. Image-generation models can be downloaded from within the app. Local assistant downloads include a matching mmproj vision projector when available and link it automatically. Existing verified files are skipped.
 
+Assistant search, file queries and downloads share the source setting under Settings → Prompt assistant / AI. A working mirror does not require a network accelerator. If both the official site and mirror are unreachable, connect a network accelerator and retry. Downloaded models work offline.
+
 ### Option 1: Installer
 
 1. Download and run **`ruoshui-comic.exe`**.
@@ -96,7 +98,7 @@ Standalone generation and inpainting save their own results. Results fill a comi
 | --- | --- |
 | Zoom the main comic canvas | Ctrl + mouse wheel |
 | Zoom other image previews | Mouse wheel; double-click to fit |
-| Adjust numeric values | Scroll over the numeric control; hold Shift for larger steps |
+| Adjust numeric values | Click to focus the numeric field before scrolling; hold Shift for larger steps |
 | Reset parameters | Use the reset button beside a parameter, or reset all parameters in Settings |
 | Reorder layers | Right-click a layer to move it within its group or across layer types |
 | Realign a cutout | Select it and use Align to original in Properties |
