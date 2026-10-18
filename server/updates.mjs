@@ -33,7 +33,7 @@ export class UpdateManager{
  }
  async _download(file){
   const asset=await resolveAssetSize({browser_download_url:file.url,size:file.size});file.size=asset.size;await this.emit({state:'downloading',message:'下载更新文件…'});
-  let last=0;this.transfer=new ResumableTransfer({onProgress:p=>{Object.assign(file,{bytes:p.bytes,state:p.state});if(Date.now()-last>300||p.state==='done'){last=Date.now();void this.emit({state:p.state==='done'?'verifying':p.state==='paused'?'paused':p.state==='cancelled'?'cancelled':'downloading',percent:p.percent,speed:p.speed,message:p.state==='done'?'校验完成，正在检查程序文件…':p.state==='paused'?'已暂停，继续时断点续传':p.state==='cancelled'?'已取消更新下载':'正在下载更新…'});}}});
+  let last=0;this.transfer=new ResumableTransfer({onProgress:p=>{Object.assign(file,{bytes:p.bytes,state:p.state});if(Date.now()-last>300||p.state==='done'){last=Date.now();void this.emit({state:p.state==='done'?'verifying':p.state==='paused'?'paused':p.state==='cancelled'?'cancelled':'downloading',percent:p.percent,speed:p.speed,message:p.state==='done'?'校验完成，正在检查程序文件…':p.state==='paused'?'已暂停，继续时断点续传':p.state==='cancelled'?'已取消更新下载':p.state==='retrying'?'连接中断，保留进度并自动重试…':'正在下载更新…'});}}});
   const archive=await this.transfer.download({url:file.url,file:path.join(this.folder,file.name),size:file.size,sha256:file.sha256});
   const staging=path.join(this.folder,'staging');await this.helper('prepare',{root:this.service.root,archive,staging});
   const manifest=validateUpdateFiles(await readJson(path.join(staging,'ruoshui-update.json'),{}));this.manifest=manifest;

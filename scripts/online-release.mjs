@@ -51,6 +51,7 @@ const guideRoot=path.join(stage,'guide'),guide=path.join(guideRoot,'安装说明
 for(const name of ['README.md','README.en.md','LICENSE','THIRD_PARTY_NOTICES.md'])await fs.copyFile(path.join(root,name),path.join(guide,name));
 await fs.cp(path.join(root,'docs/images'),path.join(guide,'docs/images'),{recursive:true});
 await fs.copyFile(manifestPath,path.join(guide,'release-packages.json'));await fs.copyFile(path.join(root,'scripts/download-release.ps1'),path.join(guide,'download-release.ps1'));
+await fs.copyFile(path.join(root,'assets/release-transfer.cs'),path.join(guide,'release-transfer.cs'));
 await fs.rm(path.join(guide,'校验整合包.cmd'),{force:true});
 await fs.writeFile(path.join(guide,'verify-packages.cmd'),'@echo off\r\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0download-release.ps1" -Target "%~dp0.." -Manifest "%~dp0release-packages.json" -VerifyOnly\r\npause\r\n');
 const guideZip=path.join(stage,'ruoshui-setup-guide.zip');await fs.rm(guideZip,{force:true});await run(compressor,['a','-tzip',guideZip,'安装说明'],guideRoot);await fs.copyFile(guideZip,path.join(portable,'ruoshui-setup-guide.zip'));

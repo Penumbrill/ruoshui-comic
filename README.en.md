@@ -47,7 +47,9 @@ Get the files from [GitHub Releases](https://github.com/Penumbrill/ruoshui-comic
 
 Assistant search, file queries and downloads share the source setting under Settings → Prompt assistant / AI. A working mirror does not require a network accelerator. If both the official site and mirror are unreachable, connect a network accelerator and retry. Downloaded models work offline.
 
-Large files support up to four parallel range connections. Failed transfers reduce concurrency, switch sources and retain completed ranges. The download panel shows the source, connection route and download host. Mirrors can redirect to the original file host, so speed depends on your network route.
+Image models and Qwen share continuous range downloads: up to eight connections, up to 64 MiB per request, and resume checkpoints every 8 MiB. Connection failures reduce concurrency, and failed ranges retry independently while other ranges continue. Automatic selection tests domestic hosting only when filenames, sizes and SHA256 match. With an HTTP proxy, the official source has priority unless a matching domestic host is significantly faster. If no identical domestic copy exists, the selected model is kept and downloaded from the official site or mirror. The panel distinguishes HTTP proxy use from the system network; system VPN/TUN routing remains under system control. Mirrors can redirect to overseas CDNs, so domestic throughput is not guaranteed.
+
+The installer selects available routes for public release files, including download accelerators, with up to four continuous range connections, retries and resume support. Every ZIP must match the SHA256 pinned in the release manifest before extraction. Switching routes does not redownload completed models or artwork.
 
 ### Option 1: Installer
 

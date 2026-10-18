@@ -4,18 +4,21 @@ from collections import deque
 context={}
 PARALLEL_MIN_SIZE=32*1024**2
 BLOCK_SIZE=8*1024**2
-MAX_CONNECTIONS=4
+MAX_CONNECTIONS=8
 READ_TIMEOUT=45
+WINDOW_BLOCKS=8
+SEGMENT_RETRIES=6
 source_cache={}
 source_cooldown={}
 connection_limits={}
 proxy_cooldown={}
+domestic_cache={}
 emit_lock=threading.Lock()
 for stream in (sys.stdout,sys.stderr):
  if hasattr(stream,'reconfigure'):stream.reconfigure(encoding='utf-8',errors='backslashreplace')
 
-def open_remote(request,timeout):
- proxies=urllib.request.getproxies()
+def configured_proxies():
+ proxies=urllib.request.getproxies_environment() if os.environ.get('RUOSHUI_PROXY_ENV')=='1' else urllib.request.getproxies()
  mode=os.environ.get('RUOSHUI_PROXY_MODE','auto')
  if mode=='direct':proxies={}
  elif mode=='auto' and sys.platform=='win32' and os.environ.get('RUOSHUI_PROXY_ENV')!='1':
@@ -29,34 +32,57 @@ def open_remote(request,timeout):
      else:proxies={'http':raw if '://' in raw else 'http://'+raw,'https':raw if '://' in raw else 'http://'+raw}
     else:proxies={}
   except OSError:pass
- key=tuple(sorted(proxies.items()))
+ return {key:value for key,value in proxies.items() if key in ('http','https') and value}
+
+def open_remote(request,timeout):
+ proxies=configured_proxies();mode=os.environ.get('RUOSHUI_PROXY_MODE','auto')
+ key=(tuple(sorted(proxies.items())),urllib.parse.urlsplit(request.full_url).netloc)
  if mode=='auto' and proxy_cooldown.get(key,0)>time.monotonic():proxies={}
  try:
   response=urllib.request.build_opener(urllib.request.ProxyHandler(proxies)).open(request,timeout=timeout)
-  response.download_route='proxy' if proxies else 'direct';response.proxy_key=key
+  response.download_route='proxy' if proxies.get(urllib.parse.urlsplit(request.full_url).scheme) else 'direct';response.proxy_key=key
   return response
  except (urllib.error.URLError,TimeoutError) as error:
   if mode!='auto' or not proxies or isinstance(error,urllib.error.HTTPError) and error.code not in (502,503,504):raise
-  proxy_cooldown[key]=time.monotonic()+120
+  proxy_cooldown[key]=time.monotonic()+30
   response=urllib.request.build_opener(urllib.request.ProxyHandler({})).open(request,timeout=timeout)
   response.download_route='direct';return response
 
 def failed_response(response):
- if os.environ.get('RUOSHUI_PROXY_MODE','auto')=='auto' and getattr(response,'download_route',None)=='proxy':proxy_cooldown[response.proxy_key]=time.monotonic()+120
+ # A slow CDN body is not evidence that the local HTTP proxy has stopped.
+ # Only connection failures in open_remote put that origin on cooldown.
+ pass
 def emit(**kw):
  if kw.get('type')=='download' and context:
   current=context.get('currentSize',0);progress=kw.get('bytes',current*kw.get('percent',0)/100)
   kw.update(fileIndex=context.get('fileIndex',1),fileCount=context.get('fileCount',1),overallPercent=round(min(100,(context.get('doneBytes',0)+min(progress,current))/max(1,context.get('totalBytes',1))*100),1))
  with emit_lock:print(json.dumps(kw,ensure_ascii=True),flush=True)
+def domestic_sources(item):
+ parsed=urllib.parse.urlsplit(item['url']);parts=parsed.path.strip('/').split('/')
+ if parsed.netloc!='huggingface.co' or len(parts)<5 or parts[2]!='resolve' or not re.fullmatch(r'[a-f0-9]{64}',item.get('sha256','')):return []
+ repo='/'.join(parts[:2]);filename=urllib.parse.unquote('/'.join(parts[4:]))
+ if repo not in domestic_cache:
+  try:
+   request=urllib.request.Request('https://modelscope.cn/api/v1/models/'+repo+'/repo/files?Revision=master&Recursive=True',headers={'User-Agent':'Ruoshui-Comic/0.1'})
+   with open_remote(request,timeout=5) as response:data=json.load(response)
+   domestic_cache[repo]=data.get('Data',{}).get('Files',[]) if data.get('Code')==200 else []
+  except Exception:domestic_cache[repo]=[]
+ for file in domestic_cache[repo]:
+  if file.get('Path')==filename and file.get('Size')==item.get('size') and file.get('Sha256','').lower()==item['sha256'].lower() and re.fullmatch(r'[a-f0-9]{40,64}',file.get('Revision','')):
+   return ['https://modelscope.cn/api/v1/models/'+repo+'/repo?'+urllib.parse.urlencode({'Revision':file['Revision'],'FilePath':filename})]
+ return []
+
 def source_candidates(item,mode):
  urls=[item['url']]
  if 'https://huggingface.co/' in item['url']:urls.append(item['url'].replace('https://huggingface.co/','https://hf-mirror.com/'))
  if mode=='official':return urls
- if mode=='mirror':return urls[::-1]
- cache_key=(item.get('repo') or urllib.parse.urlsplit(item['url']).netloc,item.get('size',0)>=1024**2)
+ proxied=bool(configured_proxies().get('https'))
+ if mode=='mirror':return domestic_sources(item)+urls[::-1]
+ urls+=domestic_sources(item)
+ cache_key=(item.get('repo') or urllib.parse.urlsplit(item['url']).netloc,item.get('size',0)>=1024**2,proxied)
  cached=source_cache.get(cache_key)
  if cached and cached[0]>time.monotonic():return sorted(urls,key=lambda url:cached[1].index(urllib.parse.urlsplit(url).netloc) if urllib.parse.urlsplit(url).netloc in cached[1] else len(urls))
- sample=min(item.get('size') or 1024**2,1024**2)
+ sample=min(item.get('size') or 4*1024**2,4*1024**2)
  def probe(url):
   start=time.monotonic()
   try:
@@ -70,9 +96,16 @@ def source_candidates(item,mode):
      if time.monotonic()-start>=8:break
    return ((time.monotonic()-start)/received if received else float('inf'),url)
   except Exception:return (float('inf'),url)
- with concurrent.futures.ThreadPoolExecutor(max_workers=len(urls)) as executor:ranked=sorted(executor.map(probe,urls))
+ if proxied:
+  with concurrent.futures.ThreadPoolExecutor(max_workers=max(1,len(urls)-1)) as executor:ranked=sorted(executor.map(probe,[urls[0]]+urls[2:]))
+  official=next(result for result in ranked if result[1]==urls[0])
+  if official[0]<=ranked[0][0]*1.2:ranked=[official]+[result for result in ranked if result!=official]
+  if len(urls)>1:ranked=sorted(ranked+[probe(urls[1])]) if ranked[0][0]==float('inf') else ranked+[(float('inf'),urls[1])]
+ else:
+  with concurrent.futures.ThreadPoolExecutor(max_workers=len(urls)) as executor:ranked=sorted(executor.map(probe,urls))
  source_cache[cache_key]=(time.monotonic()+300,[urllib.parse.urlsplit(url).netloc for _,url in ranked])
- emit(type='download',phase='connecting',name=pathlib.Path(item['target']).name,total=item.get('size',0),speed=0,connections=0,message='下载源测速完成：'+('国内镜像' if 'hf-mirror.com' in ranked[0][1] else '官方源'),source=ranked[0][1].split('/')[2])
+ host=urllib.parse.urlsplit(ranked[0][1]).netloc
+ emit(type='download',phase='connecting',name=pathlib.Path(item['target']).name,total=item.get('size',0),speed=0,connections=0,message='下载源测速完成：'+('国内托管源' if host=='modelscope.cn' else '国内镜像' if host=='hf-mirror.com' else '官方源'),source=host)
  return [url for _,url in ranked]
 
 def partial_state(part,item):
@@ -108,61 +141,97 @@ def collapse_ranges(part,item):
  with part.open('r+b') as out:out.truncate(contiguous);out.flush();os.fsync(out.fileno())
  part.with_name(part.name+'.ranges.json').unlink()
 
+class TransferProtocolError(RuntimeError):pass
+
 def validate_range(response,start,end,size):
  match=re.fullmatch(r'bytes (\d+)-(\d+)/(\d+)',response.headers.get('Content-Range',''))
- if response.status!=206 or not match or tuple(map(int,match.groups()))!=(start,end,size):raise RuntimeError('下载源的断点位置不正确')
- if response.headers.get('Content-Type','').startswith('text/html'):raise RuntimeError('下载源返回了网页，已拒绝写入模型')
+ if response.status!=206 or not match or tuple(map(int,match.groups()))!=(start,end,size):raise TransferProtocolError('下载源的断点位置不正确')
+ if response.headers.get('Content-Type','').startswith('text/html'):raise TransferProtocolError('下载源返回了网页，已拒绝写入模型')
 
 def download_parallel(item,part,url):
  size=item['size'];data=partial_state(part,item)
  if not data:data={'size':size,'sha256':item.get('sha256'),'prefix':part.stat().st_size if part.exists() else 0,'blockSize':BLOCK_SIZE,'done':[]}
  prefix=data['prefix'];done=set(data['done']);count=(size-prefix+BLOCK_SIZE-1)//BLOCK_SIZE;waiting=deque(i for i in range(count) if i not in done)
  if not waiting:return True
- first_index=waiting.popleft();start=prefix+first_index*BLOCK_SIZE;end=min(size,start+BLOCK_SIZE)-1
+ limit=min(MAX_CONNECTIONS,connection_limits.get(urllib.parse.urlsplit(url).netloc,MAX_CONNECTIONS),count)
+ window_blocks=min(WINDOW_BLOCKS,max(1,len(waiting)//limit))
+ def take_window():
+  if not waiting:return []
+  group=[waiting.popleft()]
+  while waiting and len(group)<window_blocks and waiting[0]==group[-1]+1:group.append(waiting.popleft())
+  return group
+ first_group=take_window();start=prefix+first_group[0]*BLOCK_SIZE;end=min(size,prefix+(first_group[-1]+1)*BLOCK_SIZE)-1
  first=open_remote(urllib.request.Request(url,headers={'User-Agent':'Ruoshui-Comic/0.1','Range':f'bytes={start}-{end}'}),timeout=READ_TIMEOUT)
  if first.status!=206:first.close();collapse_ranges(part,item);return False
  try:validate_range(first,start,end,size)
  except Exception:first.close();raise
  meta=part.with_name(part.name+'.ranges.json');save_ranges(meta,data)
  if not part.exists():part.touch()
- lock=threading.Lock();stop=threading.Event();errors=[];active={};samples=deque();last=0;connections=min(MAX_CONNECTIONS,connection_limits.get(urllib.parse.urlsplit(url).netloc,MAX_CONNECTIONS),len(waiting)+1)
+ lock=threading.Lock();stop=threading.Event();errors=[];active={};samples=deque();last=0;inflight=set();saved_bytes=committed_bytes(data)
+ details={'source':urllib.parse.urlsplit(url).netloc,'downloadHost':urllib.parse.urlsplit(first.url).netloc,'route':getattr(first,'download_route','direct')}
  def progress(force=False):
   nonlocal last
-  now=time.monotonic();current=committed_bytes(data)+sum(active.values());samples.append((now,current))
+  now=time.monotonic()
+  if not force and now-last<1:return
+  current=saved_bytes+sum(active.values());samples.append((now,current))
   while len(samples)>2 and samples[1][0]<now-5:samples.popleft()
   if force or now-last>=1:
-   speed=max(0,(current-samples[0][1])/max(.01,now-samples[0][0]));emit(type='download',phase='downloading',name=part.name[:-5],percent=round(current/size*100,1),bytes=current,total=size,speed=round(speed),eta=round((size-current)/speed) if speed else None,connections=connections,source=urllib.parse.urlsplit(url).netloc,downloadHost=urllib.parse.urlsplit(first.url).netloc,route=getattr(first,'download_route','direct'),message='正在分段下载，已完成的分段会保留');last=now
- def worker(initial=None):
-  response=initial
+   speed=max(0,(current-samples[0][1])/max(.01,now-samples[0][0]));emit(type='download',phase='downloading',name=part.name[:-5],percent=round(current/size*100,1),bytes=current,total=size,speed=round(speed),eta=round((size-current)/speed) if speed else None,connections=max(1,len(inflight)),**details,message='正在连续分段下载，已完成的分段会保留');last=now
+ urls=list(dict.fromkeys([url]+item.get('_download_sources',[])))
+ def worker(worker_id,initial_group=None,initial_response=None):
+  nonlocal limit,saved_bytes
+  response=initial_response;group=initial_group
   try:
    while not stop.is_set():
     with lock:
-     if response is initial and initial is not None:index=first_index;initial=None
-     elif waiting:index=waiting.popleft()
-     else:return
-     active[index]=0
-    start=prefix+index*BLOCK_SIZE;end=min(size,start+BLOCK_SIZE)-1
-    if response is None:response=open_remote(urllib.request.Request(url,headers={'User-Agent':'Ruoshui-Comic/0.1','Range':f'bytes={start}-{end}'}),timeout=READ_TIMEOUT)
-    validate_range(response,start,end,size);received=0
-    with response,part.open('r+b') as out:
-     out.seek(start)
-     while received<=end-start:
-      if stop.is_set():return
-      chunk=response.read1(min(256*1024,end-start+1-received))
-      if not chunk:raise RuntimeError('下载长度不完整，可以再次点击继续下载')
-      out.write(chunk);received+=len(chunk)
-      with lock:active[index]=received;progress()
-     out.flush();os.fsync(out.fileno())
-    response=None
-    with lock:data['done'].append(index);active.pop(index,None);save_ranges(meta,data);progress()
+     if group is None:
+      if worker_id>=limit:return
+      group=take_window()
+     if not group:return
+    for attempt in range(SEGMENT_RETRIES):
+     remaining=[index for index in group if index not in data['done']]
+     if not remaining:break
+     start=prefix+remaining[0]*BLOCK_SIZE;end=min(size,prefix+(remaining[-1]+1)*BLOCK_SIZE)-1
+     chosen=urls[attempt%len(urls)]
+     try:
+      with lock:inflight.add(worker_id);progress(True)
+      if response is None:response=open_remote(urllib.request.Request(chosen,headers={'User-Agent':'Ruoshui-Comic/0.1','Range':f'bytes={start}-{end}'}),timeout=READ_TIMEOUT)
+      validate_range(response,start,end,size)
+      with lock:details.update(source=urllib.parse.urlsplit(chosen).netloc,downloadHost=urllib.parse.urlsplit(response.url).netloc,route=getattr(response,'download_route','direct'))
+      with response,part.open('r+b') as out:
+       out.seek(start)
+       for index in remaining:
+        received=0;length=min(BLOCK_SIZE,size-prefix-index*BLOCK_SIZE)
+        while received<length:
+         if stop.is_set():return
+         chunk=response.read1(min(256*1024,length-received))
+         if not chunk:raise RuntimeError('下载长度不完整，可以再次点击继续下载')
+         out.write(chunk);received+=len(chunk)
+         with lock:active[index]=received;progress()
+        out.flush();os.fsync(out.fileno())
+        with lock:data['done'].append(index);saved_bytes+=length;active.pop(index,None);save_ranges(meta,data);progress()
+      response=None;break
+     except TransferProtocolError:raise
+     except Exception:
+      if response is not None:response.close();response=None
+      if attempt+1>=SEGMENT_RETRIES:raise
+      with lock:
+       for index in remaining:active.pop(index,None)
+       inflight.discard(worker_id);limit=max(1,limit//2);current=saved_bytes+sum(active.values())
+       connection_limits[urllib.parse.urlsplit(chosen).netloc]=limit
+       emit(type='download',phase='retrying',name=part.name[:-5],bytes=current,total=size,percent=round(current/size*100,1),speed=0,connections=max(1,len(inflight)),retryAttempt=attempt+1,retryDelay=min(attempt+1,5),message='分段连接中断，已保留完成的进度，正在重连；其他分段继续下载')
+      time.sleep(min(attempt+1,5))
+     finally:
+      with lock:inflight.discard(worker_id)
+    group=None
   except Exception as error:
    if response is not None:failed_response(response);response.close()
    with lock:errors.append(error);stop.set()
   finally:
    if response is not None:response.close()
  with lock:progress(True)
- with concurrent.futures.ThreadPoolExecutor(max_workers=connections) as executor:
-  futures=[executor.submit(worker,first)]+[executor.submit(worker) for _ in range(connections-1)]
+ with concurrent.futures.ThreadPoolExecutor(max_workers=limit) as executor:
+  futures=[executor.submit(worker,0,first_group,first)]+[executor.submit(worker,index) for index in range(1,limit)]
   for future in futures:future.result()
  if errors:raise errors[0]
  if len(data['done'])!=count:raise RuntimeError('下载长度不完整，可以再次点击继续下载')
@@ -224,7 +293,7 @@ def download(item,root,mode='auto'):
   if valid or expected and digest(dst)==expected:
    receipt.write_text(json.dumps({'sha256':expected,'size':size,'mtime_ns':dst.stat().st_mtime_ns}),encoding='utf-8');emit(type='download',phase='verified',name=dst.name,bytes=size,total=size,percent=100,speed=0,message='文件已通过完整性检查');return
  if dst.exists():dst.replace(dst.with_name(dst.name+'.invalid-'+str(int(time.time()))))
- urls=source_candidates(item,mode);error=None
+ urls=source_candidates(item,mode);item={**item,'_download_sources':urls};error=None
  for attempt in range(6):
   healthy=[url for url in urls if source_cooldown.get(urllib.parse.urlsplit(url).netloc,0)<=time.monotonic()]
   chosen=healthy[0] if healthy else min(urls,key=lambda url:source_cooldown.get(urllib.parse.urlsplit(url).netloc,0))

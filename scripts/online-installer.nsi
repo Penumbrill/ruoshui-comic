@@ -23,6 +23,7 @@ Section "安装"
  InitPluginsDir
  SetOutPath "$PLUGINSDIR"
  File /oname=download-release.ps1 "${PROJECT_ROOT}\scripts\download-release.ps1"
+ File /oname=release-transfer.cs "${PROJECT_ROOT}\assets\release-transfer.cs"
  File /oname=release-packages.json "${PACKAGE_MANIFEST}"
  File /oname=manage-user-path.ps1 "${PROJECT_ROOT}\assets\manage-user-path.ps1"
  DetailPrint "检测网络并下载程序与独立运行环境；不含模型。失败后可再次运行以继续下载。"
